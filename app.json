@@ -1,0 +1,35 @@
+{
+  "pages": [
+    "pages/order/order",
+    "pages/task/task",
+    "pages/login/login",
+    "pages/orderinfo/orderinfo"
+  ],
+  "window": {
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "邻客社区员工端",
+    "navigationBarBackgroundColor": "#fda414",
+    "backgroundColor": "#fafafa"
+  },
+  "tabBar": {
+    "color": "#666",
+    "selectedColor": "#fda414",
+    "borderStyle": "#e1e1e1",
+    "backgroundColor": "#fff",
+    "list": [
+      {
+        "pagePath": "pages/order/order",
+        "iconPath": "images/icon-taborder1.png",
+        "selectedIconPath": "images/icon-taborder2.png",
+        "text": "抢单大厅"
+      },
+      {
+        "pagePath": "pages/task/task",
+        "iconPath": "images/icon-tabtask1.png",
+        "selectedIconPath": "images/icon-tabtask2.png",
+        "text": "维修任务"
+      }
+    ]
+  },
+  "debug": true
+}

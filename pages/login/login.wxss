@@ -1,0 +1,37 @@
+.login-box {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.icon-logo {
+  width: 220rpx;
+  height: 220rpx;
+  margin: 76rpx auto 110rpx;
+  border-radius: 10rpx;
+  overflow: hidden;
+}
+
+.login-con {
+  width: 630rpx;
+  overflow: hidden;
+  margin: 0rpx auto;
+}
+
+.login-value {
+  width: 550rpx;
+  height: 86rpx;
+  padding-left: 80rpx;
+  border-bottom: 1rpx solid #999;
+  position: relative;
+}
+
+.login-value input {
+  width: 100%;
+  height: 100%;
+  font-size: 28rpx;
+  line-height: 86rpx;
+  color: #333;
+}

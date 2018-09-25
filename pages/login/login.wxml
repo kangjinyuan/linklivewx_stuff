@@ -1,0 +1,22 @@
+<view class="container">
+  <view class='login-box'>
+    <view class='icon-logo'>
+      <image src='../../images/icon-logo.png'></image>
+    </view>
+    <view class='login-con'>
+      <view class='login-value'>
+        <view class='icon icon-value'>
+          <image src='../../images/icon-tel.png'></image>
+        </view>
+        <input data-flag='0' type='number' name='' value='{{telephone}}' placeholder='请输入手机号' bindinput='getvalue' />
+      </view>
+      <view class='login-value'>
+        <view class='icon icon-value'>
+          <image src='../../images/icon-password.png'></image>
+        </view>
+        <input password data-flag='1' type='text' name='' value='{{password}}' placeholder='请输入密码' bindinput='getvalue' />
+      </view>
+    </view>
+    <view class='big-btn' bindtap='login'>登录</view>
+  </view>
+</view>

@@ -1,0 +1,42 @@
+<view class="container">
+  <view class='tab-box'>
+    <view wx:for='{{tablist}}' wx:key="{{item.id}}" data-tabindex='{{item.id}}' class="tab-list {{tabindex == item.id ? 'tab-select' : ''}}" bindtap='stab'>{{item.name}}</view>
+  </view>
+  <view class='nodata-box' wx:if='{{olist.length == 0}}'>
+    <view class='nodata'>
+      <view class='icon-nodata'>
+        <image src='../../images/icon-nodata.png'></image>
+      </view>
+      <view class='text'>当前没有报修记录</view>
+    </view>
+  </view>
+  <scroll-view wx:else class='scrollbox' scroll-y="true" bindscrolltolower="toloadMore">
+    <view class='order-box'>
+      <view class='order-list' wx:for='{{olist}}' wx:key="{{item.id}}">
+        <view class='order-type'>
+          <view class='icon icon-value'>
+            <image wx:if='{{item.reportType == 0}}' src='../../images/icon-water.png'></image>
+            <image wx:if='{{item.reportType == 1}}' src='../../images/icon-electric.png'></image>
+            <image wx:if='{{item.reportType == 2}}' src='../../images/icon-coalgas.png'></image>
+            <image wx:if='{{item.reportType == 3}}' src='../../images/icon-lock.png'></image>
+            <image wx:if='{{item.reportType == 4}}' src='../../images/icon-other.png'></image>
+          </view>
+          {{item.reportTypetext}}
+          <view class='order-type-text'>{{item.reportStatetext}}</view>
+        </view>
+        <view class='order-con' data-reportstate='{{item.reportState}}' data-id='{{item.id}}' bindtap='toorderinfo'>
+          <view class='icon-jump '>
+            <image src='../../images/icon-jump.png '></image>
+          </view>
+          <view class='order-dir '>
+            报修地址：{{item.reportAddress}}
+          </view>
+          <view class='order-dir '>
+            业主电话：{{item.accountTelephone}}
+          </view>
+          <view class='order-time '>报修日期：{{item.createTime}}</view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+</view>

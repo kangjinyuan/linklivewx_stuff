@@ -1,0 +1,71 @@
+<view class="container">
+  <view class='order-box'>
+    <view class='order-list'>
+      <view class='order-type'>
+        <view class='icon icon-value'>
+          <image wx:if='{{orderinfo.reportType == 0}}' src='../../images/icon-water.png'></image>
+            <image wx:if='{{orderinfo.reportType == 1}}' src='../../images/icon-electric.png'></image>
+            <image wx:if='{{orderinfo.reportType == 2}}' src='../../images/icon-coalgas.png'></image>
+            <image wx:if='{{orderinfo.reportType == 3}}' src='../../images/icon-lock.png'></image>
+            <image wx:if='{{orderinfo.reportType == 4}}' src='../../images/icon-other.png'></image>
+        </view>
+        {{orderinfo.reportTypetext}}
+        <view class='order-type-text'>{{orderinfo.reportStatetext}}</view>
+      </view>
+      <view class='orderinfo-dir-box'>
+       {{orderinfo.description}}
+      </view>
+      <view class='image-box'>
+        <image bindtap='previewImage' wx:if='{{orderinfo.image0}}' data-src='{{orderinfo.image0}}' src='{{orderinfo.image0}}'></image>
+        <image bindtap='previewImage' wx:if='{{orderinfo.image1}}' data-src='{{orderinfo.image1}}' src='{{orderinfo.image1}}'></image>
+        <image bindtap='previewImage' wx:if='{{orderinfo.image2}}' data-src='{{orderinfo.image2}}' src='{{orderinfo.image2}}'></image>
+      </view>
+      <view class='order-type' style='border-bottom: 0rpx solid #ccc;'>
+        <view class='icon-dw icon-value'>
+          <image src='../../images/icon-dw.png'></image>
+        </view>
+        {{orderinfo.reportAddress}}
+      </view>
+    </view>
+    <view class='order-list'>
+      <view class='orderinfo-title'>
+        处理进度
+      </view>
+      <view class='speed-box'>
+        <view wx:if='{{orderinfo.progress.length > 0}}' class='speed-list' wx:for='{{orderinfo.progress}}' wx:key="{{item.event}}">
+          <view wx:if='{{index == 0}}' class='icon-speed2'>
+            <image src='../../images/icon-speed2.png'></image>
+          </view>
+          <view wx:else class='icon-speed1'>
+            <image src='../../images/icon-speed1.png'></image>
+          </view>
+          <view class='speed-dir'>
+            {{item.event}}
+          </view>
+          <view class='speed-time'>
+            {{item.time}}
+          </view>
+        </view>
+      </view>
+    </view>
+    <view wx:if='{{orderinfo.remark}}' class='order-list'>
+      <view class='orderinfo-title'>
+        维修评价
+      </view>
+      <view class='comment-box'>
+        <view class='icon-box'>
+          <view class='icon-comment'>
+            <image wx:if='{{orderinfo.score == 1}}' src='../../images/icon-comment1.png'></image>
+            <image wx:if='{{orderinfo.score == 2}}' src='../../images/icon-comment2.png'></image>
+            <image wx:if='{{orderinfo.score == 3}}' src='../../images/icon-comment3.png'></image>
+          </view>
+          <view class='icon-text'>{{orderinfo.scoretext}}</view>
+        </view>
+        <view class='comment-con'>
+          {{orderinfo.remark}}
+        </view>
+      </view>
+    </view>
+    <view class='big-btn' wx:if='{{reportstate == 0 || reportstate == 1}}' bindtap='roborder'>{{btntext}}</view>
+  </view>
+</view>
