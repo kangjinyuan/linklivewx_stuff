@@ -47,7 +47,7 @@ App({
         wx.hideLoading();
         if (res.data.code == '0000') {
           okcallback(res);
-        } else if (res.code == "0007" || res.code == "0006") {
+        } else if (res.data.code == "0007" || res.data.code == "0006") {
           wx.setStorageSync("accessToken", "");
           wx.showModal({
             title: '邻客社区员工端',
@@ -55,7 +55,7 @@ App({
             confirmText: '去登录',
             confirmColor: '#fda414',
             showCancel: false,
-            success: function (res) {
+            success: function(res) {
               if (res.confirm) {
                 wx.navigateTo({
                   url: '../login/login'
@@ -63,17 +63,17 @@ App({
               }
             }
           })
-        } else if (res.code == "0004") {
+        } else if (res.data.code == "0004") {
           wx.showToast({
-            title: '数据已存在，请核对后再进行操作',
-            icon:'none'
-          })
-        } else if (res.code == "0005") {
-          wx.showToast({
-            title: '数据不存在，请核对后再进行操作',
+            title: '操作内容已在闪向云端，请勿重复操作',
             icon: 'none'
           })
-        } else if (res.code == "0008") {
+        } else if (res.data.code == "0005") {
+          wx.showToast({
+            title: '操作内容不在闪向云端，请核对后操作',
+            icon: 'none'
+          })
+        } else if (res.data.code == "0008") {
           wx.showToast({
             title: '服务器内部错误',
             icon: 'none'

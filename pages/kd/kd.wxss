@@ -1,0 +1,13 @@
+.kd-box {
+  width: 100%;
+  overflow: hidden;
+}
+
+.kd-title {
+  width: 690rpx;
+  margin: 0rpx auto;
+  height: 100rpx;
+  font-size: 34rpx;
+  line-height: 100rpx;
+  color: #333;
+}

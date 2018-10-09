@@ -1,0 +1,11 @@
+<view class="container">
+  <view class='updatepwd-box'>
+    <view class='updatepwd-input'>
+      <input type='text' name='' value='{{newpwd}}' placeholder='输入新密码' password data-flag='0' bindinput='bindpwd' />
+    </view>
+    <view class='updatepwd-input'>
+      <input type='text' name='' value='{{checkpwd}}' placeholder='确认密码' password data-flag='1' bindinput='bindpwd' />
+    </view>
+    <view class='big-btn' bindtap='setpwd'>确定</view>
+  </view>
+</view>

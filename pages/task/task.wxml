@@ -14,7 +14,7 @@
     <view class='order-box'>
       <view class='order-list' wx:for='{{olist}}' wx:key="{{item.id}}">
         <view class='order-type'>
-          <view class='icon icon-value'>
+          <view class='icon icon-left'>
             <image wx:if='{{item.reportType == 0}}' src='../../images/icon-water.png'></image>
             <image wx:if='{{item.reportType == 1}}' src='../../images/icon-electric.png'></image>
             <image wx:if='{{item.reportType == 2}}' src='../../images/icon-coalgas.png'></image>
@@ -25,7 +25,7 @@
           <view class='order-type-text'>{{item.reportStatetext}}</view>
         </view>
         <view class='order-con' data-reportstate='{{item.reportState}}' data-id='{{item.id}}' bindtap='toorderinfo'>
-          <view class='icon-jump '>
+          <view class='icon-jump icon-right'>
             <image src='../../images/icon-jump.png '></image>
           </view>
           <view class='order-dir '>

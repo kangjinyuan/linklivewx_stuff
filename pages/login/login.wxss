@@ -21,9 +21,9 @@
 }
 
 .login-value {
-  width: 550rpx;
+  width: 566rpx;
   height: 86rpx;
-  padding-left: 80rpx;
+  padding-left: 64rpx;
   border-bottom: 1rpx solid #999;
   position: relative;
 }
@@ -34,4 +34,8 @@
   font-size: 28rpx;
   line-height: 86rpx;
   color: #333;
+}
+
+.big-btn {
+  width: 630rpx;
 }

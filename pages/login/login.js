@@ -20,10 +20,10 @@ Page({
   },
   login: function() {
     let that = this;
-    if (that.data.telephone == ''){
+    if (that.data.telephone == '') {
       wx.showToast({
         title: '请输入手机号',
-        icon:"none"
+        icon: "none"
       })
       return false;
     }
@@ -47,7 +47,6 @@ Page({
       password: that.data.password
     }
     app.request('POST', '/stuff/login.do', paras, function(res) {
-      console.log(res.data.id);
       wx.setStorageSync("accountInfo", res.data.data);
       wx.setStorageSync("accessToken", res.data.accessToken);
       wx.navigateBack(1);

@@ -1,9 +1,14 @@
 {
   "pages": [
+    "pages/services/services",
+    "pages/mine/mine",
     "pages/order/order",
     "pages/task/task",
     "pages/login/login",
-    "pages/orderinfo/orderinfo"
+    "pages/orderinfo/orderinfo",
+    "pages/kd/kd",
+    "pages/updatepwd/updatepwd",
+    "pages/selectxq/selectxq"
   ],
   "window": {
     "navigationBarTextStyle": "white",
@@ -18,16 +23,16 @@
     "backgroundColor": "#fff",
     "list": [
       {
-        "pagePath": "pages/order/order",
-        "iconPath": "images/icon-taborder1.png",
-        "selectedIconPath": "images/icon-taborder2.png",
-        "text": "抢单大厅"
+        "pagePath": "pages/services/services",
+        "iconPath": "images/icon-services1.png",
+        "selectedIconPath": "images/icon-service2.png",
+        "text": "服务"
       },
       {
-        "pagePath": "pages/task/task",
-        "iconPath": "images/icon-tabtask1.png",
-        "selectedIconPath": "images/icon-tabtask2.png",
-        "text": "维修任务"
+        "pagePath": "pages/mine/mine",
+        "iconPath": "images/icon-mine1.png",
+        "selectedIconPath": "images/icon-mine2.png",
+        "text": "我的"
       }
     ]
   },

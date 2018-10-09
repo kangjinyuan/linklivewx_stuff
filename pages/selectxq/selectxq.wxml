@@ -1,0 +1,5 @@
+<view class="container">
+  <view class='opera-box' wx:for='{{xqlist}}' wx:key="{{item.id}}" data-xqinfo='{{item}}' bindtap='selectxq'>
+    {{item.name}}
+  </view>
+</view>

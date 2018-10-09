@@ -17,13 +17,25 @@ Page({
   },
   roborder: function(e) {
     let that = this;
+    let pages = getCurrentPages();
+    let prevPage = pages[pages.length - 2];
     let paras = {
       id: that.data.orderinfo.id
     }
     if (that.data.reportstate == 0) {
       app.request('POST', '/maintenance/app/acceptOrder.do', paras, function(res) {
-        wx.switchTab({
-          url: '../task/task',
+        wx.showModal({
+          title: '邻客社区员工端',
+          content: '抢单成功,请到维修任务中操作订单',
+          confirmColor: '#fda414',
+          showCancel: false,
+          success: function(res) {
+            if (res.confirm) {
+              wx.switchTab({
+                url: '../services/services',
+              })
+            }
+          }
         })
       }, function(res) {
         wx.showToast({
@@ -33,6 +45,10 @@ Page({
       })
     } else if (that.data.reportstate == 1) {
       app.request('POST', '/maintenance/app/completeOrder.do', paras, function(res) {
+        prevPage.setData({
+          tabindex: 1
+        })
+        prevPage.onLoad();
         wx.navigateBack(1);
       }, function(res) {
         wx.showToast({

@@ -1,0 +1,10 @@
+<view class="container">
+  <view class='services-box'>
+    <view class='services-list' wx:for='{{services}}' wx:key="{{item.text}}" data-page='{{item.page}}' bindtap='topages'>
+      <view class='services-icon'>
+        <image src='{{item.icon}}'></image>
+      </view>
+      <view class='text'>{{item.text}}</view>
+    </view>
+  </view>
+</view>

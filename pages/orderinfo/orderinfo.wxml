@@ -2,18 +2,18 @@
   <view class='order-box'>
     <view class='order-list'>
       <view class='order-type'>
-        <view class='icon icon-value'>
+        <view class='icon icon-left'>
           <image wx:if='{{orderinfo.reportType == 0}}' src='../../images/icon-water.png'></image>
-            <image wx:if='{{orderinfo.reportType == 1}}' src='../../images/icon-electric.png'></image>
-            <image wx:if='{{orderinfo.reportType == 2}}' src='../../images/icon-coalgas.png'></image>
-            <image wx:if='{{orderinfo.reportType == 3}}' src='../../images/icon-lock.png'></image>
-            <image wx:if='{{orderinfo.reportType == 4}}' src='../../images/icon-other.png'></image>
+          <image wx:if='{{orderinfo.reportType == 1}}' src='../../images/icon-electric.png'></image>
+          <image wx:if='{{orderinfo.reportType == 2}}' src='../../images/icon-coalgas.png'></image>
+          <image wx:if='{{orderinfo.reportType == 3}}' src='../../images/icon-lock.png'></image>
+          <image wx:if='{{orderinfo.reportType == 4}}' src='../../images/icon-other.png'></image>
         </view>
         {{orderinfo.reportTypetext}}
         <view class='order-type-text'>{{orderinfo.reportStatetext}}</view>
       </view>
       <view class='orderinfo-dir-box'>
-       {{orderinfo.description}}
+        {{orderinfo.description}}
       </view>
       <view class='image-box'>
         <image bindtap='previewImage' wx:if='{{orderinfo.image0}}' data-src='{{orderinfo.image0}}' src='{{orderinfo.image0}}'></image>
@@ -21,7 +21,7 @@
         <image bindtap='previewImage' wx:if='{{orderinfo.image2}}' data-src='{{orderinfo.image2}}' src='{{orderinfo.image2}}'></image>
       </view>
       <view class='order-type' style='border-bottom: 0rpx solid #ccc;'>
-        <view class='icon-dw icon-value'>
+        <view class='icon-dw icon-left'>
           <image src='../../images/icon-dw.png'></image>
         </view>
         {{orderinfo.reportAddress}}
