@@ -48,7 +48,7 @@ Page({
       },
       fail: function(res) {
         wx.showModal({
-          title: '邻客社区员工端',
+          title: '邻客管家',
           content: 'sorry 服务器已经离开了地球',
           confirmColor: '#fda414',
           showCancel: false

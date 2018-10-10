@@ -25,7 +25,7 @@ Page({
     if (that.data.reportstate == 0) {
       app.request('POST', '/maintenance/app/acceptOrder.do', paras, function(res) {
         wx.showModal({
-          title: '邻客社区员工端',
+          title: '邻客管家',
           content: '抢单成功,请到维修任务中操作订单',
           confirmColor: '#fda414',
           showCancel: false,

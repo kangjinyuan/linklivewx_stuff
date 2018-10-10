@@ -10,7 +10,6 @@
   width: 220rpx;
   height: 220rpx;
   margin: 76rpx auto 110rpx;
-  border-radius: 10rpx;
   overflow: hidden;
 }
 

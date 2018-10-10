@@ -14,8 +14,8 @@ App({
       callback();
     } else {
       wx.showModal({
-        title: '邻客社区员工端',
-        content: '邻客社区员工端申请获得你的账号信息,请先登录',
+        title: '邻客管家',
+        content: '邻客管家申请获得你的账号信息,请先登录',
         confirmText: '去登录',
         confirmColor: '#fda414',
         showCancel: false,
@@ -50,7 +50,7 @@ App({
         } else if (res.data.code == "0007" || res.data.code == "0006") {
           wx.setStorageSync("accessToken", "");
           wx.showModal({
-            title: '邻客社区员工端',
+            title: '邻客管家',
             content: '登录状态过期,请先登录',
             confirmText: '去登录',
             confirmColor: '#fda414',
@@ -84,7 +84,7 @@ App({
       },
       fail: function(res) {
         wx.showModal({
-          title: '邻客社区员工端',
+          title: '邻客管家',
           content: 'sorry 服务器已经离开了地球',
           confirmColor: '#fda414',
           showCancel: false
