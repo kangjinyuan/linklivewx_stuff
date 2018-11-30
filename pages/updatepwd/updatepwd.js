@@ -49,17 +49,9 @@ Page({
     }
     app.request('POST', '/stuff/update.do', paras, function(res) {
       wx.setStorageSync("accountInfo", res.data.data);
-      wx.showToast({
-        title: '修改成功',
-        icon: 'none',
-        success: function() {
-          let timer = setTimeout(function() {
-            wx.navigateBack({
-              delta: 1
-            })
-          }, 2000)
-        }
-      })
+      wx.navigateBack({
+        delta: 1
+      });
     }, function(res) {
       wx.showToast({
         title: '修改失败',

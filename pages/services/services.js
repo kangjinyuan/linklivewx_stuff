@@ -9,7 +9,7 @@ Page({
       {
         icon: '../../images/icon-bx.png',
         text: '维修任务',
-        page: '../task/task'
+        page: '../order/order?reportstate=1'
       },
       {
         icon: '../../images/icon-kd.png',

@@ -3,28 +3,3 @@
   padding-top: 30rpx;
   overflow: hidden;
 }
-
-.updatepwd-input {
-  width: 690rpx;
-  margin: 0rpx auto;
-  height: 100rpx;
-  overflow: hidden;
-  border-radius: 10rpx;
-  box-shadow: 0rpx 0rpx 25rpx 6rpx #f9eedc;
-  background-color: #fff;
-  position: relative;
-  margin-bottom: 30rpx;
-}
-
-.updatepwd-box:last-child {
-  margin-bottom: 0rpx;
-}
-
-.updatepwd-input input {
-  width: 670rpx;
-  padding-left: 20rpx;
-  height: 100%;
-  font-size: 28rpx;
-  line-height: 100rpx;
-  color: #333;
-}

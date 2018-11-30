@@ -6,8 +6,8 @@
 .kd-title {
   width: 690rpx;
   margin: 0rpx auto;
-  height: 100rpx;
-  font-size: 34rpx;
-  line-height: 100rpx;
+  height: 92rpx;
+  font-size: 32rpx;
+  line-height: 92rpx;
   color: #333;
 }

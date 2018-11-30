@@ -2,7 +2,8 @@ let app = getApp();
 Page({
   data: {
     code: '',
-    xqinfo: ''
+    xqinfo: '',
+    kdaddress: ''
   },
   selectxq: function() {
     let that = this;
@@ -10,45 +11,71 @@ Page({
       url: '../selectxq/selectxq',
     })
   },
-  bindCode: function(e) {
+  bindValue: function(e) {
     let that = this;
-    let code = e.detail.value;
-    that.setData({
-      code: code
-    })
+    let flag = e.currentTarget.dataset.flag;
+    let value = e.detail.value;
+    if (flag == 0) {
+      that.setData({
+        kdaddress: value
+      })
+      wx.setStorageSync('kdaddress', value);
+    } else if (flag == 1) {
+      that.setData({
+        code: value
+      })
+    }
   },
   scanCode: function(e) {
     let that = this;
     wx.scanCode({
-      scanType: 'barCode',
+      scanType: ['barCode'],
       success: function(res) {
-        that.setData({
-          code: res.result
-        })
-        that.setCode();
+        console.log(res.scanType)
+        if (res.scanType == 'QR_CODE' || res.scanType == 'WX_CODE' || res.scanType == 'PDF_417' || res.scanType == 'DATA_MATRIX') {
+          wx.showToast({
+            title: '请扫描正确快递单号',
+            icon: 'none'
+          })
+        } else {
+          that.setData({
+            code: res.result
+          })
+          that.setCode();
+        }
       }
     })
   },
   setCode: function() {
     let that = this;
     let communityId = that.data.xqinfo.id;
+    let communityName = that.data.xqinfo.name;
     if (!that.data.xqinfo) {
       wx.showToast({
-        title: '请先选择小区',
+        title: '请选择社区',
+        icon: 'none'
+      })
+      return false;
+    }
+    if (that.data.kdaddress == '') {
+      wx.showToast({
+        title: '请输入物业代收点详细地址',
         icon: 'none'
       })
       return false;
     }
     if (that.data.code == '') {
       wx.showToast({
-        title: '请输入快递单号',
+        title: '请输入或扫一扫快递单号',
         icon: 'none'
       })
       return false;
     }
     let paras = {
       code: that.data.code,
-      communityId: communityId
+      address: that.data.kdaddress,
+      communityId: communityId,
+      communityName: communityName
     }
     app.request("POST", "/express/receive.do", paras, function(res) {
       wx.showToast({
@@ -65,8 +92,10 @@ Page({
   onShow: function() {
     let that = this;
     let xqinfo = wx.getStorageSync('xqinfo');
+    let kdaddress = wx.getStorageSync('kdaddress');
     that.setData({
-      xqinfo: xqinfo
+      xqinfo: xqinfo,
+      kdaddress: kdaddress
     })
   }
 })

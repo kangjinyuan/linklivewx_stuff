@@ -4,15 +4,35 @@ Page({
     olist: [],
     totalPage: '',
     page: 1,
-    reportState: ''
+    reportState: '',
+    tablist: [{
+      reportState: 2,
+      name: '已完成',
+    }, {
+      reportState: 3,
+      name: '已评价'
+    }, {
+      reportState: 4,
+      name: '已取消'
+    }]
   },
   toorderinfo: function(e) {
     let that = this;
-    let id = e.currentTarget.dataset.id;
-    let reportState = e.currentTarget.dataset.reportstate;
+    let orderinfo = e.currentTarget.dataset.orderinfo;
+    orderinfo = JSON.stringify(orderinfo);
     wx.navigateTo({
-      url: '../orderinfo/orderinfo?id=' + id + "&reportstate=" + reportState,
+      url: '../orderinfo/orderinfo?orderinfo=' + orderinfo
     })
+  },
+  stab: function(e) {
+    let that = this;
+    let reportState = e.currentTarget.dataset.reportstate;
+    that.setData({
+      reportState: reportState
+    })
+    let options = {};
+    options.reportstate = reportState;
+    that.onLoad(options);
   },
   roborder: function(e) {
     let that = this;
@@ -41,14 +61,24 @@ Page({
       })
     })
   },
-  toloadMore: function() {
+  nextPage: function() {
     let that = this;
     app.loadMore(that, function() {
-      let paras = {
-        page: that.data.page,
-        reportState: that.data.reportState
-      };
-      let oldolist = that.data.olist;
+      let paras = {};
+      let accountInfo = wx.getStorageSync('accountInfo');
+      if (that.data.reportState == 0) {
+        paras = {
+          page: that.data.page,
+          reportState: that.data.reportState
+        }
+      } else {
+        paras = {
+          page: that.data.page,
+          stuffId: accountInfo.id,
+          reportState: that.data.reportState
+        }
+      }
+      let oldlist = that.data.olist;
       app.request('POST', '/maintenance/stuff/queryList.do', paras, function(res) {
         let olist = res.data.data;
         for (let i = 0; i < olist.length; i++) {
@@ -74,23 +104,15 @@ Page({
           } else if (olist[i].reportState == 4) {
             olist[i].reportStatetext = "已取消";
           }
-          app.setTime(olist[i].createTime, function(rtime) {
-            olist[i].createTime = rtime;
-          })
-          if (that.data.reportstate == 0) {
-            oldlist.push(olist[i]);
-          } else {
-            if (olist[i].reportState == 2 || olist[i].reportState == 3 || olist[i].reportState == 4) {
-              oldlist.push(olist[i]);
-            }
-          }
+          olist[i].createTime = app.setTime(olist[i].createTime, 1);
+          oldlist.push(olist[i]);
         }
         that.setData({
-          olist: oldolist
+          olist: oldlist
         })
       }, function() {
         wx.showToast({
-          title: '订单列表加载失败',
+          title: '报修订单加载失败',
           icon: 'none'
         })
       })
@@ -100,31 +122,34 @@ Page({
     let that = this;
     let paras = {};
     let accountInfo = wx.getStorageSync('accountInfo');
+    that.setData({
+      page: 1,
+      reportState: options.reportstate
+    })
     if (options.reportstate == 0) {
       paras = {
-        page: 1,
+        page: that.data.page,
         reportState: options.reportstate
       }
       wx.setNavigationBarTitle({
         title: '业主报事',
       })
-      that.setData({
-        reportState: options.reportstate
-      })
     } else {
       paras = {
-        page: 1,
+        page: that.data.page,
         stuffId: accountInfo.id,
-        reportState: ""
+        reportState: options.reportstate
       }
-      wx.setNavigationBarTitle({
-        title: '维修记录',
-      })
-      that.setData({
-        reportState: ""
-      })
+      if (options.reportstate == 1) {
+        wx.setNavigationBarTitle({
+          title: '维修任务',
+        })
+      } else {
+        wx.setNavigationBarTitle({
+          title: '维修记录',
+        })
+      }
     }
-    let oldlist = [];
     app.request('POST', '/maintenance/stuff/queryList.do', paras, function(res) {
       let olist = res.data.data;
       for (let i = 0; i < olist.length; i++) {
@@ -150,24 +175,15 @@ Page({
         } else if (olist[i].reportState == 4) {
           olist[i].reportStatetext = "已取消";
         }
-        app.setTime(olist[i].createTime, function(rtime) {
-          olist[i].createTime = rtime;
-        })
-        if (options.reportstate == 0) {
-          oldlist.push(olist[i]);
-        } else {
-          if (olist[i].reportState == 2 || olist[i].reportState == 3 || olist[i].reportState == 4) {
-            oldlist.push(olist[i]);
-          }
-        }
+        olist[i].createTime = app.setTime(olist[i].createTime, 1);
       }
       that.setData({
-        olist: oldlist,
+        olist: olist,
         totalPage: res.data.totalPage
       })
     }, function(res) {
       wx.showToast({
-        title: '订单列表加载失败',
+        title: '报修订单加载失败',
         icon: 'none'
       })
     })

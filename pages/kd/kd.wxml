@@ -1,17 +1,18 @@
 <view class="container">
   <view class='kd-box'>
     <view class='kd-title'>录入快递</view>
-    <view class='opera-box' bindtap='selectxq'>
-      <view class='opera-input'>
+    <view class='opera-box box-shadow'>
+      <view class='opera-input' bindtap='selectxq'>
         <input type='text' disabled='disabled' name='' value='{{xqinfo.name}}' placeholder='请选择小区' />
         <view class='icon-jump icon-right'>
           <image src='../../images/icon-jump.png'></image>
         </view>
       </view>
-    </view>
-    <view class='opera-box'>
       <view class='opera-input'>
-        <input type='text' name='' value='{{code}}' placeholder='输入或扫一扫快递单号' bindinput='bindCode' />
+        <input class='full-input' type='text' name='' value='{{kdaddress}}' placeholder='请输入物业代收点详细地址' data-flag='0' bindinput='bindValue' />
+      </view>
+      <view class='opera-input'>
+        <input type='text' name='' value='{{code}}' placeholder='输入或扫一扫快递单号' data-flag='1' bindinput='bindValue' />
         <view class='icon icon-right' bindtap='scanCode'>
           <image src='../../images/icon-scancode.png'></image>
         </view>

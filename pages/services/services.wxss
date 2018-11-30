@@ -1,23 +1,26 @@
 .services-box {
   width: 100%;
+  padding-top: 50rpx;
   overflow: hidden;
 }
 
 .services-list {
-  width: 187.5rpx;
+  width: 250rpx;
   overflow: hidden;
   float: left;
 }
 
 .services-icon {
   width: 100%;
-  height: 108rpx;
+  height: 68rpx;
+  margin-bottom: 20rpx;
+  overflow: hidden;
   position: relative;
 }
 
 .services-icon image {
   width: 68rpx;
-  height: 68rpx;
+  height: auto;
   position: absolute;
   top: 0;
   left: 0;
@@ -28,8 +31,7 @@
 
 .text {
   width: 100%;
-  height: 48rpx;
-  font-size: 28rpx;
+  font-size: 26rpx;
   text-align: center;
   color: #333;
 }

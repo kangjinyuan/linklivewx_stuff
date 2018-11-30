@@ -49,7 +49,9 @@ Page({
     app.request('POST', '/stuff/login.do', paras, function(res) {
       wx.setStorageSync("accountInfo", res.data.data);
       wx.setStorageSync("accessToken", res.data.accessToken);
-      wx.navigateBack(1);
+      wx.switchTab({
+        url: '../services/services',
+      })
     }, function(res) {
       wx.showToast({
         title: '登录失败,请检查登录信息是否有误',

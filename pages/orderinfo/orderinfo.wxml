@@ -1,6 +1,6 @@
 <view class="container">
   <view class='order-box'>
-    <view class='order-list'>
+    <view class='order-list box-shadow'>
       <view class='order-type'>
         <view class='icon icon-left'>
           <image wx:if='{{orderinfo.reportType == 0}}' src='../../images/icon-water.png'></image>
@@ -27,7 +27,7 @@
         {{orderinfo.reportAddress}}
       </view>
     </view>
-    <view class='order-list'>
+    <view class='order-list box-shadow'>
       <view class='orderinfo-title'>
         处理进度
       </view>
@@ -48,16 +48,16 @@
         </view>
       </view>
     </view>
-    <view wx:if='{{orderinfo.remark}}' class='order-list'>
+    <view wx:if='{{orderinfo.remark}}' class='order-list box-shadow'>
       <view class='orderinfo-title'>
         维修评价
       </view>
       <view class='comment-box'>
         <view class='icon-box'>
           <view class='icon-comment'>
-            <image wx:if='{{orderinfo.score == 1}}' src='../../images/icon-comment1.png'></image>
-            <image wx:if='{{orderinfo.score == 2}}' src='../../images/icon-comment2.png'></image>
-            <image wx:if='{{orderinfo.score == 3}}' src='../../images/icon-comment3.png'></image>
+            <image wx:if='{{orderinfo.score == 0}}' src='../../images/icon-comment1.png'></image>
+            <image wx:if='{{orderinfo.score == 1}}' src='../../images/icon-comment2.png'></image>
+            <image wx:if='{{orderinfo.score == 2}}' src='../../images/icon-comment3.png'></image>
           </view>
           <view class='icon-text'>{{orderinfo.scoretext}}</view>
         </view>
@@ -66,6 +66,6 @@
         </view>
       </view>
     </view>
-    <view class='big-btn' wx:if='{{reportstate == 0 || reportstate == 1}}' bindtap='roborder'>{{btntext}}</view>
+    <view class='big-btn' wx:if='{{orderinfo.reportState == 0 || orderinfo.reportState == 1}}' bindtap='roborder'>{{btntext}}</view>
   </view>
 </view>

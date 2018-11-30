@@ -1,15 +1,23 @@
 <view class="container">
-  <view class='nodata-box' wx:if='{{olist.length == 0}}'>
-    <view class='nodata'>
-      <view class='icon-nodata'>
-        <image src='../../images/icon-nodata.png'></image>
-      </view>
-      <view class='text'>当前没有报修记录</view>
+  <view class='tab-box' wx:if="{{reportState >= 2}}">
+    <view wx:for='{{tablist}}' wx:key="{{item.id}}" data-reportstate='{{item.reportState}}' class="tab-list" bindtap='stab'>
+      {{item.name}}
+      <view class='tab-line' wx:if="{{reportState == item.reportState}}"></view>
     </view>
   </view>
-  <scroll-view wx:else class='scrollbox' scroll-y="true" bindscrolltolower="toloadMore">
-    <view class='order-box'>
-      <view class='order-list' wx:for='{{olist}}' wx:key="{{item.id}}">
+  <view class='nodata-box' wx:if='{{olist.length == 0}}'>
+    <view class='nodata'>
+      <view class='nodata-order'>
+        <image src='../../images/icon-nodata.png'></image>
+      </view>
+      <view class='text' wx:if="{{reportState == 0}}">当前没有业主报事</view>
+      <view class='text' wx:if="{{reportState == 1}}">当前没有维修任务</view>
+      <view class='text' wx:if="{{reportState >= 2}}">当前没有维修记录</view>
+    </view>
+  </view>
+  <scroll-view wx:else class='scrollbox' scroll-y="true " bindscrolltolower="nextPage">
+    <view class="order-box {{reportState >= 2 ? 'order-box-padding' : ''}}">
+      <view class='order-list box-shadow' wx:for='{{olist}}' wx:key="{{item.id}} ">
         <view class='order-type'>
           <view class='icon icon-left'>
             <image wx:if='{{item.reportType == 0}}' src='../../images/icon-water.png'></image>
@@ -22,14 +30,14 @@
           <view wx:if='{{item.reportState == 0}}' class='rob-btn' data-id='{{item.id}}' bindtap='roborder'>抢单</view>
           <view wx:else class='order-type-text'>{{item.reportStatetext}}</view>
         </view>
-        <view class='order-con' data-reportstate='{{item.reportState}}' data-id='{{item.id}}' bindtap='toorderinfo'>
+        <view class='order-con' data-orderinfo='{{item}}' bindtap='toorderinfo'>
           <view class='icon-jump icon-right'>
             <image src='../../images/icon-jump.png '></image>
           </view>
-          <view class='order-dir '>
+          <view class='order-dir'>
             报修地址：{{item.reportAddress}}
           </view>
-          <view class='order-dir '>
+          <view class='order-dir'>
             业主电话：{{item.accountTelephone}}
           </view>
           <view class='order-time '>报修日期：{{item.createTime}}</view>

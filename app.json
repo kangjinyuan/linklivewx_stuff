@@ -2,13 +2,12 @@
   "pages": [
     "pages/services/services",
     "pages/mine/mine",
-    "pages/order/order",
-    "pages/task/task",
     "pages/login/login",
+    "pages/order/order",
     "pages/orderinfo/orderinfo",
     "pages/kd/kd",
-    "pages/updatepwd/updatepwd",
-    "pages/selectxq/selectxq"
+    "pages/selectxq/selectxq",
+    "pages/updatepwd/updatepwd"
   ],
   "window": {
     "navigationBarTextStyle": "white",

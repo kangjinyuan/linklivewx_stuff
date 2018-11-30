@@ -13,7 +13,6 @@
 .image-box {
   width: 100%;
   overflow: hidden;
-  margin: 20rpx auto 0rpx;
 }
 
 .image-box image {
