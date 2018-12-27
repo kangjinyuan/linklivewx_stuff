@@ -238,7 +238,7 @@ image {
   margin: auto auto;
 }
 
-.nodata view{
+.nodata view {
   width: 100%;
 }
 

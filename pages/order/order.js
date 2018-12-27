@@ -40,7 +40,7 @@ Page({
     let paras = {
       id: id
     }
-    app.request('POST', '/maintenance/app/acceptOrder.do', paras, function(res) {
+    app.request('POST', '/property/maintenance/acceptOrder.do', paras, function(res) {
       wx.showModal({
         title: '邻客管家',
         content: '抢单成功,请到维修任务中操作订单',
@@ -55,10 +55,17 @@ Page({
         }
       })
     }, function(res) {
-      wx.showToast({
-        title: '抢单失败',
-        icon: 'none'
-      })
+      if (res.data.code == "0005") {
+        wx.showToast({
+          title: '订单不存在',
+          icon: 'none'
+        })
+      } else {
+        wx.showToast({
+          title: '抢单失败，请检查您的网络或重试',
+          icon: 'none'
+        })
+      }
     })
   },
   nextPage: function() {
@@ -79,7 +86,7 @@ Page({
         }
       }
       let oldlist = that.data.olist;
-      app.request('POST', '/maintenance/stuff/queryList.do', paras, function(res) {
+      app.request('POST', '/property/maintenance/queryList.do', paras, function(res) {
         let olist = res.data.data;
         for (let i = 0; i < olist.length; i++) {
           if (olist[i].reportType == 0) {
@@ -112,7 +119,7 @@ Page({
         })
       }, function() {
         wx.showToast({
-          title: '报修订单加载失败',
+          title: '无法连接服务器，请检查您的网络或重试',
           icon: 'none'
         })
       })
@@ -150,7 +157,7 @@ Page({
         })
       }
     }
-    app.request('POST', '/maintenance/stuff/queryList.do', paras, function(res) {
+    app.request('POST', '/property/maintenance/queryList.do', paras, function(res) {
       let olist = res.data.data;
       for (let i = 0; i < olist.length; i++) {
         if (olist[i].reportType == 0) {
@@ -183,7 +190,7 @@ Page({
       })
     }, function(res) {
       wx.showToast({
-        title: '报修订单加载失败',
+        title: '无法连接服务器，请检查您的网络或重试',
         icon: 'none'
       })
     })

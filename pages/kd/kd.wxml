@@ -3,7 +3,7 @@
     <view class='kd-title'>录入快递</view>
     <view class='opera-box box-shadow'>
       <view class='opera-input' bindtap='selectxq'>
-        <input type='text' disabled='disabled' name='' value='{{xqinfo.name}}' placeholder='请选择小区' />
+        <input type='text' disabled='disabled' name='' value='{{xqinfo.name}}' placeholder='请选择社区' />
         <view class='icon-jump icon-right'>
           <image src='../../images/icon-jump.png'></image>
         </view>

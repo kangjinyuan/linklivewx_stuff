@@ -46,17 +46,24 @@ Page({
       telephone: that.data.telephone,
       password: that.data.password
     }
-    app.request('POST', '/stuff/login.do', paras, function(res) {
+    app.request('POST', '/account/stuff/login.do', paras, function(res) {
       wx.setStorageSync("accountInfo", res.data.data);
       wx.setStorageSync("accessToken", res.data.accessToken);
       wx.switchTab({
         url: '../services/services',
       })
     }, function(res) {
-      wx.showToast({
-        title: '登录失败,请检查登录信息是否有误',
-        icon: 'none'
-      })
+      if (res.data.code == "0005") {
+        wx.showToast({
+          title: '登录失败,您的手机号或密码不正确',
+          icon: 'none'
+        })
+      } else {
+        wx.showToast({
+          title: '登录失败,请检查您的网络或重试',
+          icon: 'none'
+        })
+      }
     })
   }
 })

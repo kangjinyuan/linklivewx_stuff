@@ -34,7 +34,7 @@ Page({
         console.log(res.scanType)
         if (res.scanType == 'QR_CODE' || res.scanType == 'WX_CODE' || res.scanType == 'PDF_417' || res.scanType == 'DATA_MATRIX') {
           wx.showToast({
-            title: '请扫描正确快递单号',
+            title: '请扫描正确的快递单号',
             icon: 'none'
           })
         } else {
@@ -50,16 +50,9 @@ Page({
     let that = this;
     let communityId = that.data.xqinfo.id;
     let communityName = that.data.xqinfo.name;
-    if (!that.data.xqinfo) {
+    if (!that.data.xqinfo || that.data.kdaddress == '') {
       wx.showToast({
-        title: '请选择社区',
-        icon: 'none'
-      })
-      return false;
-    }
-    if (that.data.kdaddress == '') {
-      wx.showToast({
-        title: '请输入物业代收点详细地址',
+        title: '请先完善地址信息',
         icon: 'none'
       })
       return false;
@@ -77,16 +70,23 @@ Page({
       communityId: communityId,
       communityName: communityName
     }
-    app.request("POST", "/express/receive.do", paras, function(res) {
+    app.request("POST", "/property/express/receive.do", paras, function(res) {
       wx.showToast({
-        title: '录入成功',
+        title: '快递单号录入成功',
         icon: 'none'
       })
     }, function(res) {
-      wx.showToast({
-        title: '录入失败',
-        icon: 'none'
-      })
+      if (res.data.code == "0004") {
+        wx.showToast({
+          title: '已录入，请不要重复操作',
+          icon: 'none'
+        })
+      } else {
+        wx.showToast({
+          title: '录入失败，请检查您的网络或重试',
+          icon: 'none'
+        })
+      }
     })
   },
   onShow: function() {

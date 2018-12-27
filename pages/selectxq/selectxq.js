@@ -50,7 +50,7 @@ Page({
     }
     paras = JSON.stringify(paras);
     wx.request({
-      url: crurl + "/community/queryList.do?timestamp=" + timestamp,
+      url: crurl + "/property/community/queryList.do?timestamp=" + timestamp,
       data: paras,
       method: 'POST',
       dataType: 'json',
@@ -84,7 +84,7 @@ Page({
           })
         } else {
           wx.showToast({
-            title: '社区列表加载失败',
+            title: '无法连接服务器，请检查您的网络或重试',
             icon: 'none'
           })
         }

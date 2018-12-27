@@ -47,14 +47,18 @@ Page({
       telephone: accountInfo.telephone,
       password: that.data.checkpwd
     }
-    app.request('POST', '/stuff/update.do', paras, function(res) {
+    app.request('POST', '/account/stuff/update.do', paras, function(res) {
       wx.setStorageSync("accountInfo", res.data.data);
       wx.navigateBack({
         delta: 1
       });
+      wx.showToast({
+        title: '修改成功',
+        icon: 'none'
+      })
     }, function(res) {
       wx.showToast({
-        title: '修改失败',
+        title: '修改失败，请检查您的网络或重试',
         icon: 'none'
       })
     })

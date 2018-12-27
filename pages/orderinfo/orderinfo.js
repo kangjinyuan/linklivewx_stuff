@@ -22,7 +22,7 @@ Page({
       id: orderinfo.id
     }
     if (orderinfo.reportState == 0) {
-      app.request('POST', '/maintenance/app/acceptOrder.do', paras, function(res) {
+      app.request('POST', '/property/maintenance/acceptOrder.do', paras, function(res) {
         wx.showModal({
           title: '邻客管家',
           content: '抢单成功,请到维修任务中操作订单',
@@ -37,13 +37,20 @@ Page({
           }
         })
       }, function(res) {
-        wx.showToast({
-          title: '抢单失败',
-          icon: 'none'
-        })
+        if (res.data.code == "0005") {
+          wx.showToast({
+            title: '订单不存在',
+            icon: 'none'
+          })
+        } else {
+          wx.showToast({
+            title: '抢单失败，请检查您的网络或重试',
+            icon: 'none'
+          })
+        }
       })
     } else if (orderinfo.reportState == 1) {
-      app.request('POST', '/maintenance/app/completeOrder.do', paras, function(res) {
+      app.request('POST', '/property/maintenance/completeOrder.do', paras, function(res) {
         wx.showModal({
           title: '邻客管家',
           content: '订单已完成,请到维修记录中查看',
@@ -59,7 +66,7 @@ Page({
         })
       }, function(res) {
         wx.showToast({
-          title: '操作失败',
+          title: '无法连接服务器，请检查您的网络或重试',
           icon: 'none'
         })
       })

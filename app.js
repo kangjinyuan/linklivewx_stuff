@@ -63,16 +63,6 @@ App({
               }
             }
           })
-        } else if (res.data.code == "0004") {
-          wx.showToast({
-            title: '操作内容已在闪向云端，请勿重复操作',
-            icon: 'none'
-          })
-        } else if (res.data.code == "0005") {
-          wx.showToast({
-            title: '操作内容不在闪向云端，请核对后操作',
-            icon: 'none'
-          })
         } else if (res.data.code == "0008") {
           wx.showToast({
             title: '服务器内部错误',
@@ -138,7 +128,8 @@ App({
     }
   },
   globalData: {
-    crurl: 'http://test.api.15275317531.com:8080',
+    crurl: 'http://test.api.15275317531.com',
+    // crurl: 'http://192.168.0.159:8080',
     imgrurl: 'http://img.guostory.com/',
     // crurl: 'https://admin.15275317531.com',
     userInfo: {}

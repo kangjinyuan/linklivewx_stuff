@@ -1,8 +1,8 @@
 <view class="container">
   <view class='tab-box' wx:if="{{reportState >= 2}}">
     <view wx:for='{{tablist}}' wx:key="{{item.id}}" data-reportstate='{{item.reportState}}' class="tab-list" bindtap='stab'>
-      {{item.name}}
-      <view class='tab-line' wx:if="{{reportState == item.reportState}}"></view>
+      <view class="text {{reportState == item.reportState?'selectedColor':''}}">{{item.name}}</view>
+      <view class='selected' wx:if="{{reportState == item.reportState}}"></view>
     </view>
   </view>
   <view class='nodata-box' wx:if='{{olist.length == 0}}'>
