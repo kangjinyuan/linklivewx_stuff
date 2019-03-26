@@ -22,16 +22,16 @@
     <view class='mine-service'>
       <view class='service-list' data-page='../order/order?reportstate=2' bindtap='topages'>
         <view class='icon icon-left'>
-          <image src='../../images/icon-bx.png'></image>
+          <image src='../../images/icon-maintenance.png'></image>
         </view>
         <view class='icon-jump icon-right'>
           <image src='../../images/icon-jump.png'></image>
         </view>
         维修记录
       </view>
-      <view class='service-list' data-page='../updatepwd/updatepwd' bindtap='topages'>
+      <view class='service-list' data-page='../updatePassword/updatePassword' bindtap='topages'>
         <view class='icon icon-left'>
-          <image src='../../images/icon-updatepassword.png'></image>
+          <image src='../../images/icon-update-password.png'></image>
         </view>
         <view class='icon-jump icon-right'>
           <image src='../../images/icon-jump.png'></image>

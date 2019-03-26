@@ -10,8 +10,9 @@ App({
   toLogin: function(callback) {
     let that = this;
     let accessToken = wx.getStorageSync("accessToken");
-    if (accessToken) {
-      callback();
+    let accountInfo = wx.getStorageSync("accountInfo");
+    if (accessToken && accountInfo.dutyScope) {
+      callback(accountInfo);
     } else {
       wx.showModal({
         title: '邻客管家',
@@ -35,9 +36,14 @@ App({
     })
     let that = this;
     let accessToken = wx.getStorageSync("accessToken");
+    let xqinfo = wx.getStorageSync("xqinfo");
     let timestamp = new Date().getTime();
-    paras.accessToken = accessToken;
-    paras = JSON.stringify(paras);
+    if (method == "POST") {
+      paras.accessToken = accessToken;
+      paras.communityId = xqinfo.id;
+      paras.communityName = xqinfo.name;
+      paras = JSON.stringify(paras);
+    }
     wx.request({
       url: that.globalData.crurl + rurl + "?timestamp=" + timestamp,
       data: paras,
@@ -83,7 +89,7 @@ App({
       }
     })
   },
-  loadMore: function(that, okcallback) {
+  loadMore: function(that, callback) {
     if (that.data.page + 1 > that.data.totalPage) {
       that.setData({
         page: that.data.page
@@ -97,7 +103,7 @@ App({
     that.setData({
       page: that.data.page + 1
     });
-    okcallback();
+    callback();
   },
   setTime: function(time, flag) {
     if (typeof(time) == "string") {
@@ -127,11 +133,42 @@ App({
       return Y;
     }
   },
+  camera: function(callback) {
+    wx.getSetting({
+      success: function(res) {
+        if (res.authSetting["scope.camera"]) {
+          callback();
+        } else if (res.authSetting["scope.camera"] == false) {
+          wx.showModal({
+            title: '邻客管家',
+            content: '邻客管家申请获得你的相机权限,请先授权',
+            confirmText: '去授权',
+            confirmColor: '#fda414',
+            showCancel: false,
+            success: function(res) {
+              if (res.confirm) {
+                wx.openSetting({
+                  success(res) {
+                    console.log(res)
+                    if (res.authSetting["scope.camera"]) {
+                      wx.navigateBack({
+                        delta: 1
+                      })
+                    }
+                  }
+                })
+              }
+            }
+          })
+        }
+      }
+    })
+  },
   globalData: {
     crurl: 'http://test.api.15275317531.com',
-    // crurl: 'http://192.168.0.159:8080',
+    // crurl: 'https://api.15275317531.com',
+    // crurl: 'http://192.168.1.114:8080',
     imgrurl: 'http://img.guostory.com/',
-    // crurl: 'https://admin.15275317531.com',
     userInfo: {}
   }
 })

@@ -2,26 +2,35 @@ let app = getApp();
 let imgrurl = app.globalData.imgrurl;
 Page({
   data: {
-    orderinfo: {},
+    orderInfo: {},
     btntext: ''
   },
   previewImage: function(e) {
     let that = this;
     let current = e.currentTarget.dataset.src;
-    let images = [];
-    images.push(current);
+    let orderInfo = that.data.orderInfo;
+    let urls = [];
+    if (orderInfo.image0) {
+      urls.push(orderInfo.image0);
+    }
+    if (orderInfo.image1) {
+      urls.push(orderInfo.image1);
+    }
+    if (orderInfo.image2) {
+      urls.push(orderInfo.image2);
+    }
     wx.previewImage({
       current: current,
-      urls: images
+      urls: urls
     })
   },
-  roborder: function(e) {
+  setOrder: function(e) {
     let that = this;
-    let orderinfo = that.data.orderinfo;
+    let orderInfo = that.data.orderInfo;
     let paras = {
-      id: orderinfo.id
+      id: orderInfo.id
     }
-    if (orderinfo.reportState == 0) {
+    if (orderInfo.reportState == 0) {
       app.request('POST', '/property/maintenance/acceptOrder.do', paras, function(res) {
         wx.showModal({
           title: '邻客管家',
@@ -49,7 +58,7 @@ Page({
           })
         }
       })
-    } else if (orderinfo.reportState == 1) {
+    } else if (orderInfo.reportState == 1) {
       app.request('POST', '/property/maintenance/completeOrder.do', paras, function(res) {
         wx.showModal({
           title: '邻客管家',
@@ -74,61 +83,60 @@ Page({
   },
   onLoad: function(options) {
     let that = this;
-    let orderinfo = options.orderinfo;
-    orderinfo = JSON.parse(orderinfo);
-    if (orderinfo.reportState == 0) {
-      orderinfo.reportStatetext = "申请中";
+    let orderInfo = JSON.parse(options.orderInfo);
+    if (orderInfo.reportState == 0) {
+      orderInfo.reportStateText = "申请中";
       that.setData({
         btntext: '抢单'
       })
-    } else if (orderinfo.reportState == 1) {
-      orderinfo.reportStatetext = "已接单";
+    } else if (orderInfo.reportState == 1) {
+      orderInfo.reportStateText = "已接单";
       that.setData({
         btntext: '完成'
       })
-    } else if (orderinfo.reportState == 2) {
-      orderinfo.reportStatetext = "已完成";
-    } else if (orderinfo.reportState == 3) {
-      orderinfo.reportStatetext = "已评价";
-    } else if (orderinfo.reportState == 4) {
-      orderinfo.reportStatetext = "已取消";
+    } else if (orderInfo.reportState == 2) {
+      orderInfo.reportStateText = "已完成";
+    } else if (orderInfo.reportState == 3) {
+      orderInfo.reportStateText = "已评价";
+    } else if (orderInfo.reportState == 4) {
+      orderInfo.reportStateText = "已取消";
     }
-    if (orderinfo.reportType == 0) {
-      orderinfo.reportTypetext = "水";
-    } else if (orderinfo.reportType == 1) {
-      orderinfo.reportTypetext = "电";
-    } else if (orderinfo.reportType == 2) {
-      orderinfo.reportTypetext = "燃气";
-    } else if (orderinfo.reportType == 3) {
-      orderinfo.reportTypetext = "门锁";
-    } else if (orderinfo.reportType == 4) {
-      orderinfo.reportTypetext = "其他";
+    if (orderInfo.reportType == 0) {
+      orderInfo.reportTypeText = "水";
+    } else if (orderInfo.reportType == 1) {
+      orderInfo.reportTypeText = "电";
+    } else if (orderInfo.reportType == 2) {
+      orderInfo.reportTypeText = "燃气";
+    } else if (orderInfo.reportType == 3) {
+      orderInfo.reportTypeText = "门锁";
+    } else if (orderInfo.reportType == 4) {
+      orderInfo.reportTypeText = "其他";
     }
-    if (orderinfo.score == 0) {
-      orderinfo.scoretext = "吐槽";
-    } else if (orderinfo.score == 1) {
-      orderinfo.scoretext = "满意";
-    } else if (orderinfo.score == 2) {
-      orderinfo.scoretext = "超赞";
+    if (orderInfo.score == 0) {
+      orderInfo.scoreText = "吐槽";
+    } else if (orderInfo.score == 1) {
+      orderInfo.scoreText = "满意";
+    } else if (orderInfo.score == 2) {
+      orderInfo.scoreText = "超赞";
     }
-    if (orderinfo.image0) {
-      orderinfo.image0 = imgrurl + orderinfo.image0 + "?imageView2/2/w/136/h/136|imageslim";
+    if (orderInfo.image0) {
+      orderInfo.image0 = imgrurl + orderInfo.image0;
     }
-    if (orderinfo.image1) {
-      orderinfo.image1 = imgrurl + orderinfo.image1 + "?imageView2/2/w/136/h/136|imageslim";
+    if (orderInfo.image1) {
+      orderInfo.image1 = imgrurl + orderInfo.image1;
     }
-    if (orderinfo.image2) {
-      orderinfo.image2 = imgrurl + orderinfo.image2 + "?imageView2/2/w/136/h/136|imageslim";
+    if (orderInfo.image2) {
+      orderInfo.image2 = imgrurl + orderInfo.image2;
     }
-    orderinfo.progress = JSON.parse(orderinfo.progress).reverse();
-    for (let i = 0; i < orderinfo.progress.length; i++) {
-      orderinfo.progress[i].time = app.setTime(orderinfo.progress[i].time, 1);
+    orderInfo.progress = JSON.parse(orderInfo.progress).reverse();
+    for (let i = 0; i < orderInfo.progress.length; i++) {
+      orderInfo.progress[i].time = app.setTime(orderInfo.progress[i].time, 1);
     }
     wx.setNavigationBarTitle({
-      title: orderinfo.reportStatetext,
+      title: orderInfo.reportStateText,
     })
     that.setData({
-      orderinfo: orderinfo
+      orderInfo: orderInfo
     })
   }
 })

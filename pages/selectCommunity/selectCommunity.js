@@ -1,17 +1,17 @@
 let app = getApp();
 let crurl = app.globalData.crurl;
-let fcl = require("../../utils/fontchangeletter.js");
+let fcl = require("../../utils/fontChangeLetter.js");
 Page({
   data: {
-    xqlist: [],
+    cList: [],
     communityName: ''
   },
   pageScrollTo: function(e) {
     let that = this;
     let code = e.currentTarget.dataset.code;
-    let xqlist = that.data.xqlist;
+    let cList = that.data.cList;
     let top1 = null;
-    wx.createSelectorQuery().select('#' + xqlist[0].code).boundingClientRect(function(res) {
+    wx.createSelectorQuery().select('#' + cList[0].code).boundingClientRect(function(res) {
       top1 = res.top;
     }).exec()
     wx.createSelectorQuery().select('#' + code).boundingClientRect(function(res) {
@@ -30,8 +30,8 @@ Page({
   },
   selectxq: function(e) {
     let that = this;
-    let xqinfo = e.currentTarget.dataset.xqinfo;
-    wx.setStorageSync('xqinfo', xqinfo);
+    let xqInfo = e.currentTarget.dataset.xqinfo;
+    wx.setStorageSync('xqinfo', xqInfo);
     wx.navigateBack({
       delta: 1
     })
@@ -57,25 +57,25 @@ Page({
       success: function(res) {
         wx.hideLoading();
         if (res.data.code == '0000') {
-          let datalist = res.data.data;
-          let xqlist = [];
-          for (let i = 0; i < datalist.length; i++) {
-            let code = fcl.getPinYinByName(datalist[i].name).split("")[0];
+          let dataList = res.data.data;
+          let cList = [];
+          for (let i = 0; i < dataList.length; i++) {
+            let code = fcl.getPinYinByName(dataList[i].name).split("")[0];
             let obj = {
               code: code,
               community: []
             }
-            if (xqlist.indexOf(obj) == -1) {
-              xqlist.push(obj);
+            if (cList.indexOf(obj) == -1) {
+              cList.push(obj);
             }
-            for (let j = 0; j < xqlist.length; j++) {
-              if (code == xqlist[j].code) {
-                xqlist[j].community.push(datalist[i]);
+            for (let j = 0; j < cList.length; j++) {
+              if (code == cList[j].code) {
+                cList[j].community.push(dataList[i]);
               }
             }
           }
           that.setData({
-            xqlist: xqlist
+            cList: cList
           })
         } else if (res.data.code == "0008") {
           wx.showToast({

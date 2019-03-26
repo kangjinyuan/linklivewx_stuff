@@ -1,0 +1,40 @@
+<camera device-position="front">
+  <cover-image class='face-collection-bg' mode='aspectFill' src='../../images/face-collection-bg.png'></cover-image>
+  <cover-view class='photo-box' wx:if='{{imageUrl}}'>
+    <cover-view class='photo-img-box'>
+      <cover-image src='{{imageUrl}}' mode='aspectFill'></cover-image>
+    </cover-view>
+    <cover-view class='use-photo-ok' data-flag='0' bindtap='usePhoto'>
+      <cover-image src='../../images/use-photo-ok.png'></cover-image>
+    </cover-view>
+    <cover-view class='use-photo-fail-box' data-flag='1' bindtap='usePhoto'>
+      <cover-view class='use-photo-fail-img'>
+        <cover-image src='../../images/use-photo-fail.png'></cover-image>
+      </cover-view>
+      <cover-view class='use-photo-fail-text'>返回</cover-view>
+    </cover-view>
+  </cover-view>
+  <cover-view wx:else class='face-collection-btn' bindtap='takePhoto'>
+    <cover-image src='../../images/face-collection-btn.png'></cover-image>
+  </cover-view>
+  <cover-view class='face-collection-box' wx:if='{{!imageUrl && !id}}'>
+    <cover-view wx:if="{{index == 0}}" class='face-collection-index-title'>正面拍照</cover-view>
+    <cover-view wx:if="{{index == 1}}" class='face-collection-index-title'>左侧面拍照</cover-view>
+    <cover-view wx:if="{{index == 2}}" class='face-collection-index-title'>右侧面拍照</cover-view>
+    <cover-view class='face-collection-index-box'>
+      <cover-view class='face-collection-index'>
+        <cover-image wx:if="{{index > 0}}" src='../../images/face-collection-ok.png'></cover-image>
+        <cover-image wx:else src='../../images/face-collection-index0.png'></cover-image>
+      </cover-view>
+      <cover-view class='face-collection-index'>
+        <cover-image wx:if="{{index > 1}}" src='../../images/face-collection-ok.png'></cover-image>
+        <cover-image wx:elif="{{index == 1}}" src='../../images/face-collection-index1.png'></cover-image>
+        <cover-image wx:else src='../../images/face-collection-opacity-index1.png'></cover-image>
+      </cover-view>
+      <cover-view class='face-collection-index'>
+        <cover-image wx:if="{{index == 2}}" src='../../images/face-collection-index2.png'></cover-image>
+        <cover-image wx:else src='../../images/face-collection-opacity-index2.png'></cover-image>
+      </cover-view>
+    </cover-view>
+  </cover-view>
+</camera>

@@ -2,14 +2,7 @@ let app = getApp();
 Page({
   data: {
     code: '',
-    xqinfo: '',
     kdaddress: ''
-  },
-  selectxq: function() {
-    let that = this;
-    wx.navigateTo({
-      url: '../selectxq/selectxq',
-    })
   },
   bindValue: function(e) {
     let that = this;
@@ -48,9 +41,7 @@ Page({
   },
   setCode: function() {
     let that = this;
-    let communityId = that.data.xqinfo.id;
-    let communityName = that.data.xqinfo.name;
-    if (!that.data.xqinfo || that.data.kdaddress == '') {
+    if (that.data.kdaddress == '') {
       wx.showToast({
         title: '请先完善地址信息',
         icon: 'none'
@@ -66,9 +57,7 @@ Page({
     }
     let paras = {
       code: that.data.code,
-      address: that.data.kdaddress,
-      communityId: communityId,
-      communityName: communityName
+      address: that.data.kdaddress
     }
     app.request("POST", "/property/express/receive.do", paras, function(res) {
       wx.showToast({
@@ -91,10 +80,8 @@ Page({
   },
   onShow: function() {
     let that = this;
-    let xqinfo = wx.getStorageSync('xqinfo');
     let kdaddress = wx.getStorageSync('kdaddress');
     that.setData({
-      xqinfo: xqinfo,
       kdaddress: kdaddress
     })
   }

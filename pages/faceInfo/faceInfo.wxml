@@ -1,0 +1,8 @@
+<view class="container">
+  <view class='face-info-box'>
+    <image mode='aspectFill' src='{{faceInfo.faceUrl}}'></image>
+  </view>
+  <view class='big-btn' bindtap='faceCollection'>
+    重新采集
+  </view>
+</view>

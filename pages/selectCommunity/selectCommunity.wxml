@@ -9,19 +9,19 @@
       </view>
     </view>
   </view>
-  <view class='nodata-box' wx:if='{{xqlist.length == 0}}'>
-    <view class='nodata'>
-      <view class='icon-nodata nodata-community'>
-        <image src='../../images/icon-community-nodata.png'></image>
+  <view class='no-data-box' wx:if='{{cList.length == 0}}'>
+    <view class='no-data'>
+      <view class='icon-community-no-data'>
+        <image src='../../images/icon-community-no-data.png'></image>
       </view>
       <view class='text'>当前没有社区信息</view>
     </view>
   </view>
   <view class='xq-box' wx:else>
     <view class='letter-box'>
-      <view wx:for='{{xqlist}}' wx:key="{{item.code}}" data-code='{{item.code}}' bindtap='pageScrollTo'>{{item.code}}</view>
+      <view wx:for='{{cList}}' wx:key="{{item.code}}" data-code='{{item.code}}' bindtap='pageScrollTo'>{{item.code}}</view>
     </view>
-    <view class='xqlist' wx:for='{{xqlist}}' wx:key="{{item.code}}" id='{{item.code}}'>
+    <view class='xqlist' wx:for='{{cList}}' wx:key="{{item.code}}" id='{{item.code}}'>
       <view class='letter-name'>{{item.code}}</view>
       <view class='xq-name-box'>
         <view class='xq-name' wx:for='{{item.community}}' wx:key="{{item.id}}" data-xqinfo='{{item}}' bindtap='selectxq'>{{item.name}}</view>

@@ -1,10 +1,21 @@
-<view class="container">
+<view class="container" wx:if="{{accountInfo}}">
+  <view class='dw-box' bindtap='selectCommunity'>
+    <view class='icon-dw icon-left'>
+      <image src='../../images/icon-dw.png'></image>
+    </view>
+    <view class='text'>{{xqinfo? xqinfo.name:'请选择社区'}}</view>
+  </view>
   <view class='services-box'>
-    <view class='services-list' wx:for='{{services}}' wx:key="{{item.text}}" data-page='{{item.page}}' bindtap='topages'>
+    <view class='services-list' wx:for='{{accountInfo.dutyScope}}' wx:key="{{item.id}}" wx:if="{{item.checked == true}}" data-id='{{item.id}}' bindtap='topages'>
       <view class='services-icon'>
-        <image src='{{item.icon}}'></image>
+        <image wx:if="{{item.id == 0}}" src='../../images/icon-proprietor-maintenance.png'></image>
+        <image wx:if="{{item.id == 1}}" src='../../images/icon-maintenance.png'></image>
+        <image wx:if="{{item.id == 2}}" src='../../images/icon-express.png'></image>
+        <image wx:if="{{item.id == 3}}" src='../../images/icon-meter.png'></image>
+        <image wx:if="{{item.id == 4}}" src='../../images/icon-open-door.png'></image>
+        <image wx:if="{{item.id == 5}}" src='../../images/icon-face.png'></image>
       </view>
-      <view class='text'>{{item.text}}</view>
+      <view class='text'>{{item.title}}</view>
     </view>
   </view>
 </view>

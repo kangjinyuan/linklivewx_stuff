@@ -1,12 +1,13 @@
 .services-box {
   width: 100%;
-  padding-top: 50rpx;
+  margin-top: 30rpx;
   overflow: hidden;
 }
 
 .services-list {
   width: 250rpx;
   overflow: hidden;
+  margin-bottom: 62rpx;
   float: left;
 }
 
@@ -29,9 +30,23 @@
   margin: auto auto;
 }
 
-.text {
+.services-list .text {
   width: 100%;
   font-size: 26rpx;
   text-align: center;
   color: #333;
+}
+
+.dw-box {
+  width: 636rpx;
+  height: 98rpx;
+  padding-left: 54rpx;
+  margin: 0rpx auto;
+  font-size: 30rpx;
+  line-height: 98rpx;
+  color: #333;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  position: relative;
 }

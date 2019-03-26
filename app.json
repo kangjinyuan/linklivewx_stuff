@@ -4,10 +4,14 @@
     "pages/mine/mine",
     "pages/login/login",
     "pages/order/order",
-    "pages/orderinfo/orderinfo",
-    "pages/kd/kd",
-    "pages/selectxq/selectxq",
-    "pages/updatepwd/updatepwd"
+    "pages/orderInfo/orderInfo",
+    "pages/express/express",
+    "pages/selectCommunity/selectCommunity",
+    "pages/updatePassword/updatePassword",
+    "pages/networkOpenDoor/networkOpenDoor",
+    "pages/face/face",
+    "pages/faceCollection/faceCollection",
+    "pages/faceInfo/faceInfo"
   ],
   "window": {
     "navigationBarTextStyle": "white",
@@ -18,7 +22,7 @@
   "tabBar": {
     "color": "#666",
     "selectedColor": "#fda414",
-    "borderStyle": "#e1e1e1",
+    "borderStyle": "black",
     "backgroundColor": "#fff",
     "list": [
       {

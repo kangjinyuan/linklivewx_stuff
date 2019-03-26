@@ -1,9 +1,9 @@
-.kd-box {
+.express-box {
   width: 100%;
   overflow: hidden;
 }
 
-.kd-title {
+.express-title {
   width: 690rpx;
   margin: 0rpx auto;
   height: 92rpx;

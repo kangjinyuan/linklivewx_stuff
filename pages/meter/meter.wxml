@@ -1,0 +1,171 @@
+<view class="container">
+  <view class='select-address-box select-fee-box' hidden='{{showFee}}'>
+    <view class='select-address select-fee'>
+      <view class='select-address-text' wx:for='{{feeList}}' wx:key="{{item.id}}" data-index='{{index}}' bindtap='selectValue'>{{item.feeName}}</view>
+    </view>
+  </view>
+  <view class='select-address-box' hidden='{{showBuilding}}'>
+    <view class='select-address'>
+      <view class='select-address-text' wx:for='{{buildingsList}}' wx:key="{{item.id}}" data-code='{{item.code}}' bindtap='selectValue'>{{item.code}}号楼</view>
+    </view>
+  </view>
+  <view class='select-address-box' hidden='{{showUnit}}'>
+    <view class='select-address'>
+      <view class='select-address-text' wx:for='{{unitsList}}' wx:key="{{item.id}}" data-unit='{{item}}' bindtap='selectValue'>{{item}}单元</view>
+    </view>
+  </view>
+  <view class='select-address-box' hidden='{{showRoom}}'>
+    <view class='select-address'>
+      <view class='select-address-text' wx:for='{{roomsList}}' wx:key="{{item.id}}" data-roominfo='{{item}}' bindtap='selectValue'>{{item.code}}</view>
+    </view>
+  </view>
+  <view class='preview-box' hidden='{{showPreview}}'>
+    <view class='preview'>
+      <view class='preview-title'>账单信息</view>
+      <view class='preview-con'>
+        <view class='preview-list'>
+          <view class='preview-list-name'>
+            房间号
+          </view>
+          <view class='preview-list-value'>
+            {{roomInfo.address}}
+          </view>
+        </view>
+        <view class='preview-list'>
+          <view class='preview-list-name'>
+            上次值
+          </view>
+          <view class='preview-list-value'>
+            {{lastMeterValue}}
+          </view>
+        </view>
+        <view class='preview-list'>
+          <view class='preview-list-name'>
+            本次值
+          </view>
+          <view class='preview-list-value'>
+            {{currentMeterValue}}
+          </view>
+        </view>
+        <view class='preview-list'>
+          <view class='preview-list-name'>
+            用量
+          </view>
+          <view class='preview-list-value'>
+            {{dosage}}
+          </view>
+        </view>
+        <view class='preview-list'>
+          <view class='preview-list-name'>
+            账单金额
+          </view>
+          <view class='preview-list-value'>
+            {{totalFee}}
+          </view>
+        </view>
+      </view>
+      <view class='preview-opera-box'>
+        <view class='previre-opera-btn' bindtap='showPreview'>取消</view>
+        <view class='previre-opera-btn' bindtap='setMeter'>确定</view>
+      </view>
+    </view>
+  </view>
+  <view class='show-fee-box' data-flag="3" bindtap='showBox'>
+    <view class='show-fee'>
+      {{feeList[feeIndex].feeName}}
+      <view class='icon-select-line icon-right'>
+        <image wx:if='{{showFee == true}}' src='../../images/icon-select-down-line.png'></image>
+        <image wx:else src='../../images/icon-select-up-line.png'></image>
+      </view>
+    </view>
+  </view>
+  <view class='cb-box'>
+    <view class='cb-list'>
+      <view class='cb-name'>选择房间号</view>
+      <view class='cb-value'>
+        <view class='show-address-box' data-flag="0" bindtap='showBox'>
+          <view class='show-address'>
+            <view class="text {{showBuilding?'':'selected'}}">{{buildingCode?buildingCode+'号楼':'请选择楼号'}}</view>
+            <view class='icon-select icon-right'>
+              <image wx:if="{{showBuilding == true}}" src='../../images/icon-select-down.png'></image>
+              <image wx:else src='../../images/icon-select-up.png'></image>
+            </view>
+          </view>
+        </view>
+        <view class='show-address-box' data-flag="1" bindtap='showBox'>
+          <view class='show-address'>
+            <view class="text {{showUnit?'':'selected'}}">{{unit?unit+'单元':'请选择单元'}}</view>
+            <view class='icon-select icon-right'>
+              <image wx:if="{{showUnit == true}}" src='../../images/icon-select-down.png'></image>
+              <image wx:else src='../../images/icon-select-up.png'></image>
+            </view>
+          </view>
+        </view>
+        <view class='show-address-box' data-flag="2" bindtap='showBox'>
+          <view class='show-address'>
+            <view class="text {{showRoom == true?'':'selected'}}">{{roomInfo.code?roomInfo.code:'请选择房号'}}</view>
+            <view class='icon-select icon-right'>
+              <image wx:if="{{showRoom == true}}" src='../../images/icon-select-down.png'></image>
+              <image wx:else src='../../images/icon-select-up.png'></image>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class='cb-list'>
+      <view class='cb-name'>上次抄表时间</view>
+      <view class='cb-value'>
+        <view class='text'>
+          {{lastMeterTime?lastMeterTime:'选完房间号自动填写'}}
+        </view>
+      </view>
+    </view>
+    <view class='cb-list'>
+      <view class='cb-name'>本次抄表时间</view>
+      <view class='cb-value'>
+        <view class='text'>
+          {{currentMeterTime?currentMeterTime:'选完房间号自动填写'}}
+        </view>
+      </view>
+    </view>
+    <view class='cb-list'>
+      <view class='cb-name'>上次值</view>
+      <view class='cb-value'>
+        <input wx:if="{{isFirst}}" data-flag='0' type='number' name='' value='{{lastMeterValue}}' placeholder='请填写上次值' bindinput='getValue' />
+        <input wx:else data-flag='0' type='number' name='' value='{{lastMeterValue}}' disabled='disabled' placeholder='请填写上次值' bindtap='checkInput' />
+      </view>
+    </view>
+    <view class='cb-list'>
+      <view class='cb-name'>本次值</view>
+      <view class='cb-value'>
+        <input wx:if="{{lastMeterValue}}" data-flag='1' type='number' name='' value='{{currentMeterValue}}' placeholder='请填写本次值' bindinput='getValue' />
+        <input wx:else data-flag='1' type='number' name='' value='{{currentMeterValue}}' disabled='disabled' placeholder='请填写本次值' bindtap='checkInput' />
+      </view>
+    </view>
+    <view class='cb-list'>
+      <view class='cb-name'>用量</view>
+      <view class='cb-value'>
+        <view class='text'>
+          {{dosage?dosage:'自动计算'}}
+        </view>
+      </view>
+    </view>
+    <view class='cb-list'>
+      <view class='cb-name'>单价</view>
+      <view class='cb-value'>
+        <view class='text'>
+          ￥{{feeList[feeIndex].fee}}
+        </view>
+      </view>
+    </view>
+    <view class='cb-list'>
+      <view class='cb-name'>账单金额</view>
+      <view class='cb-value'>
+        <view class='text'>
+          {{totalFee?totalFee:'自动计算'}}
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class='big-btn' bindtap='showPreview'>预览账单</view>
+</view>

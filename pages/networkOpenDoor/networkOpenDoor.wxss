@@ -1,0 +1,30 @@
+.key-box {
+  width: 690rpx;
+  margin: 0rpx auto;
+  padding-top: 50rpx;
+}
+
+.key-list-box {
+  width: 100%;
+  height: 100rpx;
+  border-radius: 10rpx;
+  margin-bottom: 30rpx;
+}
+
+.key-list-box:last-child {
+  margin-bottom: 0rpx;
+}
+
+.key-list {
+  width: 518rpx;
+  padding: 0rpx 46rpx 0rpx 66rpx;
+  height: 100%;
+  margin: 0rpx auto;
+  position: relative;
+  font-size: 32rpx;
+  line-height: 100rpx;
+  color: #333;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

@@ -33,14 +33,35 @@ image {
   height: 38rpx;
 }
 
+.icon-key {
+  width: 36rpx;
+  height: 43rpx;
+}
+
 .icon-sreach {
   width: 28rpx;
   height: 28rpx;
 }
 
+.icon-select {
+  width: 14rpx;
+  height: 10rpx;
+}
+
+.icon-select-line {
+  width: 28rpx;
+  height: 16rpx;
+}
+
+.icon-jump {
+  width: 16rpx;
+  height: 28rpx;
+}
+
 .icon image, .icon-dw image, .icon-speed image, .icon-comment image,
 .icon-logo image, .icon-nodata image, .mine-info-bg image, .headimg image,
-.icon-sreach image {
+.icon-sreach image, .icon-select image, .icon-select-line image, .icon-key image,
+.use-photo-ok image, .use-photo-fail-img image, .face-collection-index image {
   width: 100%;
   height: 100%;
 }
@@ -78,11 +99,6 @@ image {
   left: 0rpx;
   bottom: 0;
   margin: auto auto;
-}
-
-.icon-jump {
-  width: 16rpx;
-  height: 28rpx;
 }
 
 .order-box {
@@ -218,7 +234,7 @@ image {
   width: 100%;
 }
 
-.nodata-box {
+.no-data-box {
   width: 100%;
   height: 100%;
   background-color: #fafafa;
@@ -227,7 +243,7 @@ image {
   left: 0;
 }
 
-.nodata {
+.no-data {
   width: 330rpx;
   height: 380rpx;
   position: absolute;
@@ -238,19 +254,23 @@ image {
   margin: auto auto;
 }
 
-.nodata view {
+.no-data view {
   width: 100%;
 }
 
-.nodata-community {
+.icon-community-no-data {
   height: 196rpx;
 }
 
-.nodata-order {
+.icon-order-no-data {
   height: 210rpx;
 }
 
-.nodata .text {
+.icon-key-no-data {
+  height: 236rpx;
+}
+
+.no-data .text {
   width: 100%;
   height: 170rpx;
   font-size: 28rpx;
