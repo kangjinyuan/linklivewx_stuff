@@ -9,6 +9,7 @@
     "pages/selectCommunity/selectCommunity",
     "pages/updatePassword/updatePassword",
     "pages/networkOpenDoor/networkOpenDoor",
+    "pages/meter/meter",
     "pages/face/face",
     "pages/faceCollection/faceCollection",
     "pages/faceInfo/faceInfo"
