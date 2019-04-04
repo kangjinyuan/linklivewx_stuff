@@ -10,10 +10,11 @@
   width: 100%;
 }
 
-.big-btn {
+.face-again-btn-box {
+  width: auto;
+  font-size: 30rpx;
+  color: #333;
   position: absolute;
-  bottom: 30rpx;
-  left: 0;
-  right: 0;
-  margin: auto auto;
+  top: 30rpx;
+  right: 30rpx;
 }

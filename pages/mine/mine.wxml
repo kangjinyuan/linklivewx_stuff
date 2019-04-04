@@ -11,8 +11,8 @@
         <view class='info'>
           <view class='info-text'>{{accountInfo.name}}</view>
           <view class='info-text tel'>
-            <view class='icon icon-stufftel'>
-              <image src='../../images/icon-stufftel.png'></image>
+            <view class='icon-stuff-tel icon-left'>
+              <image src='../../images/icon-stuff-tel.png'></image>
             </view>
             {{accountInfo.telephone}}
           </view>

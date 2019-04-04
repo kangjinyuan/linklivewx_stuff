@@ -402,12 +402,18 @@ Page({
         })
         that.loadBuildings();
       } else {
-        wx.navigateBack({
-          delta: 1
-        });
-        wx.showToast({
-          title: '本小区没有可以抄表的缴费项目',
-          icon: 'none'
+        wx.showModal({
+          title: '邻客管家',
+          content: '本社区没有抄表的缴费项目',
+          confirmColor: '#fda414',
+          showCancel: false,
+          success: function (res) {
+            if (res.confirm) {
+              wx.navigateBack({
+                delta: 1
+              });
+            }
+          }
         })
       }
     }, function(res) {

@@ -52,10 +52,6 @@ Page({
       wx.navigateBack({
         delta: 1
       });
-      wx.showToast({
-        title: '修改成功',
-        icon: 'none'
-      })
     }, function(res) {
       wx.showToast({
         title: '修改失败，请检查您的网络或重试',

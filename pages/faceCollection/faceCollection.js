@@ -4,7 +4,21 @@ Page({
   data: {
     imageUrl: "",
     index: '',
-    id: ""
+    id: "",
+    device: 'front',
+    btnBoxHeight: ""
+  },
+  device: function() {
+    let that = this;
+    let device = that.data.device;
+    if (device == "front") {
+      device = "back";
+    } else {
+      device = "front";
+    }
+    that.setData({
+      device: device
+    })
   },
   takePhoto() {
     let that = this;
@@ -72,6 +86,17 @@ Page({
         imageUrl: ''
       })
     }
+  },
+  onReady: function() {
+    let that = this;
+    wx.getSystemInfo({
+      success: function(res) {
+        let btnBoxHeight = res.windowHeight - (res.windowWidth * 4 / 3);
+        that.setData({
+          btnBoxHeight: btnBoxHeight,
+        })
+      }
+    })
   },
   onLoad: function(options) {
     let that = this;

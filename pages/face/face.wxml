@@ -28,10 +28,10 @@
         <view>2、拍摄时注意正视摄像头。</view>
         <view>3、拍摄时注意光线均匀。</view>
         <view>4、每个账号最多可采集一人信息。</view>
-        <view>5、业主亲朋好友通过分享钥匙来获取钥匙。</view>
+        <view>5、业主亲朋好友通过分享钥匙来获取权限。</view>
         <view>6、采集完成后可通过人脸识别设备验证面部信息通行。</view>
       </view>
     </view>
-    <view hidden='{{showFaceCollection}}' class='big-btn' bindtap='faceCollection'>开始采集</view>
+    <view hidden='{{showFaceCollection}}' class='big-btn' bindtap='faceCollection'>{{faceCollectionBtnText}}</view>
   </view>
 </view>

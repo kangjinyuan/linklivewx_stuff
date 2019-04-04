@@ -58,10 +58,31 @@ image {
   height: 28rpx;
 }
 
+.icon-use-photo-ok {
+  width: 128rpx;
+  height: 128rpx;
+  border-radius: 50%;
+}
+
+.icon-use-photo-fail {
+  width: 48rpx;
+  height: 40rpx;
+  margin: 0rpx auto;
+}
+
+.face-collection-btn {
+  width: 136rpx;
+  height: 136rpx;
+}
+
+.icon-camera-device {
+  width: 60rpx;
+  height: 50rpx;
+}
+
 .icon image, .icon-dw image, .icon-speed image, .icon-comment image,
 .icon-logo image, .icon-nodata image, .mine-info-bg image, .headimg image,
-.icon-sreach image, .icon-select image, .icon-select-line image, .icon-key image,
-.use-photo-ok image, .use-photo-fail-img image, .face-collection-index image {
+.icon-sreach image, .icon-select image, .icon-select-line image, .icon-key image {
   width: 100%;
   height: 100%;
 }
@@ -69,7 +90,7 @@ image {
 .icon-left {
   position: absolute;
   top: 0;
-  left: 0rpx;
+  left: 0;
   bottom: 0;
   margin: auto auto;
 }
@@ -77,7 +98,7 @@ image {
 .icon-center {
   position: absolute;
   top: 0;
-  left: 0rpx;
+  left: 0;
   right: 0;
   bottom: 0;
   margin: auto auto;
@@ -86,19 +107,22 @@ image {
 .icon-right {
   position: absolute;
   top: 0;
-  right: 0rpx;
+  right: 0;
   bottom: 0;
   margin: auto auto;
 }
 
-.icon-stufftel {
+.icon-bottom {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 30rpx;
+  margin: auto auto;
+}
+
+.icon-stuff-tel {
   width: 20rpx;
   height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0rpx;
-  bottom: 0;
-  margin: auto auto;
 }
 
 .order-box {

@@ -27,7 +27,7 @@ Page({
       })
       return false;
     }
-    let tel = /^[1][3,4,5,7,8,9][0-9]{9}$/;
+    let tel = /^[1][3,4,5,6,7,8,9][0-9]{9}$/;
     if (!tel.test(that.data.telephone)) {
       wx.showToast({
         title: '手机号格式不正确',

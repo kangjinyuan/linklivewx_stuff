@@ -15,7 +15,8 @@ Page({
       id: "",
       registerIndex: "2"
     }],
-    showFaceCollection: true
+    showFaceCollection: true,
+    faceCollectionBtnText: ""
   },
   del: function(e) {
     let that = this;
@@ -41,11 +42,6 @@ Page({
     if (showFaceCollection) {
       wx.navigateTo({
         url: '../faceInfo/faceInfo?faceInfo=' + faceInfo
-      })
-    } else {
-      wx.showToast({
-        title: '请先采集人脸数据',
-        icon: 'none'
       })
     }
   },
@@ -73,6 +69,15 @@ Page({
         that.setData({
           showFaceCollection: false
         })
+        if (dataList.length > 0) {
+          that.setData({
+            faceCollectionBtnText: "继续采集"
+          })
+        } else {
+          that.setData({
+            faceCollectionBtnText: "开始采集"
+          })
+        }
       } else {
         that.setData({
           showFaceCollection: true

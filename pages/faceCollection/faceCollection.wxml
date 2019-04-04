@@ -1,21 +1,7 @@
-<camera device-position="front">
+<camera device-position="{{device}}">
   <cover-image class='face-collection-bg' mode='aspectFill' src='../../images/face-collection-bg.png'></cover-image>
-  <cover-view class='photo-box' wx:if='{{imageUrl}}'>
-    <cover-view class='photo-img-box'>
-      <cover-image src='{{imageUrl}}' mode='aspectFill'></cover-image>
-    </cover-view>
-    <cover-view class='use-photo-ok' data-flag='0' bindtap='usePhoto'>
-      <cover-image src='../../images/use-photo-ok.png'></cover-image>
-    </cover-view>
-    <cover-view class='use-photo-fail-box' data-flag='1' bindtap='usePhoto'>
-      <cover-view class='use-photo-fail-img'>
-        <cover-image src='../../images/use-photo-fail.png'></cover-image>
-      </cover-view>
-      <cover-view class='use-photo-fail-text'>返回</cover-view>
-    </cover-view>
-  </cover-view>
-  <cover-view wx:else class='face-collection-btn' bindtap='takePhoto'>
-    <cover-image src='../../images/face-collection-btn.png'></cover-image>
+  <cover-view class='icon-camera-device' bindtap='device'>
+    <cover-image src='../../images/icon-camera-device.png'></cover-image>
   </cover-view>
   <cover-view class='face-collection-box' wx:if='{{!imageUrl && !id}}'>
     <cover-view wx:if="{{index == 0}}" class='face-collection-index-title'>正面拍照</cover-view>
@@ -38,3 +24,24 @@
     </cover-view>
   </cover-view>
 </camera>
+<cover-view class='photo-box' wx:if='{{imageUrl}}'>
+  <cover-view class='photo-img-box'>
+    <cover-image src='{{imageUrl}}' mode='aspectFill'></cover-image>
+  </cover-view>
+  <cover-view class='user-photo-box' style='height:{{btnBoxHeight}}px'>
+    <cover-view class='icon-use-photo-ok icon-center' data-flag='0' bindtap='usePhoto'>
+      <cover-image src='../../images/use-photo-ok.png'></cover-image>
+    </cover-view>
+    <cover-view class='use-photo-fail-box' data-flag='1' bindtap='usePhoto'>
+      <cover-view class='icon-use-photo-fail'>
+        <cover-image src='../../images/use-photo-fail.png'></cover-image>
+      </cover-view>
+      <cover-view class='use-photo-fail-text'>返回</cover-view>
+    </cover-view>
+  </cover-view>
+</cover-view>
+<cover-view class='face-collection-btn-box' style='height:{{btnBoxHeight}}px;' wx:else>
+  <cover-view class='face-collection-btn icon-center' bindtap='takePhoto'>
+    <cover-image src='../../images/face-collection-btn.png'></cover-image>
+  </cover-view>
+</cover-view>

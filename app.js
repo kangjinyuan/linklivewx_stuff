@@ -149,11 +149,10 @@ App({
               if (res.confirm) {
                 wx.openSetting({
                   success(res) {
-                    console.log(res)
                     if (res.authSetting["scope.camera"]) {
                       wx.navigateBack({
                         delta: 1
-                      })
+                      });
                     }
                   }
                 })
