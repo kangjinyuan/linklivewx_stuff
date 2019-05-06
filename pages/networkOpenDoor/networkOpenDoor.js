@@ -25,7 +25,9 @@ Page({
   nextPage: function() {
     let that = this;
     app.loadMore(that, function() {
-      let paras = {};
+      let paras = {
+        page: that.data.page
+      };
       let oldList = that.data.keyList;
       app.request('POST', '/property/doorMaster/queryList.do', paras, function(res) {
         let keyList = res.data.data;
@@ -45,7 +47,9 @@ Page({
   },
   onLoad: function(options) {
     let that = this;
-    let paras = {};
+    let paras = {
+      page: that.data.page
+    };
     app.request('POST', '/property/doorMaster/queryList.do', paras, function(res) {
       that.setData({
         keyList: res.data.data,

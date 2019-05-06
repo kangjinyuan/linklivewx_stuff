@@ -1,7 +1,7 @@
 .key-box {
   width: 690rpx;
   margin: 0rpx auto;
-  padding-top: 50rpx;
+  padding: 50rpx 0rpx;
 }
 
 .key-list-box {

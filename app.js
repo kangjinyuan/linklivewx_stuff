@@ -32,7 +32,8 @@ App({
   },
   request: function(method, rurl, paras, okcallback, nocallback) {
     wx.showLoading({
-      title: 'loading···'
+      title: 'loading···',
+      mask: true
     })
     let that = this;
     let accessToken = wx.getStorageSync("accessToken");
