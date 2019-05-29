@@ -18,19 +18,19 @@ Page({
   },
   toOrderInfo: function(e) {
     let that = this;
-    let orderInfo = JSON.stringify(e.currentTarget.dataset.orderinfo);
+    let orderInfo = encodeURIComponent(JSON.stringify(e.currentTarget.dataset.orderInfo));
     wx.navigateTo({
       url: '../orderInfo/orderInfo?orderInfo=' + orderInfo
     })
   },
-  stab: function(e) {
+  tabState: function(e) {
     let that = this;
-    let reportState = e.currentTarget.dataset.reportstate;
+    let reportState = e.currentTarget.dataset.reportState;
     that.setData({
       reportState: reportState
     })
     let options = {};
-    options.reportstate = reportState;
+    options.reportState = reportState;
     that.onLoad(options);
   },
   acceptOrder: function(e) {
@@ -40,19 +40,7 @@ Page({
       id: id
     }
     app.request('POST', '/property/maintenance/acceptOrder.do', paras, function(res) {
-      wx.showModal({
-        title: '邻客管家',
-        content: '抢单成功,请到维修任务中操作订单',
-        confirmColor: '#fda414',
-        showCancel: false,
-        success: function(res) {
-          if (res.confirm) {
-            wx.switchTab({
-              url: '../services/services',
-            })
-          }
-        }
-      })
+      that.removeData(id);
     }, function(res) {
       if (res.data.code == "0005") {
         wx.showToast({
@@ -67,51 +55,74 @@ Page({
       }
     })
   },
+  removeData: function(id) {
+    let that = this;
+    let oList = that.data.oList;
+    for (let i = 0; i < oList.length; i++) {
+      if (id == oList[i].id) {
+        oList.splice(i--, 1);
+      }
+    }
+    that.setData({
+      oList: oList
+    })
+  },
+  resetData: function(obj) {
+    if (obj.reportType == 0) {
+      obj.reportTypeText = "水";
+    } else if (obj.reportType == 1) {
+      obj.reportTypeText = "电";
+    } else if (obj.reportType == 2) {
+      obj.reportTypeText = "燃气";
+    } else if (obj.reportType == 3) {
+      obj.reportTypeText = "门锁";
+    } else if (obj.reportType == 4) {
+      obj.reportTypeText = "其他";
+    }
+    if (obj.reportState == 0) {
+      obj.reportStateText = "申请中";
+    } else if (obj.reportState == 1) {
+      obj.reportStateText = "已接单";
+    } else if (obj.reportState == 2) {
+      obj.reportStateText = "已完成";
+    } else if (obj.reportState == 3) {
+      obj.reportStateText = "已评价";
+    } else if (obj.reportState == 4) {
+      obj.reportStateText = "已取消";
+    }
+    if (obj.score == 0) {
+      obj.scoreText = "吐槽";
+    } else if (obj.score == 1) {
+      obj.scoreText = "满意";
+    } else if (obj.score == 2) {
+      obj.scoreText = "超赞";
+    }
+    obj.createTime = app.setTime(obj.createTime, 1);
+    return obj;
+  },
   nextPage: function() {
     let that = this;
     app.loadMore(that, function() {
       let paras = {};
+      let reportState = that.data.reportState;
       let accountInfo = wx.getStorageSync('accountInfo');
-      if (that.data.reportState == 0) {
+      if (reportState == 0) {
         paras = {
           page: that.data.page,
-          reportState: that.data.reportState
+          reportState: reportState
         }
       } else {
         paras = {
           page: that.data.page,
           stuffId: accountInfo.id,
-          reportState: that.data.reportState
+          reportState: reportState
         }
       }
       let oldList = that.data.oList;
       app.request('POST', '/property/maintenance/queryList.do', paras, function(res) {
         let oList = res.data.data;
         for (let i = 0; i < oList.length; i++) {
-          if (oList[i].reportType == 0) {
-            oList[i].reportTypeText = "水";
-          } else if (oList[i].reportType == 1) {
-            oList[i].reportTypeText = "电";
-          } else if (oList[i].reportType == 2) {
-            oList[i].reportTypeText = "燃气";
-          } else if (oList[i].reportType == 3) {
-            oList[i].reportTypeText = "门锁";
-          } else if (oList[i].reportType == 4) {
-            oList[i].reportTypeText = "其他";
-          }
-          if (oList[i].reportState == 0) {
-            oList[i].reportStateText = "申请中";
-          } else if (oList[i].reportState == 1) {
-            oList[i].reportStateText = "已接单";
-          } else if (oList[i].reportState == 2) {
-            oList[i].reportStateText = "已完成";
-          } else if (oList[i].reportState == 3) {
-            oList[i].reportStateText = "已评价";
-          } else if (oList[i].reportState == 4) {
-            oList[i].reportStateText = "已取消";
-          }
-          oList[i].createTime = app.setTime(oList[i].createTime, 1);
-          oldlist.push(oList[i]);
+          oldList.push(that.resetData(oList[i]));
         }
         that.setData({
           oList: oldList
@@ -126,16 +137,16 @@ Page({
   },
   onLoad: function(options) {
     let that = this;
+    let reportState = options.reportState;
+    that.setData({
+      reportState: reportState
+    })
     let paras = {};
     let accountInfo = wx.getStorageSync('accountInfo');
-    that.setData({
-      page: 1,
-      reportState: options.reportstate
-    })
-    if (options.reportstate == 0) {
+    if (reportState == 0) {
       paras = {
         page: that.data.page,
-        reportState: options.reportstate
+        reportState: reportState
       }
       wx.setNavigationBarTitle({
         title: '业主报事',
@@ -144,9 +155,9 @@ Page({
       paras = {
         page: that.data.page,
         stuffId: accountInfo.id,
-        reportState: options.reportstate
+        reportState: reportState
       }
-      if (options.reportstate == 1) {
+      if (reportState == 1) {
         wx.setNavigationBarTitle({
           title: '维修任务',
         })
@@ -159,29 +170,7 @@ Page({
     app.request('POST', '/property/maintenance/queryList.do', paras, function(res) {
       let oList = res.data.data;
       for (let i = 0; i < oList.length; i++) {
-        if (oList[i].reportType == 0) {
-          oList[i].reportTypeText = "水";
-        } else if (oList[i].reportType == 1) {
-          oList[i].reportTypeText = "电";
-        } else if (oList[i].reportType == 2) {
-          oList[i].reportTypeText = "燃气";
-        } else if (oList[i].reportType == 3) {
-          oList[i].reportTypeText = "门锁";
-        } else if (oList[i].reportType == 4) {
-          oList[i].reportTypeText = "其他";
-        }
-        if (oList[i].reportState == 0) {
-          oList[i].reportStateText = "申请中";
-        } else if (oList[i].reportState == 1) {
-          oList[i].reportStateText = "已接单";
-        } else if (oList[i].reportState == 2) {
-          oList[i].reportStateText = "已完成";
-        } else if (oList[i].reportState == 3) {
-          oList[i].reportStateText = "已评价";
-        } else if (oList[i].reportState == 4) {
-          oList[i].reportStateText = "已取消";
-        }
-        oList[i].createTime = app.setTime(oList[i].createTime, 1);
+        oList[i] = that.resetData(oList[i]);
       }
       that.setData({
         oList: oList,

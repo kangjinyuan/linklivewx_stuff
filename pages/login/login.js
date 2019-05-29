@@ -50,7 +50,7 @@ Page({
       wx.setStorageSync("accountInfo", res.data.data);
       wx.setStorageSync("accessToken", res.data.accessToken);
       wx.switchTab({
-        url: '../services/services',
+        url: '../index/index',
       })
     }, function(res) {
       if (res.data.code == "0005") {

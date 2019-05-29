@@ -1,54 +1,52 @@
 let app = getApp();
 Page({
   data: {
-    newpwd: '',
-    checkpwd: '',
-    accountInfo: {}
+    newPassword: '',
+    checkPassword: ''
   },
-  bindpwd: function(e) {
+  getValue: function(e) {
     let that = this;
     let flag = e.currentTarget.dataset.flag;
     let value = e.detail.value;
     if (flag == 0) {
       that.setData({
-        newpwd: value
+        newPassword: value
       })
     } else if (flag == 1) {
       that.setData({
-        checkpwd: value
+        checkPassword: value
       })
     }
   },
-  setpwd: function(e) {
+  setPassword: function(e) {
     let that = this;
-    if (that.data.newpwd == '') {
+    let newPassword = that.data.newPassword;
+    let checkPassword = that.data.checkPassword;
+    if (newPassword == '') {
       wx.showToast({
         title: '请输入新密码',
         icon: 'none'
       })
       return false;
     }
-    if (that.data.checkpwd == '') {
+    if (checkPassword == '') {
       wx.showToast({
         title: '请确认密码',
         icon: 'none'
       })
       return false;
     }
-    if (that.data.checkpwd != that.data.newpwd) {
+    if (checkPassword != newPassword) {
       wx.showToast({
         title: '密码不一致',
         icon: 'none'
       })
       return false;
     }
-    let accountInfo = wx.getStorageSync('accountInfo');
     let paras = {
-      telephone: accountInfo.telephone,
-      password: that.data.checkpwd
+      password: checkPassword
     }
-    app.request('POST', '/account/stuff/update.do', paras, function(res) {
-      wx.setStorageSync("accountInfo", res.data.data);
+    app.request('POST', '/account/stuff/resetPassword.do', paras, function(res) {
       wx.navigateBack({
         delta: 1
       });

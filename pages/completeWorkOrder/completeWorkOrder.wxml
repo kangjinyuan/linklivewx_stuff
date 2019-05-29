@@ -1,0 +1,15 @@
+<view class="container-default">
+  <view class='form-box'>
+    <view class='module-box'>
+      <view class='module'>
+        <view class='form-content-box'>
+          <view class="form-textarea">
+            <textarea placeholder="请填写结果描述" value='{{eventDetail}}' bindinput='getEventDetail' maxlength="150"></textarea>
+          </view>
+          <view class='word-number'>{{eventDetail.length}}/150</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class='big-btn icon-bottom' bindtap='completeWorkOrder'>提交</view>
+</view>

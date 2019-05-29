@@ -1,0 +1,48 @@
+<view class="container-default">
+  <view class='common-info-box'>
+    <view class='common-list box-shadow'>
+      <view class='common-list-title-box common-list-work-order-title-box'>
+        <view class='common-list-title common-list-title-work-order'>{{checkTaskInfo.taskTitle}}</view>
+        <view class='common-list-type'>{{checkTaskInfo.taskTypeText}}</view>
+        <view class='common-list-state icon-top-right {{checkTaskInfo.stateTextColorClass}}'>{{checkTaskInfo.stateText}}</view>
+      </view>
+      <view class='common-info-content-box'>
+        <view class='common-info-content'>{{checkTaskInfo.taskContent}}</view>
+        <view class='image-box'>
+          <image wx:for="{{checkTaskInfo.taskImageList}}" wx:key="{{item}}" data-current='{{item}}' src="{{item}}?imageView2/1/w/140/h/140|imageslim" bindtap='previewImage'></image>
+        </view>
+      </view>
+      <view class='common-info-time'>{{checkTaskInfo.beginTime}} ~ {{checkTaskInfo.endTime}}</view>
+      <view class='common-info-alert'>{{checkTaskInfo.alertModeText}}提醒</view>
+    </view>
+    <view class='common-list box-shadow'>
+      <view class='check-task-stuff-list-box'>
+        <view class='check-task-stuff-list'>
+          <view class='check-task-stuff-list-name icon-top-left'>
+            创建人
+            <view class='check-task-stuff-list-name-sign icon-left'></view>
+          </view>
+          <view class='check-task-stuff-list-value'>
+            <view class='stuff-head-img' style="background-color:{{checkTaskInfo.creatorNameBackgroundColor}}">
+              {{checkTaskInfo.creatorNameText}}
+            </view>
+            <view class='stuff-name'>{{checkTaskInfo.creatorName}}</view>
+          </view>
+        </view>
+        <view class='check-task-stuff-list'>
+          <view class='check-task-stuff-list-name icon-top-left'>
+            <view class='check-task-stuff-list-name-sign icon-left'></view>
+            责任人
+          </view>
+          <view class='check-task-stuff-list-value'>
+            <view class='stuff-head-img' style="background-color:{{checkTaskInfo.chargerBackgroundColor}}">
+              {{checkTaskInfo.chargerText}}
+            </view>
+            <view class='stuff-name'>{{checkTaskInfo.charger}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view wx:if="{{checkTaskInfo.state == 0}}" class='big-btn' bindtap='toCompleteCheckTask'>完成</view>
+</view>

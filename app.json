@@ -1,6 +1,7 @@
 {
   "pages": [
-    "pages/services/services",
+    "pages/index/index",
+    "pages/communication/communication",
     "pages/mine/mine",
     "pages/login/login",
     "pages/order/order",
@@ -12,7 +13,21 @@
     "pages/meter/meter",
     "pages/face/face",
     "pages/faceCollection/faceCollection",
-    "pages/faceInfo/faceInfo"
+    "pages/faceInfo/faceInfo",
+    "pages/checkTask/checkTask",
+    "pages/temporaryCheckTaskInfo/temporaryCheckTaskInfo",
+    "pages/standardCheckTaskInfo/standardCheckTaskInfo",
+    "pages/standardInfo/standardInfo",
+    "pages/problemCategory/problemCategory",
+    "pages/addCheckTask/addCheckTask",
+    "pages/selectCommunication/selectCommunication",
+    "pages/completeCheckTask/completeCheckTask",
+    "pages/workOrder/workOrder",
+    "pages/workOrderInfo/workOrderInfo",
+    "pages/addWorkOrder/addWorkOrder",
+    "pages/issue/issue",
+    "pages/completeWorkOrder/completeWorkOrder",
+    "pages/assignOrTransfer/assignOrTransfer"
   ],
   "window": {
     "navigationBarTextStyle": "white",
@@ -27,10 +42,16 @@
     "backgroundColor": "#fff",
     "list": [
       {
-        "pagePath": "pages/services/services",
-        "iconPath": "images/icon-services1.png",
-        "selectedIconPath": "images/icon-service2.png",
-        "text": "服务"
+        "pagePath": "pages/communication/communication",
+        "iconPath": "images/icon-communication1.png",
+        "selectedIconPath": "images/icon-communication2.png",
+        "text": "通讯录"
+      },
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "images/icon-index1.png",
+        "selectedIconPath": "images/icon-index2.png",
+        "text": "工作台"
       },
       {
         "pagePath": "pages/mine/mine",

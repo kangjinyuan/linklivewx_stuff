@@ -1,0 +1,62 @@
+<view class="container-default">
+  <view class='common-info-box'>
+    <view class='common-list box-shadow'>
+      <view class='common-list-title-box common-list-work-order-title-box'>
+        <view class='common-list-title common-list-title-work-order'>{{workOrderInfo.orderReasonText}}</view>
+        <view class='common-list-type'>{{workOrderInfo.issueTypeText}}</view>
+        <view class='common-list-state icon-top-right {{workOrderInfo.stateTextColorClass}}'>{{workOrderInfo.stateText}}</view>
+      </view>
+      <view class='common-info-content-box'>
+        <view class='common-info-content'>{{workOrderInfo.orderDetail}}</view>
+        <view class='image-box' wx:if="{{workOrderInfo.orderImageList.length > 0}}">
+          <image wx:for="{{workOrderInfo.orderImageList}}" wx:key="{{item}}" data-current='{{item}}' src="{{item}}?imageView2/1/w/140/h/140|imageslim" bindtap='previewImage'></image>
+        </view>
+      </view>
+      <view class='address-box'>
+        <view class='icon-location icon-left'>
+          <image src='../../images/icon-location.png'></image>
+        </view>
+        {{workOrderInfo.orderAddress?workOrderInfo.orderAddress:'暂无工单地址'}}
+      </view>
+    </view>
+    <view class='common-list box-shadow'>
+      <view class='common-info-title-box'>
+        处理进度
+      </view>
+      <view class='speed-box'>
+        <view class='speed-list' wx:for="{{eventList}}" wx:key="{{item.id}}">
+          <view wx:if='{{index == 0}}' class='icon-speed2'>
+            <image src='../../images/icon-speed2.png'></image>
+          </view>
+          <view wx:else class='icon-speed1'>
+            <image src='../../images/icon-speed1.png'></image>
+          </view>
+          <view class='speed-title'>
+            {{item.event}}
+          </view>
+          <view class="speed-dir">
+            {{item.eventDetail}}
+          </view>
+          <view class='speed-dir' wx:if="{{index == eventList.length - 1}}">
+            计划结束时间：{{workOrderInfo.scheduleEndTime}}
+          </view>
+          <view class='speed-time'>
+            {{item.createTime}}
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class='btn-box' wx:if="{{workOrderInfo.state == 0}}">
+    <view data-flag='0' bindtap='operaOrder'>抢单</view>
+    <view class="{{assignOrTransferType?'':'disabled-btn'}}" data-flag='2' bindtap='operaOrder'>分派</view>
+  </view>
+  <view class='btn-box' wx:if="{{workOrderInfo.state == 1}}">
+    <view data-flag='1' bindtap='operaOrder'>执行</view>
+    <view class="{{assignOrTransferType?'':'disabled-btn'}}" data-flag='2' bindtap='operaOrder'>转发</view>
+  </view>
+  <view class='btn-box' wx:if="{{workOrderInfo.state == 2}}">
+    <view data-flag='3' bindtap='operaOrder'>完成</view>
+    <view class="{{assignOrTransferType?'':'disabled-btn'}}" data-flag='2' bindtap='operaOrder'>转发</view>
+  </view>
+</view>

@@ -1,0 +1,10 @@
+<view class="container-default">
+  <view class='category-box'>
+    <view class='category-list' wx:for="{{problemCategoryList}}" wx:key="{{item.id}}" bindtap='selectProblemCategory' data-problem-category='{{item}}'>
+      {{item.title}}
+      <view class='icon-select-category icon-right' wx:if="{{selected == item.id}}">
+        <image src='../../images/icon-select-category.png'></image>
+      </view>
+    </view>
+  </view>
+</view>

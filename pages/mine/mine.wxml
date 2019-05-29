@@ -1,44 +1,42 @@
-<view class="container">
-  <view class='mine-box'>
-    <view class='mine-info'>
-      <view class='mine-info-bg'>
-        <image src='../../images/mine-bg.png'></image>
+<view class="container-default container-white container-flex">
+  <view class='mine-info'>
+    <view class='mine-info-bg'>
+      <image src='../../images/mine-bg.png'></image>
+    </view>
+    <view class='mine-info-box'>
+      <view class='headimg'>
+        <image src='{{accountInfo.headimage}}'></image>
       </view>
-      <view class='mine-info-box'>
-        <view class='headimg'>
-          <image src='{{accountInfo.headimage}}'></image>
-        </view>
-        <view class='info'>
-          <view class='info-text'>{{accountInfo.name}}</view>
-          <view class='info-text tel'>
-            <view class='icon-stuff-tel icon-left'>
-              <image src='../../images/icon-stuff-tel.png'></image>
-            </view>
-            {{accountInfo.telephone}}
+      <view class='info'>
+        <view class='info-text'>{{accountInfo.name}}</view>
+        <view class='info-text tel'>
+          <view class='icon-stuff-tel icon-left'>
+            <image src='../../images/icon-stuff-tel.png'></image>
           </view>
+          {{accountInfo.telephone}}
         </view>
       </view>
     </view>
-    <view class='mine-service'>
-      <view class='service-list' data-page='../order/order?reportstate=2' bindtap='topages'>
-        <view class='icon icon-left'>
-          <image src='../../images/icon-maintenance.png'></image>
-        </view>
-        <view class='icon-jump icon-right'>
-          <image src='../../images/icon-jump.png'></image>
-        </view>
-        维修记录
-      </view>
-      <view class='service-list' data-page='../updatePassword/updatePassword' bindtap='topages'>
-        <view class='icon icon-left'>
-          <image src='../../images/icon-update-password.png'></image>
-        </view>
-        <view class='icon-jump icon-right'>
-          <image src='../../images/icon-jump.png'></image>
-        </view>
-        修改密码
-      </view>
-    </view>
-    <view class='big-btn' bindtap='loginOut'>退出登录</view>
   </view>
+  <view class='mine-service'>
+    <view class='service-list' data-page='../order/order?reportState=2' bindtap='topages'>
+      <view class='icon icon-left'>
+        <image src='../../images/icon-maintenance.png'></image>
+      </view>
+      <view class='icon-jump icon-right'>
+        <image src='../../images/icon-jump.png'></image>
+      </view>
+      维修记录
+    </view>
+    <view class='service-list' data-page='../updatePassword/updatePassword' bindtap='topages'>
+      <view class='icon icon-left'>
+        <image src='../../images/icon-update-password.png'></image>
+      </view>
+      <view class='icon-jump icon-right'>
+        <image src='../../images/icon-jump.png'></image>
+      </view>
+      修改密码
+    </view>
+  </view>
+  <view class='big-btn' bindtap='loginOut'>退出登录</view>
 </view>

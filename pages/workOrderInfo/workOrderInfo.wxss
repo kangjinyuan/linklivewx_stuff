@@ -1,0 +1,22 @@
+.btn-box {
+  width: 656rpx;
+  height: 88rpx;
+  margin: 30rpx auto;
+}
+
+.btn-box view {
+  width: 280rpx;
+  height: 100%;
+  border-radius: 10rpx;
+  float: left;
+  margin-right: 96rpx;
+  background-color: #fda414;
+  font-size: 30rpx;
+  line-height: 88rpx;
+  color: #fff;
+  text-align: center;
+}
+
+.btn-box view:last-child {
+  margin-right: 0rpx;
+}

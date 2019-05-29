@@ -1,0 +1,137 @@
+<view class="container-default">
+  <view class='form-box'>
+    <view class="module-box">
+      <view class="module">
+        <view class="form-list">
+          <view class="form-list-name">标题
+            <text>*</text>
+          </view>
+          <view class="form-list-value">
+            <input data-flag="0" type="text" name="" value="{{title}}" placeholder="请输入" bindinput="getValue" />
+          </view>
+        </view>
+        <view class='form-content-box'>
+          <view class="form-textarea">
+            <textarea placeholder="请填写任务描述（必填）" value='{{taskContent}}' bindinput='getValue' data-flag='1' maxlength="150"></textarea>
+          </view>
+          <view class='word-number'>{{taskContent.length}}/150</view>
+          <view class="upload-img-box">
+            <view class="upload-img" wx:for="{{imageList}}" wx:key="{{item.key}}">
+              <image src="{{item.imageURL+'?imageView2/1/w/140/h/140'}}"></image>
+              <view data-index='{{index}}' class='del-img' bindtap='delImg'>
+                <image src='../../images/del-img.png'></image>
+              </view>
+            </view>
+            <view class="upload-img" bindtap='uploadImg' wx:if="{{imageList.length < 3}}">
+              <image src="../../images/icon-add-img.png"></image>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="module-box">
+      <view class="module">
+        <view class="form-list">
+          <view class="icon-right icon-jump">
+            <image src="../../images/icon-jump.png"></image>
+          </view>
+          <view class="form-list-name">
+            开始日期
+            <text>*</text>
+          </view>
+          <view class="form-list-value form-margin-right">
+            <picker data-flag='2' mode="date" value="{{startTime}}" bindchange="getValue">
+              <view class='text' wx:if="{{startTime}}">
+                {{startTime}}
+              </view>
+              <view class='placeholder' wx:else>
+                请选择开始日期
+              </view>
+            </picker>
+          </view>
+        </view>
+        <view class="form-list">
+          <view class="form-list-circle form-list-circle-begin icon-left"></view>
+          <view class="icon-right icon-jump">
+            <image src="../../images/icon-jump.png"></image>
+          </view>
+          <view class="form-list-name form-margin-left">
+            开始时间
+          </view>
+          <view class="form-list-value form-margin-right">
+            <picker data-flag='3' mode="time" value="{{beginTime}}" bindchange="getValue">
+              <view class='text' wx:if="{{beginTime}}">
+                {{beginTime}}
+              </view>
+              <view class='placeholder' wx:else>
+                请选择开始时间
+              </view>
+            </picker>
+          </view>
+        </view>
+        <view class="form-list">
+          <view class="form-list-circle form-list-circle-end icon-left"></view>
+          <view class="icon-right icon-jump">
+            <image src="../../images/icon-jump.png"></image>
+          </view>
+          <view class="form-list-name form-margin-left">
+            结束时间
+          </view>
+          <view class="form-list-value form-margin-right">
+            <picker data-flag='4' mode="time" value="{{endTime}}" bindchange="getValue">
+              <view class='text' wx:if="{{endTime}}">
+                {{endTime}}
+              </view>
+              <view class='placeholder' wx:else>
+                请选择结束时间
+              </view>
+            </picker>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="module-box">
+      <view class="module">
+        <view class="form-list" bindtap='selectcharger'>
+          <view class="icon-right icon-jump">
+            <image src="../../images/icon-jump.png"></image>
+          </view>
+          <view class="form-list-name">
+            执行人
+          </view>
+          <view class="form-list-value form-margin-right">
+            {{stuffInfo?stuffInfo.name:"自己"}}
+          </view>
+        </view>
+        <view class="form-list">
+          <view class="icon-right icon-jump">
+            <image src="../../images/icon-jump.png"></image>
+          </view>
+          <view class="form-list-name">
+            提醒
+          </view>
+          <view class="form-list-value form-margin-right">
+            <picker data-flag='5' bindchange="getValue" value="{{alertIndex}}" range="{{alertArray}}">
+              <view class="text">{{alertArray[alertIndex]}}</view>
+            </picker>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="module-box">
+      <view class="module">
+        <view class="form-list">
+          <view class="form-list-name">
+            是否紧急
+          </view>
+          <view class="form-list-value">
+            <switch bindchange='getValue' data-flag='6' color='#fda414' />
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class='btn-box'>
+    <view class='big-btn icon-center' bindtap='addCheckTask'>提交</view>
+  </view>
+</view>

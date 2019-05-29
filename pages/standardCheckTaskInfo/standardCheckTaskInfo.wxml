@@ -1,0 +1,57 @@
+<view class="container-default">
+  <view class='common-info-box'>
+    <view class='common-list box-shadow'>
+      <view class='common-list-title-box common-list-work-order-title-box'>
+        <view class='common-list-title common-list-title-work-order'>{{checkTaskInfo.taskTitle}}</view>
+        <view class='common-list-type'>{{checkTaskInfo.taskTypeText}}</view>
+        <view class='common-list-state icon-top-right {{checkTaskInfo.stateTextColorClass}}'>{{checkTaskInfo.stateText}}</view>
+      </view>
+      <view class='common-info-time'>{{checkTaskInfo.beginTime}} ~ {{checkTaskInfo.endTime}}</view>
+      <view class='check-task-stuff-list-box'>
+        <view class='check-task-stuff-list'>
+          <view class='check-task-stuff-list-name icon-top-left'>
+            创建人
+            <view class='check-task-stuff-list-name-sign icon-left'></view>
+          </view>
+          <view class='check-task-stuff-list-value'>
+            <view class='stuff-head-img' style="background-color:{{checkTaskInfo.creatorNameBackgroundColor}}">
+              {{checkTaskInfo.creatorNameText}}
+            </view>
+            <view class='stuff-name'>{{checkTaskInfo.creatorName}}</view>
+          </view>
+        </view>
+        <view class='check-task-stuff-list'>
+          <view class='check-task-stuff-list-name icon-top-left'>
+            <view class='check-task-stuff-list-name-sign icon-left'></view>
+            责任人
+          </view>
+          <view class='check-task-stuff-list-value'>
+            <view class='stuff-head-img' style="background-color:{{checkTaskInfo.chargerBackgroundColor}}">
+              {{checkTaskInfo.chargerText}}
+            </view>
+            <view class='stuff-name'>{{checkTaskInfo.charger}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class='fold-box'>
+      <view class='fold-list-box box-shadow' wx:for="{{checkTaskInfo.standardExecutionList}}" wx:key="{{item.id}}">
+        <view class='fold-list-title-box' data-id='{{item.id}}' bindtap='switchActive'>
+          <view class='flod-list-title-text'>{{item.standardName}}</view>
+          <view class='fold-list-title-code icon-center'>{{item.standardCode}}</view>
+          <view class='fold-list-state'>{{item.stateText}}</view>
+          <view class='icon-fold-arrow icon-right'>
+            <image wx:if="{{item.isActive == true}}" src='../../images/icon-fold-arrow-up.png'></image>
+            <image wx:else src='../../images/icon-fold-arrow-down.png'></image>
+          </view>
+        </view>
+        <view class='fold-list-item-box' wx:if="{{item.isActive == true}}">
+          <view class='fold-list' wx:for="{{item.resultExecutionList}}" wx:key="{{item.id}}" data-standard-execution='{{item}}' bindtap='toStandardInfo'>
+            <view class='fold-list-text'>{{item.pointName}}</view>
+            <view class='fold-list-state'>{{item.checkResultText}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

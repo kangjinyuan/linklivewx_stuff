@@ -1,40 +1,45 @@
 .login-box {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-.icon-logo {
-  width: 220rpx;
-  height: 220rpx;
-  margin: 76rpx auto 110rpx;
-  overflow: hidden;
-}
-
-.login-con {
   width: 630rpx;
-  overflow: hidden;
   margin: 0rpx auto;
 }
 
+.login-title {
+  width: 100%;
+  margin: 150rpx auto;
+  font-size: 48rpx;
+  line-height: 48rpx;
+  color: #333;
+  font-weight: 500;
+}
+
+.login-con {
+  width: 100%;
+  overflow: hidden;
+}
+
 .login-value {
-  width: 566rpx;
-  height: 86rpx;
-  padding-left: 64rpx;
-  border-bottom: 1rpx solid #999;
+  width: 100%;
+  padding-bottom: 30rpx;
+  border-bottom: 2rpx solid #f5f5f5;
   position: relative;
+  margin-bottom: 60rpx;
+  overflow: hidden;
+}
+
+.login-value:last-child {
+  margin-bottom: 0rpx;
 }
 
 .login-value input {
+  display: block;
   width: 100%;
-  height: 100%;
+  height: 28rpx;
   font-size: 28rpx;
-  line-height: 86rpx;
+  line-height: 28rpx;
   color: #333;
 }
 
 .big-btn {
-  width: 630rpx;
+  width: 100%;
+  margin-top: 100rpx;
 }

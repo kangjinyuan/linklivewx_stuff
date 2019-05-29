@@ -6,7 +6,7 @@ Page({
     keyList: []
   },
   openDoor: function(e) {
-    let keyInfo = e.currentTarget.dataset.keyinfo;
+    let keyInfo = e.currentTarget.dataset.keyInfo;
     let paras = {
       deviceSn: keyInfo.deviceSn
     }

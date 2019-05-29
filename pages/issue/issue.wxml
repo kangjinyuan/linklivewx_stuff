@@ -1,0 +1,30 @@
+<view class="container-default container-flex ">
+  <view class='tab-box'>
+    <view class='tab-list' wx:for="{{tabList}}" wx:key="{{item.issueType}}" data-issue-type='{{item.issueType}}' bindtap='tabState'>
+      <view class="text {{state == item.issueType ? 'selectedColor' : ''}}">{{item.title}}</view>
+      <view wx:if="{{issueType == item.issueType}}" class='selected'></view>
+    </view>
+  </view>
+  <view class='no-data-box' wx:if='{{dataList.length == 0}}'>
+    <view class='no-data'>
+      <view class='icon-common-no-data'>
+        <image src='../../images/icon-common-no-data.png'></image>
+      </view>
+      <view class='text' wx:if="{{issueType == '2'}}">当前没有设施哦</view>
+      <view class='text' wx:if="{{issueType == '1'}}">当前没有设备哦</view>
+    </view>
+  </view>
+  <scroll-view wx:else scroll-y="true" bindscrolltolower="nextPage">
+    <view class='category-box'>
+      <view class='category-list' wx:for="{{dataList}}" wx:key="{{item.id}}" bindtap='selectIssue' data-issue='{{item}}'>
+        {{issueType == 2 ? item.facilityName : item.equipmentName}}
+        <view class='icon-select-category icon-right' wx:if="{{selected == item.id}}">
+          <image src='../../images/icon-select-category.png'></image>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+  <view class='fixed-btn' bindtap='scanCode'>
+    <image src='../../images/scan-code-fixed-btn.png'></image>
+  </view>
+</view>

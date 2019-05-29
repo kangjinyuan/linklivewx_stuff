@@ -114,7 +114,7 @@ Page({
       })
       that.loadRooms(buildingCode, unit);
     } else if (showRoom == false) {
-      let roomInfo = e.currentTarget.dataset.roominfo;
+      let roomInfo = e.currentTarget.dataset.roomInfo;
       that.getMeter(roomInfo);
     } else if (showFee == false) {
       let feeIndex = e.currentTarget.dataset.index;
@@ -407,7 +407,7 @@ Page({
           content: '本社区没有抄表的缴费项目',
           confirmColor: '#fda414',
           showCancel: false,
-          success: function (res) {
+          success: function(res) {
             if (res.confirm) {
               wx.navigateBack({
                 delta: 1

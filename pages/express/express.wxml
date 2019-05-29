@@ -1,17 +1,15 @@
-<view class="container">
-  <view class='express-box'>
-    <view class='express-title'>录入快递</view>
-    <view class='opera-box box-shadow'>
-      <view class='opera-input'>
-        <input class='full-input' type='text' name='' value='{{kdaddress}}' placeholder='请输入物业代收点详细地址' data-flag='0' bindinput='bindValue' />
-      </view>
-      <view class='opera-input'>
-        <input type='text' name='' value='{{code}}' placeholder='输入或扫一扫快递单号' confirm-type='done' data-flag='1' bindinput='bindValue' />
-        <view class='icon icon-right' bindtap='scanCode'>
-          <image src='../../images/icon-scan-code.png'></image>
-        </view>
+<view class="container-default">
+  <view class='express-title'>录入快递</view>
+  <view class='opera-box box-shadow'>
+    <view class='opera-input'>
+      <input class='full-input' type='text' name='' value='{{expressAddress}}' placeholder='请输入物业代收点详细地址' data-flag='0' bindinput='bindValue' />
+    </view>
+    <view class='opera-input'>
+      <input type='text' name='' value='{{code}}' placeholder='输入或扫一扫快递单号' confirm-type='done' data-flag='1' bindinput='bindValue' />
+      <view class='icon icon-right' bindtap='scanCode'>
+        <image src='../../images/icon-scan-code.png'></image>
       </view>
     </view>
-    <view class='big-btn' bindtap='setCode'>确定</view>
   </view>
+  <view class='big-btn' bindtap='setCode'>确定</view>
 </view>

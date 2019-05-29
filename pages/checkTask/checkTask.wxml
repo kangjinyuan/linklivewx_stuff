@@ -1,0 +1,65 @@
+<view class="container-default container-flex">
+  <view class="calendar-box">
+    <view class='calendar-title-box'>
+      <view class='calendar-title-date'>{{selectCurrentMonth}}</view>
+      <view class='calendar-title-today' bindtap='today' wx:if="{{currentDate != selectCurrentDate}}">今日</view>
+    </view>
+    <view class='week-box'>
+      <view wx:for="{{weekArray}}" wx:key="key">{{item}}</view>
+    </view>
+    <view class='date-box' wx:if="{{calendarSwitch}}" bindtouchstart="touchStart" bindtouchmove="touchMove" bindtouchend="touchEnd">
+      <view class="date-key" wx:for="{{dateArray}}" wx:key="{{index}}" data-time='{{item.time}}' bindtap='selectDate'>
+        <view class="{{selectCurrentDate == item.time?'selected':''}}">{{currentDate == item.time?'今':item.date}}</view>
+      </view>
+    </view>
+    <view class='date-box' wx:else>
+      <view class="date-key" wx:for="{{weekDateArray}}" wx:key="{{index}}" data-time='{{item.time}}' bindtap='selectDate'>
+        <view class="{{selectCurrentDate == item.time?'selected':''}}">{{currentDate == item.time?'今':item.date}}</view>
+      </view>
+    </view>
+    <view class='calendar-switch-box' bindtap='calendarSwitch'>
+      <view wx:if="{{calendarSwitch}}" class='icon-center icon-calendar-up'>
+        <image src='../../images/icon-calendar-up.png'></image>
+      </view>
+      <view wx:else class='icon-center icon-calendar-down'>
+        <image src='../../images/icon-calendar-down.png'></image>
+      </view>
+    </view>
+  </view>
+  <view class='tab-box'>
+    <view class='tab-list' wx:for="{{tabList}}" wx:key="{{item.state}}" data-state='{{item.state}}' bindtap='tabState'>
+      <view class="text {{state == item.state ? 'selectedColor':''}}">{{item.name}}</view>
+      <view wx:if="{{state == item.state}}" class='selected'></view>
+      <view wx:if="{{count > 0 && item.state == '0'}}" class="check-task-count {{count < 10 ? 'check-task-count-circle':''}}">{{count}}</view>
+    </view>
+  </view>
+  <view class='no-data-box' wx:if='{{checkTaskList.length == 0}}'>
+    <view class='no-data'>
+      <view class='icon-common-no-data'>
+        <image src='../../images/icon-common-no-data.png'></image>
+      </view>
+      <view class='text'>当前没有任务记录</view>
+    </view>
+  </view>
+  <scroll-view wx:else scroll-y="true" bindscrolltolower="nextPage">
+    <view class='common-list-box'>
+      <view wx:for="{{checkTaskList}}" wx:key="{{item.id}} " data-check-task-info='{{item}}' data-flag='{{item.taskType == 2?0:1}}' class='common-list common-work-order-list {{item.borderColorClass}} box-shadow' bindtap='checkTaskInfo'>
+        <view class='common-list-title-box'>
+          <view class='common-list-title common-list-title-work-order'>{{item.taskTitle}}</view>
+          <view class='common-list-type'>{{item.taskTypeText}}</view>
+        </view>
+        <view class='common-list-content-box'>
+          <view class='common-list-text'>计划开始时间：{{item.beginTime}}</view>
+          <view class='common-list-text'>计划结束时间：{{item.endTime}}</view>
+        </view>
+        <view class='common-list-work-order-state {{item.stateTextColorClass}}'>{{item.stateText}}</view>
+        <view wx:if="{{item.urgency==1}}" class='icon-top-right icon-check-task-urgent'>
+          <image src='../../images/icon-check-task-urgent.png'></image>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+  <view class='fixed-btn' bindtap='addCheckTask'>
+    <image src='../../images/add-fixed-btn.png'></image>
+  </view>
+</view>

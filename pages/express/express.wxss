@@ -1,8 +1,3 @@
-.express-box {
-  width: 100%;
-  overflow: hidden;
-}
-
 .express-title {
   width: 690rpx;
   margin: 0rpx auto;

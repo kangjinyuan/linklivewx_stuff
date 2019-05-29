@@ -1,0 +1,92 @@
+<view class="container-default">
+  <view class='form-box'>
+    <view class="module-box">
+      <view class="module">
+        <view class="form-list" bindtap='selectProblemCategory'>
+          <view class="icon-right icon-jump">
+            <image src="../../images/icon-jump.png"></image>
+          </view>
+          <view class="form-list-name">请选择原因类别
+            <text>*</text>
+          </view>
+          <view class="form-list-value form-margin-right">
+            <view wx:if="{{problemCategory}}" class='text'>{{problemCategory.title}}</view>
+            <view wx:else class='placeholder'>请选择原因类别</view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class='module-box' bindtap='toISsue'>
+      <view class='module'>
+        <view class="form-list">
+          <view class="icon-right icon-jump">
+            <image src="../../images/icon-jump.png"></image>
+          </view>
+          <view class="form-list-name">请选择设施设备
+          </view>
+          <view class="form-list-value form-margin-right">
+            <view wx:if="{{issue && issueType == 1}}" class='text'>{{issue.equipmentName}} {{issue.equipmentCode}} </view>
+            <view wx:elif="{{issue && issueType == 2}}" class='text'>{{issue.facilityName}} {{issue.facilityCode}} </view>
+            <view wx:else class='placeholder'>请选择设施设备</view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class='module-box'>
+      <view class='module'>
+        <view class="form-list">
+          <view class="form-list-name">工单地址
+            <text>*</text>
+          </view>
+          <view class="form-list-value">
+            <input data-flag="0" type="text" name="" value="{{orderAddress}}" placeholder="请输入工单地址" bindinput="getValue" />
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class='module-box'>
+      <view class='module'>
+        <view class="form-list">
+          <view class="icon-right icon-jump">
+            <image src="../../images/icon-jump.png"></image>
+          </view>
+          <view class="form-list-name">计划结束时间
+            <text>*</text>
+          </view>
+          <view class="form-list-value form-margin-right">
+            <picker data-flag='1' mode="multiSelector" value="{{scheduleEndTime}}" bindchange="getValue" bindcolumnchange="changeDateTimeColumn" range="{{scheduleEndTimeArray}}">
+              <view class='text' wx:if="{{scheduleEndTimeText}}">
+                {{scheduleEndTimeText}}
+              </view>
+              <view class='placeholder' wx:else>
+                请选择计划结束时间
+              </view>
+            </picker>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="module-box">
+      <view class="module">
+        <view class='form-content-box'>
+          <view class="form-textarea">
+            <textarea placeholder="请填写工单描述（必填）" value='{{orderDetail}}' bindinput='getValue' data-flag='2' maxlength="150"></textarea>
+          </view>
+          <view class='word-number'>{{orderDetail.length}}/150</view>
+          <view class="upload-img-box">
+            <view class="upload-img" wx:for="{{imageList}}" wx:key="{{item.key}}">
+              <image src="{{item.imageURL+'?imageView2/1/w/140/h/140'}}"></image>
+              <view data-index='{{index}}' class='del-img' bindtap='delImg'>
+                <image src='../../images/del-img.png'></image>
+              </view>
+            </view>
+            <view class="upload-img" bindtap='uploadImg' wx:if="{{imageList.length < 3}}">
+              <image src="../../images/icon-add-img.png"></image>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class='big-btn' bindtap='addWorkOrder'>提交</view>
+</view>

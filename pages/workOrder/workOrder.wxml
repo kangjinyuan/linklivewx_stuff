@@ -1,0 +1,39 @@
+<view class="container-default container-flex">
+  <view class='tab-box'>
+    <view class='tab-list' wx:for="{{tabList}}" wx:key="{{item.state}}" data-state='{{item.state}}' bindtap='tabState'>
+      <view class="text {{state == item.state ? 'selectedColor':''}}">{{item.title}}</view>
+      <view wx:if="{{state == item.state}}" class='selected'></view>
+    </view>
+  </view>
+  <view class='no-data-box' wx:if='{{workOrderList.length == 0}}'>
+    <view class='no-data'>
+      <view class='icon-common-no-data'>
+        <image src='../../images/icon-common-no-data.png'></image>
+      </view>
+      <view class='text'>当前没有工单哦</view>
+    </view>
+  </view>
+  <scroll-view wx:else scroll-y="true" bindscrolltolower="nextPage">
+    <view class='common-list-box'>
+      <view class='common-list common-work-order-list {{item.borderColorClass}}' wx:for="{{workOrderList}}" wx:key="{{item.id}}" data-work-order-info='{{item}}' bindtap='workOrderInfo'>
+        <view class='common-list-title-box'>
+          <view class='common-list-title common-list-title-work-order'>{{item.orderReasonText}}</view>
+          <view class='common-list-type'>{{item.issueTypeText}}</view>
+        </view>
+        <view class='common-list-content-box'>
+          <view class='common-list-text'>创建时间：{{item.createTime}}</view>
+          <view class='common-list-text'>计划结束时间：{{item.scheduleEndTime}}</view>
+          <view class='common-list-text common-list-dir'>创建人：{{item.creatorName}} {{item.creatorTelephone}}</view>
+          <view class='common-list-text common-list-dir'>{{item.orderAddress?item.orderAddress:'暂无工单地址'}}</view>
+        </view>
+        <view class='common-list-work-order-state {{item.stateTextColorClass}}'>{{item.stateText}}</view>
+      </view>
+    </view>
+  </scroll-view>
+  <view class='fixed-btn' bindtap='addWorkOrder'>
+    <image src='../../images/add-fixed-btn.png'></image>
+  </view>
+  <view class='fixed-btn scan-code-fixed-btn' bindtap='scanCode'>
+    <image src='../../images/scan-code-fixed-btn.png'></image>
+  </view>
+</view>

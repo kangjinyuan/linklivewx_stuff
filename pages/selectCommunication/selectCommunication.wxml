@@ -1,0 +1,42 @@
+<view class="container-default container-white container-flex">
+  <view class='sreach-box'>
+    <view class='sreach'>
+      <view class='icon-left icon-sreach-left icon-sreach'>
+        <image src='../../images/icon-sreach.png'></image>
+      </view>
+      <view class='sreach-input'>
+        <input type='text' name='' value='' placeholder='请输入员工姓名' bindinput='sreachStuff'></input>
+      </view>
+    </view>
+  </view>
+  <view class='letter-box'>
+    <view wx:if='{{item.childList.length > 0}}' wx:for='{{stuffList}}' wx:key="{{item.code}}" data-anchor='{{item.anchor}}' bindtap='pageScrollTo'>{{item.code}}</view>
+  </view>
+  <view class='no-data-box' wx:if='{{dataList.length == 0}}'>
+    <view class='no-data'>
+      <view class='icon-common-no-data'>
+        <image src='../../images/icon-common-no-data.png'></image>
+      </view>
+      <view class='text'>当前没有员工信息</view>
+    </view>
+  </view>
+  <scroll-view scroll-y="true" scroll-into-view="{{anchor}}" wx:else>
+    <view class='letter-list-box'>
+      <view wx:if='{{item.childList.length > 0}}' class='letter-list' wx:for='{{stuffList}}' wx:key="{{item.code}}" id='{{item.anchor}}'>
+        <view class='letter-list-code'>{{item.code}}</view>
+        <view class='letter-list-value-box'>
+          <view class='letter-list-value' wx:for='{{item.childList}}' wx:key="{{item.id}}" data-stuff-info='{{item}}' bindtap='selectStuff'>
+            <view class='letter-list-head-img' wx:if="{{item.headimage}}">
+              <image src="{{orderInfo.headimage}}?imageView2/1/w/80/h/80|imageslim"></image>
+            </view>
+            <view class='letter-list-head-img' style="background-color:{{item.headImageBackgroundColor}}" wx:else>{{item.latterTwoCharacters}}</view>
+            <view class='letter-list-user-box'>
+              <view class='letter-list-user-name'>{{item.name}}</view>
+              <view class='letter-list-user-telephone'>{{item.telephone}}</view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+</view>

@@ -13,9 +13,9 @@ Page({
   },
   loginOut: function() {
     let that = this;
-    wx.setStorageSync("accessToken", '');
+    wx.setStorageSync("accessToken", "");
     wx.switchTab({
-      url: '../services/services',
+      url: '../index/index',
     })
   },
   onShow: function(options) {

@@ -45,6 +45,32 @@ function uploadImg(type, filePath, that, callback) {
   });
 }
 
+function chooseUploadImg(that, count) {
+  let imageList = that.data.imageList;
+  wx.chooseImage({
+    count: count - imageList.length,
+    sizeType: ['compressed'],
+    sourceType: ['album', 'camera'],
+    success: function(res) {
+      let tempFilePaths = res.tempFilePaths;
+      for (let i = 0; i < tempFilePaths.length; i++) {
+        let filePath = tempFilePaths[i];
+        uploadImg("0", filePath, that, function(res) {
+          let obj = {
+            imageURL: res.imageURL,
+            key: res.key
+          }
+          imageList.push(obj);
+          that.setData({
+            imageList: imageList
+          })
+        })
+      }
+    },
+  })
+}
+
 module.exports = {
   uploadImg: uploadImg,
+  chooseUploadImg: chooseUploadImg
 }

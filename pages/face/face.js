@@ -20,7 +20,7 @@ Page({
   },
   del: function(e) {
     let that = this;
-    let faceInfo = e.currentTarget.dataset.faceinfo;
+    let faceInfo = e.currentTarget.dataset.faceInfo;
     let idList = [];
     idList.push(faceInfo.id);
     let paras = {
@@ -37,7 +37,7 @@ Page({
   },
   faceInfo: function(e) {
     let that = this;
-    let faceInfo = JSON.stringify(e.currentTarget.dataset.faceinfo);
+    let faceInfo = JSON.stringify(e.currentTarget.dataset.faceInfo);
     let showFaceCollection = that.data.showFaceCollection;
     if (showFaceCollection) {
       wx.navigateTo({

@@ -2,7 +2,7 @@ let app = getApp();
 Page({
   data: {
     code: '',
-    kdaddress: ''
+    expressAddress: ''
   },
   bindValue: function(e) {
     let that = this;
@@ -10,9 +10,9 @@ Page({
     let value = e.detail.value;
     if (flag == 0) {
       that.setData({
-        kdaddress: value
+        expressAddress: value
       })
-      wx.setStorageSync('kdaddress', value);
+      wx.setStorageSync('expressAddress', value);
     } else if (flag == 1) {
       that.setData({
         code: value
@@ -21,27 +21,22 @@ Page({
   },
   scanCode: function(e) {
     let that = this;
-    wx.scanCode({
-      scanType: ['barCode'],
-      success: function(res) {
-        console.log(res.scanType)
-        if (res.scanType == 'QR_CODE' || res.scanType == 'WX_CODE' || res.scanType == 'PDF_417' || res.scanType == 'DATA_MATRIX') {
-          wx.showToast({
-            title: '请扫描正确的快递单号',
-            icon: 'none'
-          })
-        } else {
-          that.setData({
-            code: res.result
-          })
-          that.setCode();
-        }
-      }
-    })
+    let scanType = ['barCode'];
+    app.scanCode(scanType, function(res) {
+      that.setData({
+        code: res.result
+      })
+      that.setCode();
+    }, function(res) {
+      wx.showToast({
+        title: '请扫描正确的快递单号',
+        icon: 'none'
+      })
+    });
   },
   setCode: function() {
     let that = this;
-    if (that.data.kdaddress == '') {
+    if (that.data.expressAddress == '') {
       wx.showToast({
         title: '请先完善地址信息',
         icon: 'none'
@@ -57,7 +52,7 @@ Page({
     }
     let paras = {
       code: that.data.code,
-      address: that.data.kdaddress
+      address: that.data.expressAddress
     }
     app.request("POST", "/property/express/receive.do", paras, function(res) {
       wx.showToast({
@@ -80,9 +75,9 @@ Page({
   },
   onShow: function() {
     let that = this;
-    let kdaddress = wx.getStorageSync('kdaddress');
+    let expressAddress = wx.getStorageSync('expressAddress');
     that.setData({
-      kdaddress: kdaddress
+      expressAddress: expressAddress
     })
   }
 })

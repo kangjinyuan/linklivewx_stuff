@@ -1,22 +1,22 @@
-<view class="container">
+<view class="container-default container-white  container-flex">
   <view class='face-describe'>为了提高广大业主通行体验，需要进行人脸登记，面部信息仅用于通行社区时使用。</view>
   <view class='face-box'>
     <view class='face-list-box'>
       <view class='face-list'>
         <view class='face-list-title'>正面照</view>
-        <view class='face-list-image' data-faceinfo='{{faceList[0]}}' bindtap='faceInfo'>
+        <view class='face-list-image' data-face-info='{{faceList[0]}}' bindtap='faceInfo'>
           <image mode='aspectFill' src='{{faceList[0].faceUrl}}'></image>
         </view>
       </view>
       <view class='face-list'>
         <view class='face-list-title'>左侧面</view>
-        <view class='face-list-image' data-faceinfo='{{faceList[1]}}' bindtap='faceInfo'>
+        <view class='face-list-image' data-face-info='{{faceList[1]}}' bindtap='faceInfo'>
           <image mode='aspectFill' src='{{faceList[1].faceUrl}}'></image>
         </view>
       </view>
       <view class='face-list'>
         <view class='face-list-title'>右侧面</view>
-        <view class='face-list-image' data-faceinfo='{{faceList[2]}}' bindtap='faceInfo'>
+        <view class='face-list-image' data-face-info='{{faceList[2]}}' bindtap='faceInfo'>
           <image mode='aspectFill' src='{{faceList[2].faceUrl}}'></image>
         </view>
       </view>

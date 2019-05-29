@@ -1,34 +1,36 @@
-<view class="container">
-  <view class='order-box'>
-    <view class='order-list box-shadow'>
-      <view class='order-type'>
-        <view class='icon icon-left'>
+<view class="container-default">
+  <view class='common-info-box'>
+    <view class='common-list box-shadow'>
+      <view class='common-list-title-box'>
+        <view class='icon icon-top-left'>
           <image wx:if='{{orderInfo.reportType == 0}}' src='../../images/icon-water.png'></image>
           <image wx:if='{{orderInfo.reportType == 1}}' src='../../images/icon-electric.png'></image>
           <image wx:if='{{orderInfo.reportType == 2}}' src='../../images/icon-coalgas.png'></image>
           <image wx:if='{{orderInfo.reportType == 3}}' src='../../images/icon-lock.png'></image>
           <image wx:if='{{orderInfo.reportType == 4}}' src='../../images/icon-other.png'></image>
         </view>
-        {{orderInfo.reportTypeText}}
-        <view class='order-type-text'>{{orderInfo.reportStateText}}</view>
+        <view class='common-list-title common-list-title-order'>
+          {{orderInfo.reportTypeText}}
+        </view>
+        <view class='common-list-state icon-top-right'>{{orderInfo.reportStateText}}</view>
       </view>
-      <view class='orderinfo-dir-box'>
-        {{orderInfo.description}}
+      <view class='common-info-content-box'>
+        <view class='common-info-content'>{{orderInfo.description}}</view>
+        <view class='image-box' wx:if='{{orderInfo.image0 || orderInfo.image1 || orderInfo.image2}}'>
+          <image bindtap='previewImage' wx:if='{{orderInfo.image0}}' data-current='{{orderInfo.image0}}' src="{{orderInfo.image0}}?imageView2/1/w/140/h/140|imageslim"></image>
+          <image bindtap='previewImage' wx:if='{{orderInfo.image1}}' data-current='{{orderInfo.image1}}' src='{{orderInfo.image1}}?imageView2/1/w/140/h/140|imageslim'></image>
+          <image bindtap='previewImage' wx:if='{{orderInfo.image2}}' data-current='{{orderInfo.image2}}' src='{{orderInfo.image2}}?imageView2/1/w/140/h/140|imageslim'></image>
+        </view>
       </view>
-      <view class='image-box'>
-        <image bindtap='previewImage' wx:if='{{orderInfo.image0}}' data-src='{{orderInfo.image0}}' src="{{orderInfo.image0}}?imageView2/1/w/136/h/136|imageslim"></image>
-        <image bindtap='previewImage' wx:if='{{orderInfo.image1}}' data-src='{{orderInfo.image1}}' src='{{orderInfo.image1}}?imageView2/1/w/136/h/136|imageslim'></image>
-        <image bindtap='previewImage' wx:if='{{orderInfo.image2}}' data-src='{{orderInfo.image2}}' src='{{orderInfo.image2}}?imageView2/1/w/136/h/136|imageslim'></image>
-      </view>
-      <view class='order-type' style='border-bottom: 0rpx solid #ccc;'>
-        <view class='icon-dw icon-left'>
-          <image src='../../images/icon-dw.png'></image>
+      <view class='address-box'>
+        <view class='icon-location icon-left'>
+          <image src='../../images/icon-location.png'></image>
         </view>
         {{orderInfo.reportAddress}}
       </view>
     </view>
-    <view class='order-list box-shadow'>
-      <view class='orderinfo-title'>
+    <view class='common-list box-shadow'>
+      <view class='common-info-title-box'>
         处理进度
       </view>
       <view class='speed-box'>
@@ -39,7 +41,7 @@
           <view wx:else class='icon-speed1'>
             <image src='../../images/icon-speed1.png'></image>
           </view>
-          <view class='speed-dir'>
+          <view class='speed-title'>
             {{item.event}}
           </view>
           <view class='speed-time'>
@@ -48,8 +50,8 @@
         </view>
       </view>
     </view>
-    <view wx:if='{{orderInfo.remark}}' class='order-list box-shadow'>
-      <view class='orderinfo-title'>
+    <view wx:if='{{orderInfo.remark}}' class='common-list box-shadow'>
+      <view class='common-info-title-box'>
         维修评价
       </view>
       <view class='comment-box'>

@@ -1,4 +1,4 @@
-<view class="container">
+<view class="container-default container-white">
   <view class='select-address-box select-fee-box' hidden='{{showFee}}'>
     <view class='select-address select-fee'>
       <view class='select-address-text' wx:for='{{feeList}}' wx:key="{{item.id}}" data-index='{{index}}' bindtap='selectValue'>{{item.feeName}}</view>
@@ -16,7 +16,7 @@
   </view>
   <view class='select-address-box' hidden='{{showRoom}}'>
     <view class='select-address'>
-      <view class='select-address-text' wx:for='{{roomsList}}' wx:key="{{item.id}}" data-roominfo='{{item}}' bindtap='selectValue'>{{item.code}}</view>
+      <view class='select-address-text' wx:for='{{roomsList}}' wx:key="{{item.id}}" data-room-info='{{item}}' bindtap='selectValue'>{{item.code}}</view>
     </view>
   </view>
   <view class='preview-box' hidden='{{showPreview}}'>

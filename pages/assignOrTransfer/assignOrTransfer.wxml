@@ -1,0 +1,28 @@
+<view class="container-default">
+  <view class='form-box'>
+    <view class='module-box'>
+      <view class='module'>
+        <view class="form-list" bindtap='selectcharger'>
+          <view class="icon-right icon-jump">
+            <image src="../../images/icon-jump.png"></image>
+          </view>
+          <view class="form-list-name">
+            负责人
+            <text>*</text>
+          </view>
+          <view class="form-list-value form-margin-right">
+            <view class='text' wx:if="{{stuffInfo}}">{{stuffInfo.name}}</view>
+            <view class='placeholder'>请选择负责人</view>
+          </view>
+        </view>
+        <view class='form-content-box'>
+          <view class="form-textarea">
+            <textarea placeholder="请填写工单描述{{assignOrTransferType == 0?'':'（必填）'}}" value='{{eventDetail}}' maxlength="150" bindinput='getEventDetail'></textarea>
+          </view>
+          <view class='word-number'>{{eventDetail.length}}/150</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class='big-btn icon-bottom' bindtap='assignOrTransfer'>提交</view>
+</view>

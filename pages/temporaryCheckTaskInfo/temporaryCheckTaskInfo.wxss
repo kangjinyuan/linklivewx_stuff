@@ -1,0 +1,4 @@
+.common-info-time {
+  margin-top: 24rpx;
+  margin-bottom: 0rpx;
+}

@@ -1,4 +1,4 @@
-<view class='container'>
+<view class='container-default'>
   <view class='no-data-box' wx:if='{{keyList.length == 0}}'>
     <view class='no-data'>
       <view class='icon-key-no-data'>
@@ -7,9 +7,9 @@
       <view class='text'>当前没有远程钥匙</view>
     </view>
   </view>
-  <scroll-view wx:else class='scrollbox' scroll-y="true " bindscrolltolower="nextPage">
+  <scroll-view wx:else scroll-y="true " bindscrolltolower="nextPage">
     <view class='key-box'>
-      <view class='key-list-box box-shadow' wx:for='{{keyList}}' wx:key="{{item.id}}" data-keyinfo='{{item}}' bindtap='openDoor'>
+      <view class='key-list-box box-shadow' wx:for='{{keyList}}' wx:key="{{item.id}}" data-key-info='{{item}}' bindtap='openDoor'>
         <view class='key-list'>
           <view class='icon-key icon-left'>
             <image src='../../images/icon-key.png'></image>

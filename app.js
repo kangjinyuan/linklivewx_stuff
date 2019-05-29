@@ -3,16 +3,15 @@ App({
   onLaunch: function() {
     let that = this;
     // 展示本地存储能力
-    var logs = wx.getStorageSync('logs') || []
-    logs.unshift(Date.now())
+    let logs = wx.getStorageSync('logs') || [];
+    logs.unshift(Date.now());
     wx.setStorageSync('logs', logs);
   },
   toLogin: function(callback) {
     let that = this;
     let accessToken = wx.getStorageSync("accessToken");
-    let accountInfo = wx.getStorageSync("accountInfo");
-    if (accessToken && accountInfo.dutyScope) {
-      callback(accountInfo);
+    if (accessToken) {
+      callback();
     } else {
       wx.showModal({
         title: '邻客管家',
@@ -30,6 +29,17 @@ App({
       })
     }
   },
+  resetSort: function(flag, property) {
+    return function(a, b) {
+      if (flag == 0) {
+        // 越小越靠前
+        return a[property] - b[property];
+      } else if (flag == 1) {
+        // 越大越靠前
+        return b[property] - a[property];
+      }
+    }
+  },
   request: function(method, rurl, paras, okcallback, nocallback) {
     wx.showLoading({
       title: 'loading···',
@@ -37,12 +47,14 @@ App({
     })
     let that = this;
     let accessToken = wx.getStorageSync("accessToken");
-    let xqinfo = wx.getStorageSync("xqinfo");
+    let communityInfo = wx.getStorageSync("communityInfo");
+    let accountInfo = wx.getStorageSync("accountInfo");
     let timestamp = new Date().getTime();
     if (method == "POST") {
       paras.accessToken = accessToken;
-      paras.communityId = xqinfo.id;
-      paras.communityName = xqinfo.name;
+      paras.communityId = communityInfo.id;
+      paras.communityName = communityInfo.name;
+      paras.pmcId = accountInfo.pmcId;
       paras = JSON.stringify(paras);
     }
     wx.request({
@@ -106,13 +118,18 @@ App({
     });
     callback();
   },
-  setTime: function(time, flag) {
+  stringToTime: function(time) {
     if (typeof(time) == "string") {
       time = time.substring(0, 19);
       time = time.replace(/-/g, '/');
     } else {
       time = time;
     }
+    return time;
+  },
+  setTime: function(time, flag) {
+    let that = this;
+    time = that.stringToTime(time);
     let date = new Date(time);
     let Y = date.getFullYear();
     let M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1);
@@ -133,6 +150,18 @@ App({
     } else if (flag == 5) {
       return Y;
     }
+  },
+  setTimeStamp: function(time) {
+    let that = this;
+    time = that.stringToTime(time);
+    let date = new Date(time).getTime();
+    return date;
+  },
+  tomorrowDate: function(newDate) {
+    let that = this;
+    newDate = that.stringToTime(newDate);
+    let tomorrowDate = newDate + 1 * 24 * 60 * 60 * 1000;
+    return tomorrowDate;
   },
   camera: function(callback) {
     wx.getSetting({
@@ -164,10 +193,38 @@ App({
       }
     })
   },
+  prevPage: function(number) {
+    let pages = getCurrentPages();
+    let prevPage = pages[pages.length - number];
+    return prevPage;
+  },
+  latterTwoCharacters: function(string) {
+    return string.substring(string.length - 2, string.length);
+  },
+  scanCode: function(scanType, okCallback, noCallback) {
+    let that = this;
+    wx.scanCode({
+      scanType: scanType,
+      success: function(res) {
+        if (scanType == "barCode") {
+          if (res.scanType == 'QR_CODE' || res.scanType == 'WX_CODE' || res.scanType == 'PDF_417' || res.scanType == 'DATA_MATRIX') {
+            noCallback(res);
+            return false;
+          }
+        } else if (scanType == "qrCode") {
+          if (res.scanType == 'AZTEC' || res.scanType == 'CODABAR' || res.scanType == 'CODE_39' || res.scanType == 'CODE_93' || res.scanType == 'CODE_128' || res.scanType == 'EAN_8' || res.scanType == 'EAN_13' || res.scanType == 'ITF' || res.scanType == 'MAXICODE' || res.scanType == 'RSS_14' || res.scanType == 'RSS_EXPANDED' || res.scanType == 'UPC_A' || res.scanType == 'UPC_E' || res.scanType == 'UPC_EAN_EXTENSION' || res.scanType == 'CODE_25') {
+            noCallback(res);
+            return false;
+          }
+        }
+        okCallback(res);
+      }
+    })
+  },
   globalData: {
     crurl: 'http://test.api.15275317531.com',
     // crurl: 'https://api.15275317531.com',
-    // crurl: 'http://192.168.1.114:8080',
+    // crurl: 'http://192.168.0.109:8080',
     imgrurl: 'http://img.guostory.com/',
     userInfo: {}
   }

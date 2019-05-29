@@ -1,4 +1,4 @@
-<view class="container">
+<view class="container-default">
   <view class='face-info-box'>
     <image mode='aspectFit' src='{{faceInfo.faceUrl}}'></image>
   </view>
