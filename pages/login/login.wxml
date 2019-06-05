@@ -1,6 +1,6 @@
 <view class="container-default container-white container-flex">
   <view class='login-box'>
-    <view class='login-title'>欢迎登录邻客员工端</view>
+    <view class='login-title'>欢迎登录邻客管家</view>
     <view class='login-con'>
       <view class='login-value'>
         <input data-flag='0' type='number' name='' value='{{telephone}}' placeholder='请输入手机号' bindinput='getvalue' />

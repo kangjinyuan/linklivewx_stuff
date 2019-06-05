@@ -1,23 +1,116 @@
-<view class="container-default container-white container-flex" wx:if="{{accountInfo}}">
-  <view class='location-box' bindtap='selectCommunity'>
-    <view class='icon-location icon-left'>
-      <image src='../../images/icon-location.png'></image>
+<view class="container-default" wx:if="{{accountInfo}}">
+  <view class='location-box icon-top-left' bindtap='selectCommunity'>
+    <view class='location'>
+      <view class='icon-location icon-left'>
+        <image src='../../images/icon-location-white.png'></image>
+      </view>
+      <view class='text'>{{communityInfo? communityInfo.name:'请选择社区'}}</view>
+      <view class='icon-select-location'>
+        <image src='../../images/icon-select-location.png'></image>
+      </view>
     </view>
-    <view class='text'>{{communityInfo? communityInfo.name:'请选择社区'}}</view>
   </view>
   <view class='services-box'>
-    <view class='services-list' wx:for='{{accountInfo.dutyScope}}' wx:key="{{item.id}}" wx:if="{{item.checked == true}}" data-id='{{item.id}}' bindtap='topages'>
-      <view class='services-icon'>
-        <image wx:if="{{item.id == 0}}" src='../../images/icon-proprietor-maintenance.png'></image>
-        <image wx:if="{{item.id == 1}}" src='../../images/icon-maintenance.png'></image>
-        <image wx:if="{{item.id == 2}}" src='../../images/icon-express.png'></image>
-        <image wx:if="{{item.id == 3}}" src='../../images/icon-meter.png'></image>
-        <image wx:if="{{item.id == 4}}" src='../../images/icon-open-door.png'></image>
-        <image wx:if="{{item.id == 5}}" src='../../images/icon-face.png'></image>
-        <image wx:if="{{item.id == 6}}" src='../../images/icon-check-task.png'></image>
-        <image wx:if="{{item.id == 7}}" src='../../images/icon-work-order.png'></image>
+    <view class='services-box-bg icon-top-left'>
+      <image src='../../images/services-box-bg.png'></image>
+    </view>
+    <view class='swiper-box box-shadow'>
+      <swiper indicator-dots='true' indicator-color='#ccc' indicator-active-color='#fda414'>
+        <swiper-item wx:for='{{servicesList}}' wx:key="{{item.id}}">
+          <view class='services-list' wx:for="{{item.dataList}}" wx:key="{{item.id}}" data-id='{{item.id}}' bindtap='topages'>
+            <view class='services-icon'>
+              <image wx:if="{{item.id == 0}}" src='../../images/icon-proprietor-maintenance.png'></image>
+              <image wx:if="{{item.id == 1}}" src='../../images/icon-maintenance.png'></image>
+              <image wx:if="{{item.id == 2}}" src='../../images/icon-express.png'></image>
+              <image wx:if="{{item.id == 3}}" src='../../images/icon-meter.png'></image>
+              <image wx:if="{{item.id == 4}}" src='../../images/icon-open-door.png'></image>
+              <image wx:if="{{item.id == 5}}" src='../../images/icon-face.png'></image>
+              <image wx:if="{{item.id == 6}}" src='../../images/icon-check-task.png'></image>
+              <image wx:if="{{item.id == 7}}" src='../../images/icon-work-order.png'></image>
+            </view>
+            <view class='text'>{{item.title}}</view>
+          </view>
+        </swiper-item>
+      </swiper>
+    </view>
+  </view>
+  <view class='common-list-box'>
+    <view class='schedule-end-time-box'>以下数据截止至{{scheduleEndTime}}</view>
+    <view class='common-list proprietor-maintenance-list-box box-shadow'>
+      <view class='index-title-box'>
+        业主报事情况
+        <view class='index-title-line icon-left'></view>
       </view>
-      <view class='text'>{{item.title}}</view>
+      <view class='index-list-box'>
+        <view class='proprietor-maintenance-list'>
+          <view class='index-list-count'>{{reportInfo.incompleteCount}}</view>
+          <view class='index-list-text'>未完成</view>
+        </view>
+        <view class='proprietor-maintenance-list'>
+          <view class='index-list-count'>{{reportInfo.completeCount}}</view>
+          <view class='index-list-text'>已完成</view>
+        </view>
+        <view class='proprietor-maintenance-list'>
+          <view class='index-list-count'>{{reportInfo.completeRatio}}%</view>
+          <view class='index-list-text'>完成率</view>
+        </view>
+        <view class='proprietor-maintenance-list'>
+          <view class='index-list-count'>{{reportInfo.goodCommentRatio}}%</view>
+          <view class='index-list-text'>好评率</view>
+        </view>
+      </view>
+    </view>
+    <view class='common-list box-shadow'>
+      <view class='index-title-box'>
+        工作计划
+        <view class='index-title-line icon-left'></view>
+      </view>
+      <view class='index-list-box'>
+        <view class='check-task-list'>
+          <view class='check-task-list-con-box'>
+            <view class='icon-check-task-list icon-complete-count'>
+              <image src='../../images/icon-complete-count.png'></image>
+            </view>
+            <view class='check-task-list-text-box'>
+              <view class='index-list-text'>标准完成量</view>
+              <view class='index-list-count'>{{taskInfo.completeCount}}</view>
+            </view>
+          </view>
+        </view>
+        <view class='check-task-list'>
+          <view class='check-task-list-con-box'>
+            <view class='icon-check-task-list icon-problem-count'>
+              <image src='../../images/icon-problem-count.png'></image>
+            </view>
+            <view class='check-task-list-text-box'>
+              <view class='index-list-text'>发现问题量</view>
+              <view class='index-list-count'>{{taskInfo.issueCount}}</view>
+            </view>
+          </view>
+        </view>
+        <view class='check-task-list'>
+          <view class='check-task-list-con-box'>
+            <view class='icon-check-task-list icon-complete-rate'>
+              <image src='../../images/icon-complete-rate.png'></image>
+            </view>
+            <view class='check-task-list-text-box'>
+              <view class='index-list-text'>标准完成率</view>
+              <view class='index-list-count'>{{taskInfo.completeRatio}}%</view>
+            </view>
+          </view>
+        </view>
+        <view class='check-task-list'>
+          <view class='check-task-list-con-box'>
+            <view class='icon-check-task-list icon-problem-rate'>
+              <image src='../../images/icon-problem-rate.png'></image>
+            </view>
+            <view class='check-task-list-text-box'>
+              <view class='index-list-text'>发现问题率</view>
+              <view class='index-list-count'>{{taskInfo.issueRatio}}%</view>
+            </view>
+          </view>
+        </view>
+      </view>
     </view>
   </view>
 </view>

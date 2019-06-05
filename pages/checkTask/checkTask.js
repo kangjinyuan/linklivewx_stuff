@@ -36,7 +36,8 @@ Page({
     let that = this;
     let state = e.currentTarget.dataset.state;
     that.setData({
-      state: state
+      state: state,
+      page: 1
     })
     that.onLoad();
   },
@@ -145,9 +146,9 @@ Page({
   resetData: function(obj) {
     let colorArray = ["#fcac66", "#a4a8f4", "#86d8f3", "#f88777"];
     obj.creatorNameText = app.latterTwoCharacters(obj.creatorName);
-    obj.creatorNameBackgroundColor = colorArray[Math.floor(Math.random() * colorArray.length)];
+    obj.creatorNameBackgroundColor = app.randomData(colorArray);
     obj.chargerText = app.latterTwoCharacters(obj.charger);
-    obj.chargerBackgroundColor = colorArray[Math.floor(Math.random() * colorArray.length)];
+    obj.chargerBackgroundColor = app.randomData(colorArray);
     obj.startTime = app.setTime(obj.startTime, 3);
     obj.beginTime = app.setTime(obj.startTime + " " + obj.beginTime, 1);
     obj.endTime = app.setTime(obj.startTime + " " + obj.endTime, 1);

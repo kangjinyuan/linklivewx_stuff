@@ -27,7 +27,7 @@
         <view class='letter-list-value-box'>
           <view class='letter-list-value' wx:for='{{item.childList}}' wx:key="{{item.id}}" data-stuff-info='{{item}}' bindtap='selectStuff'>
             <view class='letter-list-head-img' wx:if="{{item.headimage}}">
-              <image src="{{orderInfo.headimage}}?imageView2/1/w/80/h/80|imageslim"></image>
+              <image src="{{item.headimage}}?imageView2/1/w/80/h/80|imageslim"></image>
             </view>
             <view class='letter-list-head-img' style="background-color:{{item.headImageBackgroundColor}}" wx:else>{{item.latterTwoCharacters}}</view>
             <view class='letter-list-user-box'>

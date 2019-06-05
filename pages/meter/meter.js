@@ -118,18 +118,13 @@ Page({
       that.getMeter(roomInfo);
     } else if (showFee == false) {
       let feeIndex = e.currentTarget.dataset.index;
+      that.setData({
+        feeIndex: feeIndex,
+        showFee: true
+      })
       let roomInfo = that.data.roomInfo;
       if (roomInfo) {
-        that.setData({
-          feeIndex: feeIndex,
-          showFee: true
-        })
         that.getMeter(roomInfo);
-      } else {
-        wx.showToast({
-          title: '请选择房间号',
-          icon: "none"
-        })
       }
     }
   },

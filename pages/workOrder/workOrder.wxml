@@ -7,15 +7,15 @@
   </view>
   <view class='no-data-box' wx:if='{{workOrderList.length == 0}}'>
     <view class='no-data'>
-      <view class='icon-common-no-data'>
-        <image src='../../images/icon-common-no-data.png'></image>
+      <view class='icon-order-no-data'>
+        <image src='../../images/icon-order-no-data.png'></image>
       </view>
       <view class='text'>当前没有工单哦</view>
     </view>
   </view>
   <scroll-view wx:else scroll-y="true" bindscrolltolower="nextPage">
     <view class='common-list-box'>
-      <view class='common-list common-work-order-list {{item.borderColorClass}}' wx:for="{{workOrderList}}" wx:key="{{item.id}}" data-work-order-info='{{item}}' bindtap='workOrderInfo'>
+      <view class='common-list common-work-order-list box-shadow {{item.borderColorClass}}' wx:for="{{workOrderList}}" wx:key="{{item.id}}" data-work-order-info='{{item}}' bindtap='workOrderInfo'>
         <view class='common-list-title-box'>
           <view class='common-list-title common-list-title-work-order'>{{item.orderReasonText}}</view>
           <view class='common-list-type'>{{item.issueTypeText}}</view>

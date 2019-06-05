@@ -149,6 +149,18 @@ App({
       return Y + "-" + M;
     } else if (flag == 5) {
       return Y;
+    } else if (flag == 6) {
+      return Y + "年" + M + "月" + D + "日 " + h + "时" + m + "分" + s + "秒";
+    } else if (flag == 7) {
+      return Y + "年" + M + "月" + D + "日 " + h + "时" + m + "分";
+    } else if (flag == 8) {
+      return Y + "年" + M + "月" + D + "日 " + h + "时";
+    } else if (flag == 9) {
+      return Y + "年" + M + "月" + D + "日";
+    } else if (flag == 10) {
+      return Y + "年" + M + "月";
+    } else if (flag == 11) {
+      return Y + "年";
     }
   },
   setTimeStamp: function(time) {
@@ -221,10 +233,44 @@ App({
       }
     })
   },
+  randomData: function(dataList) {
+    let res = dataList[Math.floor(Math.random() * dataList.length)];
+    return res;
+  },
+  setPageData: function(dataList, pageSize) {
+    let totalPage = Math.ceil(dataList.length / pageSize);
+    let newDataList = [];
+    for (let i = 0; i < totalPage; i++) {
+      let obj = {
+        id: i,
+        dataList: []
+      }
+      newDataList.push(obj);
+    }
+    for (let i = 0; i < newDataList.length; i++) {
+      for (let j = 0; j < dataList.length; j++) {
+        if (j >= pageSize * i && j < pageSize * (i + 1)) {
+          newDataList[i].dataList.push(dataList[j]);
+        }
+      }
+    }
+    return newDataList;
+  },
+  pullDownRefresh: function(that, callback) {
+    wx.startPullDownRefresh({
+      success: function(res) {
+        that.setData({
+          page: 1
+        })
+        callback(res);
+        wx.stopPullDownRefresh();
+      }
+    })
+  },
   globalData: {
     crurl: 'http://test.api.15275317531.com',
     // crurl: 'https://api.15275317531.com',
-    // crurl: 'http://192.168.0.109:8080',
+    // crurl: 'http://192.168.0.200:8080',
     imgrurl: 'http://img.guostory.com/',
     userInfo: {}
   }

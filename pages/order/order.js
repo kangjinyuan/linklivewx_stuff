@@ -27,7 +27,8 @@ Page({
     let that = this;
     let reportState = e.currentTarget.dataset.reportState;
     that.setData({
-      reportState: reportState
+      reportState: reportState,
+      page: 1
     })
     let options = {};
     options.reportState = reportState;

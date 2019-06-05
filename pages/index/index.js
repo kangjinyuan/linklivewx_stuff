@@ -2,7 +2,11 @@ let app = getApp();
 Page({
   data: {
     communityInfo: "",
-    accountInfo: ""
+    accountInfo: "",
+    serviceList: [],
+    scheduleEndTime: app.setTime(new Date(), 9),
+    reportInfo: {},
+    taskInfo: {}
   },
   selectCommunity: function() {
     let that = this;
@@ -55,6 +59,36 @@ Page({
       })
     }
   },
+  getReprotInfo: function() {
+    let that = this;
+    let paras = {};
+    app.request("POST", "/statistics/stuff/report.do", paras, function(res) {
+      let reportInfo = res.data.data[0];
+      that.setData({
+        reportInfo: reportInfo
+      })
+    }, function(res) {
+      wx.showToast({
+        title: '无法连接服务器，请检查您的网络或重试',
+        icon: "none"
+      })
+    });
+  },
+  getTaskInfo: function() {
+    let that = this;
+    let paras = {};
+    app.request("POST", "/statistics/stuff/task.do", paras, function(res) {
+      let taskInfo = res.data.data[0];
+      that.setData({
+        taskInfo: taskInfo
+      })
+    }, function(res) {
+      wx.showToast({
+        title: '无法连接服务器，请检查您的网络或重试',
+        icon: "none"
+      })
+    });
+  },
   onShow: function(options) {
     let that = this;
     app.toLogin(function() {
@@ -67,14 +101,22 @@ Page({
         let stuffInfo = res.data.data[0];
         let dutyScope = JSON.parse(stuffInfo.dutyScope);
         dutyScope = dutyScope.sort(app.resetSort(1, "sort"));
-        let privilege = JSON.parse(stuffInfo.privilege);
+        for (let i = 0; i < dutyScope.length; i++) {
+          if (dutyScope[i].checked == false) {
+            dutyScope.splice(i--, 1);
+          }
+        }
         stuffInfo.dutyScope = dutyScope;
+        let privilege = JSON.parse(stuffInfo.privilege);
         stuffInfo.privilege = privilege;
         wx.setStorageSync('accountInfo', stuffInfo);
         that.setData({
           communityInfo: communityInfo,
-          accountInfo: stuffInfo
+          accountInfo: stuffInfo,
+          servicesList: app.setPageData(dutyScope, 4)
         })
+        that.getReprotInfo();
+        that.getTaskInfo();
       }, function(res) {
         wx.setStorageSync("accessToken", "");
         that.onShow();

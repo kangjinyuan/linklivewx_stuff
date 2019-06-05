@@ -35,8 +35,8 @@
   </view>
   <view class='no-data-box' wx:if='{{checkTaskList.length == 0}}'>
     <view class='no-data'>
-      <view class='icon-common-no-data'>
-        <image src='../../images/icon-common-no-data.png'></image>
+      <view class='icon-order-no-data'>
+        <image src='../../images/icon-order-no-data.png'></image>
       </view>
       <view class='text'>当前没有任务记录</view>
     </view>

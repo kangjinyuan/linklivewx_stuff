@@ -103,9 +103,9 @@ Page({
         let prevPage = app.prevPage(2);
         let prevTowPage = app.prevPage(3);
         if (checkTaskInfo.state == 1) {
-          preTowPage.removeData(checkTaskInfo.id);
-          let count = prevPage.data.count;
-          prevPage.setData({
+          prevTowPage.removeData(checkTaskInfo.id);
+          let count = prevTowPage.data.count;
+          prevTowPage.setData({
             count: count - 1
           })
           wx.navigateBack({

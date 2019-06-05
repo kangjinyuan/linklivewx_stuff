@@ -27,7 +27,8 @@ Page({
     let that = this;
     let state = e.currentTarget.dataset.state;
     that.setData({
-      state: state
+      state: state,
+      page: 1
     })
     that.onLoad();
   },

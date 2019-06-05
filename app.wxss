@@ -11,7 +11,8 @@ image {
 scroll-view {
   width: 100%;
   height: 100%;
-  overflow: auto;
+  overflow: hidden;
+  position: relative;
 }
 
 .container-default {
@@ -49,6 +50,11 @@ scroll-view {
 .icon-location {
   width: 34rpx;
   height: 38rpx;
+}
+
+.icon-select-location {
+  width: 16rpx;
+  height: 10rpx;
 }
 
 .icon-key {
@@ -128,14 +134,14 @@ scroll-view {
   height: 14rpx;
 }
 
-.icon image, .icon-dw image, .icon-speed image, .icon-comment image,
-.icon-logo image, .no-data image, .mine-info-bg image, .headimg image,
-.icon-sreach image, .icon-select image, .icon-select-line image, .icon-key image,
-.icon-call-telephone image, icon-calendar-down image, icon-calendar-up image,
-.icon-check-task-urgent image, .icon-select-category image, .fixed-btn image,
-.icon-fold-arrow image {
-  width: 100%;
-  height: 100%;
+.icon-complete-count {
+  width: 45rpx;
+  height: 48rpx;
+}
+
+.icon-complete-rate, .icon-problem-count, .icon-problem-rate {
+  width: 48rpx;
+  height: 48rpx;
 }
 
 .icon-left {
@@ -645,7 +651,7 @@ scroll-view {
 /* 投影 */
 
 .box-shadow {
-  box-shadow: 0rpx 0rpx 25rpx 6rpx #f9eedc;
+  box-shadow: 0rpx 0rpx 25rpx 2rpx rgba(191, 107, 0, 0.26);
 }
 
 /* 操作输入框 */

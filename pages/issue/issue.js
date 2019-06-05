@@ -9,8 +9,9 @@ Page({
       issueType: "1",
       title: "设备"
     }],
-    selected: "",
-    issueType: "2",
+    facilitySelected: "",
+    equipmentSelected: "",
+    issueType: "",
     dataList: [],
     totalPage: '',
     page: 1
@@ -18,12 +19,23 @@ Page({
   tabState: function(e) {
     let that = this;
     let issueType = e.currentTarget.dataset.issueType;
+    let equipmentSelected = that.data.equipmentSelected;
+    let facilitySelected = that.data.facilitySelected;
     that.setData({
-      issueType: issueType
-    })
-    let options = {
       issueType: issueType,
-      id: ""
+      page: 1
+    })
+    let options = {};
+    if (issueType == "1") {
+      options = {
+        issueType: issueType,
+        id: equipmentSelected
+      }
+    } else if (issueType == "2") {
+      options = {
+        issueType: issueType,
+        id: facilitySelected
+      }
     }
     that.onLoad(options);
   },
@@ -122,7 +134,16 @@ Page({
   onLoad: function(options) {
     let that = this;
     let issueType = options.issueType ? options.issueType : "2";
-    let selected = options.id;
+    let id = options.id;
+    if (issueType == "1") {
+      that.setData({
+        equipmentSelected: id
+      })
+    } else if (issueType == "2") {
+      that.setData({
+        facilitySelected: id
+      })
+    }
     let paras = {
       page: that.data.page,
       state: 1
@@ -137,7 +158,6 @@ Page({
       that.setData({
         dataList: res.data.data,
         issueType: issueType,
-        selected: selected,
         totalPage: res.data.totalPage
       })
     }, function(res) {

@@ -61,7 +61,7 @@ Page({
           dataList[i].headimage = imgrurl + dataList[i].headimage;
         }
         dataList[i].latterTwoCharacters = app.latterTwoCharacters(dataList[i].name);
-        dataList[i].headImageBackgroundColor = colorArray[Math.floor(Math.random() * colorArray.length)];
+        dataList[i].headImageBackgroundColor = app.randomData(colorArray);
       }
       that.setData({
         dataList: res.data.data

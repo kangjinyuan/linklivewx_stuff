@@ -21,7 +21,7 @@
   <view class='mine-service'>
     <view class='service-list' data-page='../order/order?reportState=2' bindtap='topages'>
       <view class='icon icon-left'>
-        <image src='../../images/icon-maintenance.png'></image>
+        <image src='../../images/icon-maintenance-mine.png'></image>
       </view>
       <view class='icon-jump icon-right'>
         <image src='../../images/icon-jump.png'></image>
