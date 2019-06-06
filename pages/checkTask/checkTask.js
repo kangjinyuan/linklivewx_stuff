@@ -1,14 +1,14 @@
 let calendar = require("../../utils/calendar.js");
 let app = getApp();
 let newDate = app.setTimeStamp(new Date());
-let tomorrowDate = app.tomorrowDate(newDate);
+let endTime = app.setEndTime(app.setTime(newDate, 3), 1);
 Page({
   data: {
     currentDate: app.setTime(newDate, 3),
     selectCurrentDate: app.setTime(newDate, 3),
     selectCurrentMonth: "",
     startTime: app.setTime(app.setTime(newDate, 3), 0),
-    endTime: app.setTime(app.setTime(tomorrowDate, 3), 0),
+    endTime: app.setTime(endTime, 0),
     dateArray: [],
     weekDateArray: [],
     weekArray: ["日", "一", "二", "三", "四", "五", "六"],
@@ -106,8 +106,7 @@ Page({
     let time = e.currentTarget.dataset.time;
     if (time) {
       let startTime = app.setTime(time, 0);
-      let endTime = app.tomorrowDate(app.setTimeStamp(startTime));
-      endTime = app.setTime(app.setTime(endTime, 3), 0);
+      let endTime = app.setTime(app.setEndTime(startTime, 1), 0);
       that.setData({
         selectCurrentDate: time,
         startTime: startTime,
@@ -119,14 +118,13 @@ Page({
   },
   today: function() {
     let that = this;
-    let selectCurrentDate = app.setTime(newDate, 3);
-    let startTime = app.setTime(selectCurrentDate, 0);
-    let endTime = app.tomorrowDate(newDate);
-    endTime = app.setTime(app.setTime(endTime, 3), 0)
+    let newDate = app.setTimeStamp(new Date());
+    let endTime = app.setEndTime(app.setTime(newDate, 3), 1);
     that.setData({
-      selectCurrentDate: selectCurrentDate,
-      startTime: startTime,
-      endTime: endTime
+      currentDate: app.setTime(newDate, 3),
+      selectCurrentDate: app.setTime(newDate, 3),
+      startTime: app.setTime(app.setTime(newDate, 3), 0),
+      endTime: app.setTime(endTime, 0)
     });
     calendar.gotoCurrentMonth();
     that.onLoad();
@@ -152,10 +150,11 @@ Page({
     obj.startTime = app.setTime(obj.startTime, 3);
     obj.beginTime = app.setTime(obj.startTime + " " + obj.beginTime, 1);
     obj.endTime = app.setTime(obj.startTime + " " + obj.endTime, 1);
+    let newDate = app.setTimeStamp(new Date());
     let beginTime = app.setTimeStamp(obj.beginTime);
     let endTime = app.setTimeStamp(obj.endTime);
     if (obj.state == 0) {
-      if (newDate > beginTime && newDate < endTime) {
+      if (newDate >= beginTime && newDate <= endTime) {
         obj.stateText = "已开始";
         obj.stateTextColorClass = "check-task-state1";
         obj.borderColorClass = "check-task-list-border1"
@@ -216,16 +215,16 @@ Page({
     let that = this;
     app.loadMore(that, function() {
       let accountInfo = wx.getStorageSync('accountInfo');
-      let paras = {};
+      let param = {};
       if (that.data.state == 2) {
-        paras = {
+        param = {
           page: that.data.page,
           startTime: that.data.startTime,
           endTime: that.data.endTime,
           creatorId: accountInfo.id
         }
       } else {
-        paras = {
+        param = {
           page: that.data.page,
           startTime: that.data.startTime,
           endTime: that.data.endTime,
@@ -233,7 +232,7 @@ Page({
         }
       }
       let oldList = that.data.checkTaskList;
-      app.request('POST', '/property/checkTaskExecution/queryList.do', paras, function(res) {
+      app.request('POST', '/property/checkTaskExecution/queryList.do', param, true, function(res) {
         let checkTaskList = res.data.data;
         for (let i = 0; i < checkTaskList.length; i++) {
           oldList.push(that.resetData(checkTaskList[i]));
@@ -253,16 +252,16 @@ Page({
     let that = this;
     let accountInfo = wx.getStorageSync('accountInfo');
     that.setCalendar();
-    let paras = {};
+    let param = {};
     if (that.data.state == 2) {
-      paras = {
+      param = {
         page: that.data.page,
         startTime: that.data.startTime,
         endTime: that.data.endTime,
         creatorId: accountInfo.id
       }
     } else {
-      paras = {
+      param = {
         page: that.data.page,
         startTime: that.data.startTime,
         endTime: that.data.endTime,
@@ -270,7 +269,7 @@ Page({
         chargerId: accountInfo.id
       }
     }
-    app.request("POST", "/property/checkTaskExecution/queryList.do", paras, function(res) {
+    app.request("POST", "/property/checkTaskExecution/queryList.do", param, true, function(res) {
       let checkTaskList = res.data.data;
       for (let i = 0; i < checkTaskList.length; i++) {
         checkTaskList[i] = that.resetData(checkTaskList[i]);

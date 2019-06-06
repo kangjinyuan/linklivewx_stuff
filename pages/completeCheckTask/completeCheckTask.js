@@ -49,13 +49,13 @@ Page({
     for (let i = 0; i < imageList.length; i++) {
       checkImageList.push(imageList[i].key);
     }
-    let paras = {
+    let param = {
       checkTaskExecutionId: checkTaskExecutionId,
       checkResult: "1",
       checkDescription: checkDescription,
       checkImageList: checkImageList
     }
-    app.request("POST", "/property/checkTaskExecution/reportCheckResult.do", paras, function(res) {
+    app.request("POST", "/property/checkTaskExecution/reportCheckResult.do", param, true, function(res) {
       let prevPage = app.prevPage(3);
       prevPage.removeData(checkTaskExecutionId);
       let count = prevPage.data.count;
@@ -67,7 +67,7 @@ Page({
       })
     }, function(res) {
       wx.showToast({
-        title: '无法连接服务器，请检查您的网络或重试',
+        title: '提交失败，请检查您的网络或重试',
         icon: "none"
       })
     });

@@ -1,5 +1,5 @@
 let app = getApp();
-let imgrurl = app.globalData.imgrurl;
+let imgUrl = app.globalData.imgUrl;
 Page({
   data: {
     faceList: [{
@@ -23,10 +23,10 @@ Page({
     let faceInfo = e.currentTarget.dataset.faceInfo;
     let idList = [];
     idList.push(faceInfo.id);
-    let paras = {
+    let param = {
       idList: idList
     }
-    app.request("POST", "/property/face/delete.do", paras, function(res) {
+    app.request("POST", "/property/face/delete.do", param, true, function(res) {
       that.onShow();
     }, function(res) {
       wx.showToast({
@@ -62,8 +62,8 @@ Page({
   onShow: function() {
     let that = this;
     let faceList = that.data.faceList;
-    let paras = {}
-    app.request("POST", "/property/face/queryList.do", paras, function(res) {
+    let param = {}
+    app.request("POST", "/property/face/queryList.do", param, true, function(res) {
       let dataList = res.data.data;
       if (dataList.length < 3) {
         that.setData({
@@ -84,7 +84,7 @@ Page({
         })
       }
       for (let i = 0; i < dataList.length; i++) {
-        dataList[i].faceUrl = imgrurl + dataList[i].faceUrl;
+        dataList[i].faceUrl = imgUrl + dataList[i].faceUrl;
         for (let j = 0; j < faceList.length; j++) {
           if (dataList[i].registerIndex == faceList[j].registerIndex) {
             faceList[j] = dataList[i];

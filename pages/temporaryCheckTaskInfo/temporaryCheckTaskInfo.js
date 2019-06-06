@@ -1,5 +1,5 @@
 let app = getApp();
-let imgrurl = app.globalData.imgrurl;
+let imgUrl = app.globalData.imgUrl;
 Page({
   data: {
     checkTaskInfo: {}
@@ -33,7 +33,7 @@ Page({
     let checkTaskInfo = JSON.parse(decodeURIComponent(options.checkTaskInfo));
     let taskImageList = checkTaskInfo.taskImageList;
     for (let i = 0; i < taskImageList.length; i++) {
-      taskImageList[i] = imgrurl + taskImageList[i];
+      taskImageList[i] = imgUrl + taskImageList[i];
     }
     that.setData({
       checkTaskInfo: checkTaskInfo

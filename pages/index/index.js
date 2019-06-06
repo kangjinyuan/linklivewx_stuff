@@ -61,8 +61,8 @@ Page({
   },
   getReprotInfo: function() {
     let that = this;
-    let paras = {};
-    app.request("POST", "/statistics/stuff/report.do", paras, function(res) {
+    let param = {};
+    app.request("POST", "/statistics/stuff/report.do", param, false, function(res) {
       let reportInfo = res.data.data[0];
       that.setData({
         reportInfo: reportInfo
@@ -76,8 +76,8 @@ Page({
   },
   getTaskInfo: function() {
     let that = this;
-    let paras = {};
-    app.request("POST", "/statistics/stuff/task.do", paras, function(res) {
+    let param = {};
+    app.request("POST", "/statistics/stuff/task.do", param, false, function(res) {
       let taskInfo = res.data.data[0];
       that.setData({
         taskInfo: taskInfo
@@ -94,13 +94,13 @@ Page({
     app.toLogin(function() {
       let communityInfo = wx.getStorageSync('communityInfo');
       let accountInfo = wx.getStorageSync('accountInfo');
-      let paras = {
+      let param = {
         id: accountInfo.id
       }
-      app.request('POST', '/account/stuff/queryList.do', paras, function(res) {
+      app.request('POST', '/account/stuff/queryList.do', param, false, function(res) {
         let stuffInfo = res.data.data[0];
         let dutyScope = JSON.parse(stuffInfo.dutyScope);
-        dutyScope = dutyScope.sort(app.resetSort(1, "sort"));
+        dutyScope = dutyScope.sort(app.resetSort("sort", 1));
         for (let i = 0; i < dutyScope.length; i++) {
           if (dutyScope[i].checked == false) {
             dutyScope.splice(i--, 1);

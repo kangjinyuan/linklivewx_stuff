@@ -1,17 +1,17 @@
 let uploader = require("qiniuUploader.js");
 let app = getApp();
-let imgrurl = app.globalData.imgrurl;
+let imgUrl = app.globalData.imgUrl;
 // 初始化七牛相关参数
 function initQiniu(type, callback) {
-  var paras = {
+  var param = {
     type: type
   };
-  app.request("GET", "/property/qiniu/getToken.do", paras, function(res) {
+  app.request("GET", "/property/qiniu/getToken.do", param, true, function(res) {
     let uptoken = res.data.data;
     let options = {
       region: 'NCN',
       uptoken: uptoken,
-      domain: imgrurl,
+      domain: imgUrl,
       shouldUseQiniuFileName: false
     };
     uploader.init(options);

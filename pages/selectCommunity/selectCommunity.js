@@ -1,5 +1,5 @@
 let app = getApp();
-let crurl = app.globalData.crurl;
+let commonRequestUrl = app.globalData.commonRequestUrl;
 let mailList = require("../../utils/mailList.js");
 Page({
   data: {
@@ -48,14 +48,14 @@ Page({
     })
     let timestamp = new Date().getTime();
     let accountInfo = wx.getStorageSync("accountInfo");
-    let paras = {
+    let param = {
       pageSzie: 10000,
       pmcId: accountInfo.pmcId
     }
-    paras = JSON.stringify(paras);
+    param = JSON.stringify(param);
     wx.request({
-      url: crurl + "/property/community/queryList.do?timestamp=" + timestamp,
-      data: paras,
+      url: commonRequestUrl + "/property/community/queryList.do?timestamp=" + timestamp,
+      data: param,
       method: 'POST',
       dataType: 'json',
       success: function(res) {

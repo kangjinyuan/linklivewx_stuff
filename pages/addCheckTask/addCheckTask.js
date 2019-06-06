@@ -128,7 +128,7 @@ Page({
     for (let i = 0; i < imageList.length; i++) {
       taskImageList.push(imageList[i].key);
     }
-    let paras = {
+    let param = {
       taskTitle: taskTitle,
       taskContent: taskContent,
       taskImageList: taskImageList,
@@ -139,7 +139,7 @@ Page({
       urgency: that.data.urgency,
       chargerId: stuffInfo ? stuffInfo.id : accountInfo.id
     }
-    app.request("POST", "/property/checkTaskExecution/create.do", paras, function(res) {
+    app.request("POST", "/property/checkTaskExecution/create.do", param, true, function(res) {
       let prevPage = app.prevPage(2);
       if (prevPage.data.state == "0") {
         prevPage.setData({
@@ -152,7 +152,7 @@ Page({
       })
     }, function(res) {
       wx.showToast({
-        title: '无法连接服务器，请检查您的网络或重试',
+        title: '创建失败，请检查您的网络或重试',
         icon: "none"
       })
     })

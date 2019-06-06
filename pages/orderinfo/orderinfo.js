@@ -1,5 +1,5 @@
 let app = getApp();
-let imgrurl = app.globalData.imgrurl;
+let imgUrl = app.globalData.imgUrl;
 Page({
   data: {
     orderInfo: {},
@@ -28,16 +28,16 @@ Page({
     let that = this;
     let orderInfo = that.data.orderInfo;
     let prevPage = app.prevPage(2);
-    let postUrl = "";
+    let requestUrl = "";
     if (orderInfo.reportState == 0) {
-      postUrl = "/property/maintenance/acceptOrder.do";
+      requestUrl = "/property/maintenance/acceptOrder.do";
     } else if (orderInfo.reportState == 1) {
-      postUrl = "/property/maintenance/completeOrder.do";
+      requestUrl = "/property/maintenance/completeOrder.do";
     }
-    let paras = {
+    let param = {
       id: orderInfo.id
     }
-    app.request('POST', postUrl, paras, function(res) {
+    app.request('POST', requestUrl, param, true, function(res) {
       prevPage.removeData(orderInfo.id);
       wx.navigateBack({
         delta: 1
@@ -49,10 +49,17 @@ Page({
           icon: 'none'
         })
       } else {
-        wx.showToast({
-          title: '无法连接服务器，请检查您的网络或重试',
-          icon: 'none'
-        })
+        if (orderInfo.reportState == 0){
+          wx.showToast({
+            title: '抢单失败，请检查您的网络或重试',
+            icon: 'none'
+          })
+        } else if (orderInfo.reportState == 1){
+          wx.showToast({
+            title: '提交失败，请检查您的网络或重试',
+            icon: 'none'
+          })
+        }
       }
     })
   },
@@ -72,13 +79,13 @@ Page({
       })
     }
     if (orderInfo.image0) {
-      orderInfo.image0 = imgrurl + orderInfo.image0;
+      orderInfo.image0 = imgUrl + orderInfo.image0;
     }
     if (orderInfo.image1) {
-      orderInfo.image1 = imgrurl + orderInfo.image1;
+      orderInfo.image1 = imgUrl + orderInfo.image1;
     }
     if (orderInfo.image2) {
-      orderInfo.image2 = imgrurl + orderInfo.image2;
+      orderInfo.image2 = imgUrl + orderInfo.image2;
     }
     orderInfo.progress = JSON.parse(orderInfo.progress).reverse();
     for (let i = 0; i < orderInfo.progress.length; i++) {

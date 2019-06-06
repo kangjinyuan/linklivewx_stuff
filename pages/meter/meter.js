@@ -132,11 +132,11 @@ Page({
     let that = this;
     let feeName = that.data.feeList[that.data.feeIndex].feeName;
     let date = new Date();
-    let paras = {
+    let param = {
       address: roomInfo.address,
       feeName: feeName
     }
-    app.request("POST", "/property/meter/queryList.do", paras, function(res) {
+    app.request("POST", "/property/meter/queryList.do", param, true, function(res) {
       let meterInfo = res.data.data;
       let lastMeterTime = "";
       let lastMeterValue = "";
@@ -164,26 +164,26 @@ Page({
       })
     }, function(res) {
       wx.showToast({
-        title: '抄表记录加载失败',
+        title: '无法连接服务器，请检查您的网络或重试',
         icon: "none"
       })
     })
   },
   loadRooms: function(buildingCode, unit) {
     let that = this;
-    let paras = {
+    let param = {
       pageSize: 10000,
       buildingCode: buildingCode,
       unit: unit
     }
-    app.request('POST', '/property/rooms/queryList.do', paras, function(res) {
+    app.request('POST', '/property/rooms/queryList.do', param, true, function(res) {
       let roomsList = res.data.data;
       that.setData({
         roomsList: roomsList
       })
     }, function(res) {
       wx.showToast({
-        title: '房屋加载失败',
+        title: '无法连接服务器，请检查您的网络或重试',
         icon: 'none'
       })
     })
@@ -206,16 +206,16 @@ Page({
   },
   loadBuildings: function() {
     let that = this;
-    let paras = {
+    let param = {
       pageSize: 10000
     }
-    app.request('POST', '/property/buildings/queryList.do', paras, function(res) {
+    app.request('POST', '/property/buildings/queryList.do', param, true, function(res) {
       that.setData({
         buildingsList: res.data.data
       })
     }, function(res) {
       wx.showToast({
-        title: '楼宇加载失败',
+        title: '无法连接服务器，请检查您的网络或重试',
         icon: 'none'
       })
     })
@@ -340,7 +340,7 @@ Page({
     let currentMeterTime = app.setTime(that.data.currentMeterTime, 0);
     let lastMeterValue = that.data.lastMeterValue;
     let currentMeterValue = that.data.currentMeterValue;
-    var paras = {
+    let param = {
       roomId: roomInfo.id,
       roomCode: roomInfo.code,
       unit: roomInfo.unit,
@@ -356,12 +356,12 @@ Page({
       dosage: dosage,
       totalFee: totalFee
     }
-    app.request('POST', '/property/meter/saveOrUpdate.do', paras, function(res) {
+    app.request('POST', '/property/meter/saveOrUpdate.do', param, true, function(res) {
       let meterInfo = res.data.data;
-      var paras = {
+      let param = {
         id: meterInfo.id
       }
-      app.request("POST", "/property/meter/createBill.do", paras, function(res) {
+      app.request("POST", "/property/meter/createBill.do", param, true, function(res) {
         that.showPreview();
         that.getMeter(roomInfo);
         wx.showToast({
@@ -370,23 +370,23 @@ Page({
         })
       }, function(res) {
         wx.showToast({
-          title: '账单发送失败',
+          title: '账单发送失败，请检查您的网络或重试',
           icon: "none"
         })
       })
     }, function(res) {
       wx.showToast({
-        title: '抄表记录新建失败',
+        title: '抄表失败，请检查您的网络或重试',
         icon: 'none'
       })
     })
   },
   onLoad: function(options) {
     let that = this;
-    let paras = {
+    let param = {
       isDeputy: "1"
     }
-    app.request('POST', '/property/fee/queryList.do', paras, function(res) {
+    app.request('POST', '/property/fee/queryList.do', param, true, function(res) {
       let feeList = res.data.data;
       if (feeList.length > 0) {
         for (let i = 0; i < feeList.length; i++) {
@@ -413,7 +413,7 @@ Page({
       }
     }, function(res) {
       wx.showToast({
-        title: '缴费项目加载失败',
+        title: '无法连接服务器，请检查您的网络或重试',
         icon: 'none'
       })
     })

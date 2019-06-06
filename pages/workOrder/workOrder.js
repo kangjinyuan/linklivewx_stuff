@@ -123,15 +123,15 @@ Page({
     app.loadMore(that, function() {
       let accountInfo = wx.getStorageSync("accountInfo");
       let state = that.data.state;
-      let paras = {};
+      let param = {};
       if (state == "0") {
-        paras = {
+        param = {
           page: that.data.page,
           state: state,
           issueId: that.data.issueId
         }
       } else {
-        paras = {
+        param = {
           page: that.data.page,
           state: state,
           chargerId: accountInfo.id,
@@ -139,7 +139,7 @@ Page({
         }
       }
       let oldList = that.data.workOrderList;
-      app.request('POST', '/property/checkTaskExecution/queryList.do', paras, function(res) {
+      app.request('POST', '/property/checkTaskExecution/queryList.do', param, true, function(res) {
         let workOrderList = res.data.data;
         for (let i = 0; i < workOrderList.length; i++) {
           oldList.push(that.resetData(workOrderList[i]));
@@ -159,22 +159,22 @@ Page({
     let that = this;
     let accountInfo = wx.getStorageSync("accountInfo");
     let state = that.data.state;
-    let paras = {};
+    let param = {};
     if (state == "0") {
-      paras = {
+      param = {
         page: that.data.page,
         state: state,
         issueId: that.data.issueId
       }
     } else {
-      paras = {
+      param = {
         page: that.data.page,
         state: state,
         chargerId: accountInfo.id,
         issueId: that.data.issueId
       }
     }
-    app.request("POST", "/property/workOrder/queryList.do", paras, function(res) {
+    app.request("POST", "/property/workOrder/queryList.do", param, true, function(res) {
       let workOrderList = res.data.data;
       for (let i = 0; i < workOrderList.length; i++) {
         workOrderList[i] = that.resetData(workOrderList[i]);

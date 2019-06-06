@@ -1,5 +1,5 @@
 let app = getApp();
-let imgrurl = app.globalData.imgrurl;
+let imgUrl = app.globalData.imgUrl;
 Page({
   data: {
     workOrderInfo: {},
@@ -21,26 +21,33 @@ Page({
     let workOrderInfo = that.data.workOrderInfo;
     let id = workOrderInfo.id;
     if (flag == "0" || flag == "1") {
-      let postUrl = "";
+      let requestUrl = "";
       if (flag == "0") {
-        postUrl = "/property/workOrder/acceptOrder.do";
+        requestUrl = "/property/workOrder/acceptOrder.do";
       } else {
-        postUrl = "/property/workOrder/executeOrder.do";
+        requestUrl = "/property/workOrder/executeOrder.do";
       }
-      let paras = {
+      let param = {
         id: id
       }
-      app.request("POST", postUrl, paras, function(res) {
+      app.request("POST", requestUrl, param, true, function(res) {
         let prevPage = app.prevPage(2);
         prevPage.removeData(id);
         wx.navigateBack({
           delta: 1
         })
       }, function(res) {
-        wx.showToast({
-          title: '无法连接服务器，请检查您的网络或重试',
-          icon: "none"
-        })
+        if (flag == "0") {
+          wx.showToast({
+            title: '抢单失败，请检查您的网络或重试',
+            icon: "none"
+          })
+        } else {
+          wx.showToast({
+            title: '执行失败，请检查您的网络或重试',
+            icon: "none"
+          })
+        }
       })
     } else if (flag == "2") {
       let assignOrTransferType = that.data.assignOrTransferType;
@@ -61,15 +68,15 @@ Page({
     let accountInfo = wx.getStorageSync("accountInfo");
     let privilege = accountInfo.privilege;
     let assignOrTransferType = that.data.assignOrTransferType;
-    let paras = {
+    let param = {
       id: workOrderInfo.id
     }
-    app.request("POST", "/property/workOrder/queryEventList.do", paras, function(res) {
+    app.request("POST", "/property/workOrder/queryEventList.do", param, true, function(res) {
       let eventList = res.data.data.reverse();
       let orderImageList = workOrderInfo.orderImageList;
       if (orderImageList) {
         for (let i = 0; i < orderImageList.length; i++) {
-          orderImageList[i] = imgrurl + orderImageList[i]
+          orderImageList[i] = imgUrl + orderImageList[i]
         }
       }
       for (let i = 0; i < eventList.length; i++) {

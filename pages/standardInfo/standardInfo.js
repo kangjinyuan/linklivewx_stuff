@@ -33,126 +33,6 @@ Page({
       url: '../problemCategory/problemCategory?id=' + id,
     })
   },
-  reportCheckResult: function() {
-    let that = this;
-    let standardExecution = that.data.standardExecution;
-    let checkResult = that.data.checkResult;
-    let checkDescription = that.data.checkDescription;
-    let issueType = that.data.problemCategory ? that.data.problemCategory.id : "";
-    let checkImageList = [];
-    let imageList = that.data.imageList;
-    for (let i = 0; i < imageList.length; i++) {
-      checkImageList.push(imageList[i].key);
-    }
-    let createWorkOrder = that.data.createWorkOrder;
-    let scheduleEndTime = that.data.scheduleEndTimeText ? app.setTime(that.data.scheduleEndTimeText, 0) : "";
-    if (checkResult == "1") {
-      issueType = "";
-      createWorkOrder = "";
-      scheduleEndTime = "";
-    } else if (checkResult == "2") {
-      if (issueType == "") {
-        wx.showToast({
-          title: '请选择问题类型',
-          icon: "none"
-        })
-        return false;
-      }
-      if (createWorkOrder == 1) {
-        if (scheduleEndTime == "") {
-          wx.showToast({
-            title: '请选择计划结束时间',
-            icon: "none"
-          })
-          return false;
-        }
-      } else {
-        scheduleEndTime = "";
-      }
-    }
-    if (checkDescription == "") {
-      wx.showToast({
-        title: '请填写结果描述',
-        icon: "none"
-      })
-      return false;
-    }
-    if (imageList.length == 0) {
-      wx.showToast({
-        title: '请上传结果图片',
-        icon: "none"
-      })
-      return false;
-    }
-    let paras = {
-      id: standardExecution.id,
-      checkTaskExecutionId: standardExecution.checkTaskExecutionId,
-      checkResult: checkResult,
-      issueType: issueType,
-      checkDescription: checkDescription,
-      checkImageList: checkImageList,
-      createWorkOrder: createWorkOrder,
-      scheduleEndTime: scheduleEndTime
-    }
-    app.request("POST", "/property/checkTaskExecution/reportCheckResult.do", paras, function(res) {
-      let paras = {
-        id: standardExecution.checkTaskExecutionId
-      }
-      app.request("POST", "/property/checkTaskExecution/queryList.do", paras, function(res) {
-        let checkTaskInfo = res.data.data[0];
-        let prevPage = app.prevPage(2);
-        let prevTowPage = app.prevPage(3);
-        if (checkTaskInfo.state == 1) {
-          prevTowPage.removeData(checkTaskInfo.id);
-          let count = prevTowPage.data.count;
-          prevTowPage.setData({
-            count: count - 1
-          })
-          wx.navigateBack({
-            delta: 2
-          })
-        } else {
-          checkTaskInfo = prevTowPage.resetData(checkTaskInfo);
-          let standardExecutionList = checkTaskInfo.standardExecutionList;
-          let prevPageCheckTaskInfo = prevPage.data.checkTaskInfo;
-          let prevPageStandardExecutionList = prevPageCheckTaskInfo.standardExecutionList;
-          let checkTaskList = prevTowPage.data.checkTaskList;
-          for (let i = 0; i < standardExecutionList.length; i++) {
-            for (let j = 0; j < prevPageStandardExecutionList.length; j++) {
-              if (i == j) {
-                standardExecutionList[i].isActive = prevPageStandardExecutionList[j].isActive;
-              }
-            }
-          }
-          prevPageCheckTaskInfo.standardExecutionList = standardExecutionList;
-          for (let i = 0; i < checkTaskList.length; i++) {
-            if (prevPageCheckTaskInfo.id == checkTaskList[i].id) {
-              checkTaskList[i] = prevPageCheckTaskInfo;
-            }
-          }
-          prevPage.setData({
-            checkTaskInfo: prevPageCheckTaskInfo
-          })
-          prevTowPage.setData({
-            checkTaskList: checkTaskList
-          })
-          wx.navigateBack({
-            delta: 1
-          })
-        }
-      }, function(res) {
-        wx.showToast({
-          title: '无法连接服务器，请检查您的网络或重试',
-          icon: "none"
-        })
-      });
-    }, function(res) {
-      wx.showToast({
-        title: '无法连接服务器，请检查您的网络或重试',
-        icon: "none"
-      })
-    });
-  },
   getValue: function(e) {
     let that = this;
     let flag = e.currentTarget.dataset.flag;
@@ -206,6 +86,126 @@ Page({
         scheduleEndTime: dateTime
       });
     })
+  },
+  reportCheckResult: function () {
+    let that = this;
+    let standardExecution = that.data.standardExecution;
+    let checkResult = that.data.checkResult;
+    let checkDescription = that.data.checkDescription;
+    let issueType = that.data.problemCategory ? that.data.problemCategory.id : "";
+    let checkImageList = [];
+    let imageList = that.data.imageList;
+    for (let i = 0; i < imageList.length; i++) {
+      checkImageList.push(imageList[i].key);
+    }
+    let createWorkOrder = that.data.createWorkOrder;
+    let scheduleEndTime = that.data.scheduleEndTimeText ? app.setTime(that.data.scheduleEndTimeText, 0) : "";
+    if (checkResult == "1") {
+      issueType = "";
+      createWorkOrder = "";
+      scheduleEndTime = "";
+    } else if (checkResult == "2") {
+      if (issueType == "") {
+        wx.showToast({
+          title: '请选择问题类型',
+          icon: "none"
+        })
+        return false;
+      }
+      if (createWorkOrder == 1) {
+        if (scheduleEndTime == "") {
+          wx.showToast({
+            title: '请选择计划结束时间',
+            icon: "none"
+          })
+          return false;
+        }
+      } else {
+        scheduleEndTime = "";
+      }
+    }
+    if (checkDescription == "") {
+      wx.showToast({
+        title: '请填写结果描述',
+        icon: "none"
+      })
+      return false;
+    }
+    if (imageList.length == 0) {
+      wx.showToast({
+        title: '请上传结果图片',
+        icon: "none"
+      })
+      return false;
+    }
+    let param = {
+      id: standardExecution.id,
+      checkTaskExecutionId: standardExecution.checkTaskExecutionId,
+      checkResult: checkResult,
+      issueType: issueType,
+      checkDescription: checkDescription,
+      checkImageList: checkImageList,
+      createWorkOrder: createWorkOrder,
+      scheduleEndTime: scheduleEndTime
+    }
+    app.request("POST", "/property/checkTaskExecution/reportCheckResult.do", param, true, function (res) {
+      let param = {
+        id: standardExecution.checkTaskExecutionId
+      }
+      app.request("POST", "/property/checkTaskExecution/queryList.do", param, true, function (res) {
+        let checkTaskInfo = res.data.data[0];
+        let prevPage = app.prevPage(2);
+        let prevTowPage = app.prevPage(3);
+        if (checkTaskInfo.state == 1) {
+          prevTowPage.removeData(checkTaskInfo.id);
+          let count = prevTowPage.data.count;
+          prevTowPage.setData({
+            count: count - 1
+          })
+          wx.navigateBack({
+            delta: 2
+          })
+        } else {
+          checkTaskInfo = prevTowPage.resetData(checkTaskInfo);
+          let standardExecutionList = checkTaskInfo.standardExecutionList;
+          let prevPageCheckTaskInfo = prevPage.data.checkTaskInfo;
+          let prevPageStandardExecutionList = prevPageCheckTaskInfo.standardExecutionList;
+          let checkTaskList = prevTowPage.data.checkTaskList;
+          for (let i = 0; i < standardExecutionList.length; i++) {
+            for (let j = 0; j < prevPageStandardExecutionList.length; j++) {
+              if (i == j) {
+                standardExecutionList[i].isActive = prevPageStandardExecutionList[j].isActive;
+              }
+            }
+          }
+          prevPageCheckTaskInfo.standardExecutionList = standardExecutionList;
+          for (let i = 0; i < checkTaskList.length; i++) {
+            if (prevPageCheckTaskInfo.id == checkTaskList[i].id) {
+              checkTaskList[i] = prevPageCheckTaskInfo;
+            }
+          }
+          prevPage.setData({
+            checkTaskInfo: prevPageCheckTaskInfo
+          })
+          prevTowPage.setData({
+            checkTaskList: checkTaskList
+          })
+          wx.navigateBack({
+            delta: 1
+          })
+        }
+      }, function (res) {
+        wx.showToast({
+          title: '无法连接服务器，请检查您的网络或重试',
+          icon: "none"
+        })
+      });
+    }, function (res) {
+      wx.showToast({
+        title: '提交失败，请检查您的网络或重试',
+        icon: "none"
+      })
+    });
   },
   onLoad: function(options) {
     let that = this;

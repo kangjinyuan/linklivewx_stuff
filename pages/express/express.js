@@ -50,11 +50,11 @@ Page({
       })
       return false;
     }
-    let paras = {
+    let param = {
       code: that.data.code,
       address: that.data.expressAddress
     }
-    app.request("POST", "/property/express/receive.do", paras, function(res) {
+    app.request("POST", "/property/express/receive.do", param, true, function(res) {
       wx.showToast({
         title: '快递单号录入成功',
         icon: 'none'

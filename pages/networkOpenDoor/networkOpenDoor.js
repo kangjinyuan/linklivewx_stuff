@@ -7,17 +7,17 @@ Page({
   },
   openDoor: function(e) {
     let keyInfo = e.currentTarget.dataset.keyInfo;
-    let paras = {
+    let param = {
       deviceSn: keyInfo.deviceSn
     }
-    app.request("POST", "/property/doorMaster/remoteControl.do", paras, function(res) {
+    app.request("POST", "/property/doorMaster/remoteControl.do", param, true, function(res) {
       wx.showToast({
         title: '开门成功',
         icon: "none"
       })
     }, function(res) {
       wx.showToast({
-        title: '开门失败，请检查网络或重试',
+        title: '开门失败，请检查您的网络或重试',
         icon: "none"
       })
     })
@@ -25,11 +25,11 @@ Page({
   nextPage: function() {
     let that = this;
     app.loadMore(that, function() {
-      let paras = {
+      let param = {
         page: that.data.page
       };
       let oldList = that.data.keyList;
-      app.request('POST', '/property/doorMaster/queryList.do', paras, function(res) {
+      app.request('POST', '/property/doorMaster/queryList.do', param, true, function(res) {
         let keyList = res.data.data;
         for (let i = 0; i < keyList.length; i++) {
           oldList.push(keyList[i]);
@@ -47,10 +47,10 @@ Page({
   },
   onLoad: function(options) {
     let that = this;
-    let paras = {
+    let param = {
       page: that.data.page
     };
-    app.request('POST', '/property/doorMaster/queryList.do', paras, function(res) {
+    app.request('POST', '/property/doorMaster/queryList.do', param, true, function(res) {
       that.setData({
         keyList: res.data.data,
         totalPage: res.data.totalPage

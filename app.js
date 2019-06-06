@@ -29,43 +29,34 @@ App({
       })
     }
   },
-  resetSort: function(flag, property) {
-    return function(a, b) {
-      if (flag == 0) {
-        // 越小越靠前
-        return a[property] - b[property];
-      } else if (flag == 1) {
-        // 越大越靠前
-        return b[property] - a[property];
-      }
-    }
-  },
-  request: function(method, rurl, paras, okcallback, nocallback) {
-    wx.showLoading({
-      title: 'loading···',
-      mask: true
-    })
+  request: function(method, requestUrl, param, showLoading, okCallback, noCallback) {
     let that = this;
     let accessToken = wx.getStorageSync("accessToken");
     let communityInfo = wx.getStorageSync("communityInfo");
     let accountInfo = wx.getStorageSync("accountInfo");
     let timestamp = new Date().getTime();
+    if (showLoading == true) {
+      wx.showLoading({
+        title: 'loading···',
+        mask: true
+      })
+    }
     if (method == "POST") {
-      paras.accessToken = accessToken;
-      paras.communityId = communityInfo.id;
-      paras.communityName = communityInfo.name;
-      paras.pmcId = accountInfo.pmcId;
-      paras = JSON.stringify(paras);
+      param.accessToken = accessToken;
+      param.communityId = communityInfo.id;
+      param.communityName = communityInfo.name;
+      param.pmcId = accountInfo.pmcId;
+      param = JSON.stringify(param);
     }
     wx.request({
-      url: that.globalData.crurl + rurl + "?timestamp=" + timestamp,
-      data: paras,
+      url: that.globalData.commonRequestUrl + requestUrl + "?timestamp=" + timestamp,
+      data: param,
       method: method,
       dataType: 'json',
       success: function(res) {
         wx.hideLoading();
         if (res.data.code == '0000') {
-          okcallback(res);
+          okCallback(res);
         } else if (res.data.code == "0007" || res.data.code == "0006") {
           wx.setStorageSync("accessToken", "");
           wx.showModal({
@@ -88,7 +79,7 @@ App({
             icon: 'none'
           })
         } else {
-          nocallback(res);
+          noCallback(res);
         }
       },
       fail: function(res) {
@@ -118,6 +109,17 @@ App({
     });
     callback();
   },
+  resetSort: function(property, type) {
+    return function(a, b) {
+      if (type == 0) {
+        // 越小越靠前
+        return a[property] - b[property];
+      } else if (type == 1) {
+        // 越大越靠前
+        return b[property] - a[property];
+      }
+    }
+  },
   stringToTime: function(time) {
     if (typeof(time) == "string") {
       time = time.substring(0, 19);
@@ -127,7 +129,7 @@ App({
     }
     return time;
   },
-  setTime: function(time, flag) {
+  setTime: function(time, type) {
     let that = this;
     time = that.stringToTime(time);
     let date = new Date(time);
@@ -137,29 +139,29 @@ App({
     let h = (date.getHours() < 10 ? '0' + (date.getHours()) : date.getHours());
     let m = (date.getMinutes() < 10 ? '0' + (date.getMinutes()) : date.getMinutes());
     let s = (date.getSeconds() < 10 ? '0' + (date.getSeconds()) : date.getSeconds());
-    if (flag == 0) {
+    if (type == 0) {
       return Y + "-" + M + "-" + D + " " + h + ":" + m + ":" + s;
-    } else if (flag == 1) {
+    } else if (type == 1) {
       return Y + "-" + M + "-" + D + " " + h + ":" + m;
-    } else if (flag == 2) {
+    } else if (type == 2) {
       return Y + "-" + M + "-" + D + " " + h;
-    } else if (flag == 3) {
+    } else if (type == 3) {
       return Y + "-" + M + "-" + D;
-    } else if (flag == 4) {
+    } else if (type == 4) {
       return Y + "-" + M;
-    } else if (flag == 5) {
+    } else if (type == 5) {
       return Y;
-    } else if (flag == 6) {
+    } else if (type == 6) {
       return Y + "年" + M + "月" + D + "日 " + h + "时" + m + "分" + s + "秒";
-    } else if (flag == 7) {
+    } else if (type == 7) {
       return Y + "年" + M + "月" + D + "日 " + h + "时" + m + "分";
-    } else if (flag == 8) {
+    } else if (type == 8) {
       return Y + "年" + M + "月" + D + "日 " + h + "时";
-    } else if (flag == 9) {
+    } else if (type == 9) {
       return Y + "年" + M + "月" + D + "日";
-    } else if (flag == 10) {
+    } else if (type == 10) {
       return Y + "年" + M + "月";
-    } else if (flag == 11) {
+    } else if (type == 11) {
       return Y + "年";
     }
   },
@@ -169,11 +171,16 @@ App({
     let date = new Date(time).getTime();
     return date;
   },
-  tomorrowDate: function(newDate) {
+  setEndTime: function(newDate, type) {
     let that = this;
-    newDate = that.stringToTime(newDate);
-    let tomorrowDate = newDate + 1 * 24 * 60 * 60 * 1000;
-    return tomorrowDate;
+    newDate = that.setTimeStamp(newDate);
+    let date;
+    if (type == 0) {
+      date = newDate + 24 * 60 * 60 * 1000;
+    } else if (type == 1) {
+      date = newDate + 24 * 60 * 60 * 1000 - 1;
+    }
+    return date;
   },
   camera: function(callback) {
     wx.getSetting({
@@ -268,10 +275,10 @@ App({
     })
   },
   globalData: {
-    crurl: 'http://test.api.15275317531.com',
-    // crurl: 'https://api.15275317531.com',
-    // crurl: 'http://192.168.0.200:8080',
-    imgrurl: 'http://img.guostory.com/',
+    // commonRequestUrl: 'http://test.api.15275317531.com',
+    commonRequestUrl: 'https://api.15275317531.com',
+    // commonRequestUrl: 'http://192.168.0.200:8080',
+    imgUrl: 'http://img.guostory.com/',
     userInfo: {}
   }
 })

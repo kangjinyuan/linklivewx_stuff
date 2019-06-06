@@ -51,29 +51,35 @@ Page({
         return false;
       }
     }
-
-    let paras = {
+    let param = {
       id: id,
       chargerId: stuffInfo.id,
       eventDetail: eventDetail
     }
-    let postUrl = "";
+    let requestUrl = "";
     if (assignOrTransferType == "0") {
-      postUrl = "/property/workOrder/assignOrder.do";
+      requestUrl = "/property/workOrder/assignOrder.do";
     } else {
-      postUrl = "/property/workOrder/transferOrder.do";
+      requestUrl = "/property/workOrder/transferOrder.do";
     }
-    app.request("POST", postUrl, paras, function(res) {
+    app.request("POST", requestUrl, param, true, function(res) {
       let prevPage = app.prevPage(3);
       prevPage.removeData(id);
       wx.navigateBack({
         delta: 2
       })
     }, function(res) {
-      wx.showToast({
-        title: '无法连接服务器，请检查您的网络或重试',
-        icon: "none"
-      })
+      if (assignOrTransferType == "0") {
+        wx.showToast({
+          title: '分派失败，请检查您的网络或重试',
+          icon: "none"
+        })
+      } else if (assignOrTransferType == "1") {
+        wx.showToast({
+          title: '转发失败，请检查您的网络或重试',
+          icon: "none"
+        })
+      }
     })
   },
   onLoad: function(options) {

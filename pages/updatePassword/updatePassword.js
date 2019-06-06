@@ -43,10 +43,10 @@ Page({
       })
       return false;
     }
-    let paras = {
+    let param = {
       password: checkPassword
     }
-    app.request('POST', '/account/stuff/resetPassword.do', paras, function(res) {
+    app.request('POST', '/account/stuff/resetPassword.do', param, true, function(res) {
       wx.navigateBack({
         delta: 1
       });

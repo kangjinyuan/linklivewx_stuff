@@ -59,17 +59,17 @@ Page({
     app.scanCode(scanType, function(res) {
       let issueId = res.result.split("-")[0];
       let issueType = res.result.split("-")[1];
-      let paras = {
+      let param = {
         page: 1,
         id: issueId
       }
-      let postUrl = "";
+      let requestUrl = "";
       if (issueType == 2) {
-        postUrl = "/property/facility/queryList.do";
+        requestUrl = "/property/facility/queryList.do";
       } else {
-        postUrl = "/property/equipment/queryList.do";
+        requestUrl = "/property/equipment/queryList.do";
       }
-      app.request("POST", postUrl, paras, function(res) {
+      app.request("POST", requestUrl, param, true, function(res) {
         let issue = res.data.data[0];
         if (issue.state == "0") {
           wx.showToast({
@@ -104,18 +104,18 @@ Page({
     let that = this;
     app.loadMore(that, function() {
       let issueType = that.data.issueType;
-      let paras = {
+      let param = {
         page: that.data.page,
         state: 1
       }
-      let postUrl = "";
+      let requestUrl = "";
       if (issueType == 2) {
-        postUrl = "/property/facility/queryList.do";
+        requestUrl = "/property/facility/queryList.do";
       } else {
-        postUrl = "/property/equipment/queryList.do";
+        requestUrl = "/property/equipment/queryList.do";
       }
       let oldList = that.data.dataList;
-      app.request("POST", postUrl, paras, function(res) {
+      app.request("POST", requestUrl, param, true, function(res) {
         let dataList = res.data.data;
         for (let i = 0; i < dataList.length; i++) {
           oldList.push(dataList[i]);
@@ -144,17 +144,17 @@ Page({
         facilitySelected: id
       })
     }
-    let paras = {
+    let param = {
       page: that.data.page,
       state: 1
     }
-    let postUrl = "";
+    let requestUrl = "";
     if (issueType == 2) {
-      postUrl = "/property/facility/queryList.do";
+      requestUrl = "/property/facility/queryList.do";
     } else {
-      postUrl = "/property/equipment/queryList.do";
+      requestUrl = "/property/equipment/queryList.do";
     }
-    app.request("POST", postUrl, paras, function(res) {
+    app.request("POST", requestUrl, param, true, function(res) {
       that.setData({
         dataList: res.data.data,
         issueType: issueType,

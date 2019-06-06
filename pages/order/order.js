@@ -37,10 +37,10 @@ Page({
   acceptOrder: function(e) {
     let that = this;
     let id = e.currentTarget.dataset.id;
-    let paras = {
+    let param = {
       id: id
     }
-    app.request('POST', '/property/maintenance/acceptOrder.do', paras, function(res) {
+    app.request('POST', '/property/maintenance/acceptOrder.do', param, true, function(res) {
       that.removeData(id);
     }, function(res) {
       if (res.data.code == "0005") {
@@ -104,23 +104,23 @@ Page({
   nextPage: function() {
     let that = this;
     app.loadMore(that, function() {
-      let paras = {};
+      let param = {};
       let reportState = that.data.reportState;
       let accountInfo = wx.getStorageSync('accountInfo');
       if (reportState == 0) {
-        paras = {
+        param = {
           page: that.data.page,
           reportState: reportState
         }
       } else {
-        paras = {
+        param = {
           page: that.data.page,
           stuffId: accountInfo.id,
           reportState: reportState
         }
       }
       let oldList = that.data.oList;
-      app.request('POST', '/property/maintenance/queryList.do', paras, function(res) {
+      app.request('POST', '/property/maintenance/queryList.do', param, true, function(res) {
         let oList = res.data.data;
         for (let i = 0; i < oList.length; i++) {
           oldList.push(that.resetData(oList[i]));
@@ -142,10 +142,10 @@ Page({
     that.setData({
       reportState: reportState
     })
-    let paras = {};
+    let param = {};
     let accountInfo = wx.getStorageSync('accountInfo');
     if (reportState == 0) {
-      paras = {
+      param = {
         page: that.data.page,
         reportState: reportState
       }
@@ -153,7 +153,7 @@ Page({
         title: '业主报事',
       })
     } else {
-      paras = {
+      param = {
         page: that.data.page,
         stuffId: accountInfo.id,
         reportState: reportState
@@ -168,7 +168,7 @@ Page({
         })
       }
     }
-    app.request('POST', '/property/maintenance/queryList.do', paras, function(res) {
+    app.request('POST', '/property/maintenance/queryList.do', param, true, function(res) {
       let oList = res.data.data;
       for (let i = 0; i < oList.length; i++) {
         oList[i] = that.resetData(oList[i]);

@@ -15,11 +15,11 @@ Page({
     let that = this;
     let id = that.data.id;
     let eventDetail = that.data.eventDetail;
-    let paras = {
+    let param = {
       id: id,
       eventDetail: eventDetail
     }
-    app.request("POST", "/property/workOrder/completeOrder.do", paras, function(res) {
+    app.request("POST", "/property/workOrder/completeOrder.do", param, true, function(res) {
       let prevPage = app.prevPage(3);
       prevPage.removeData(id);
       wx.navigateBack({
@@ -27,7 +27,7 @@ Page({
       })
     }, function(res) {
       wx.showToast({
-        title: '无法连接服务器，请检查您的网络或重试',
+        title: '提交失败，请检查您的网络或重试',
         icon: "none"
       })
     })

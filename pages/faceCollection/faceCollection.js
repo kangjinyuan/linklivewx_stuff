@@ -46,12 +46,12 @@ Page({
       } else {
         registerIndex = "2";
       }
-      let paras = {
+      let param = {
         id: id,
         registerIndex: registerIndex,
         faceUrl: res.key
       }
-      app.request("POST", "/property/face/saveOrUpdate.do", paras, function(res) {
+      app.request("POST", "/property/face/saveOrUpdate.do", param, true, function(res) {
         if (id) {
           wx.navigateBack({
             delta: 2

@@ -1,5 +1,5 @@
 let app = getApp();
-let imgrurl = app.globalData.imgrurl;
+let imgUrl = app.globalData.imgUrl;
 let mailList = require("../../utils/mailList.js");
 Page({
   data: {
@@ -43,10 +43,10 @@ Page({
     let that = this;
     let colorArray = ["#fcac66", "#a4a8f4", "#86d8f3", "#f88777"];
     let accountInfo = wx.getStorageSync("accountInfo");
-    let paras = {
+    let param = {
       pageSize: 10000
     }
-    app.request("POST", "/account/stuff/queryList.do", paras, function(res) {
+    app.request("POST", "/account/stuff/queryList.do", param, true, function(res) {
       let dataList = res.data.data;
       let count = res.data.count;
       wx.setNavigationBarTitle({
@@ -54,7 +54,7 @@ Page({
       })
       for (let i = 0; i < dataList.length; i++) {
         if (dataList[i].headimage) {
-          dataList[i].headimage = imgrurl + dataList[i].headimage;
+          dataList[i].headimage = imgUrl + dataList[i].headimage;
         }
         dataList[i].latterTwoCharacters = app.latterTwoCharacters(dataList[i].name);
         dataList[i].headImageBackgroundColor = app.randomData(colorArray);
