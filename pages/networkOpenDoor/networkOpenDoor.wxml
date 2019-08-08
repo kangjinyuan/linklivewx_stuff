@@ -1,4 +1,4 @@
-<view class='container-default'>
+<view class='container-default container-flex'>
   <view class='no-data-box' wx:if='{{keyList.length == 0}}'>
     <view class='no-data'>
       <view class='icon-key-no-data'>

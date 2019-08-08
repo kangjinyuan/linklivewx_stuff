@@ -15,7 +15,7 @@
       <view class='text' wx:if="{{reportState >= '2'}}">当前没有维修记录</view>
     </view>
   </view>
-  <scroll-view wx:else scroll-y="true " bindscrolltolower="nextPage">
+  <scroll-view wx:else scroll-y="true" bindscrolltolower="nextPage">
     <view class="common-list-box">
       <view class='common-list box-shadow' wx:for='{{oList}}' wx:key="{{item.id}}">
         <view class='common-list-title-box'>
@@ -29,7 +29,9 @@
           <view class='common-list-title common-list-title-order'>
             {{item.reportTypeText}}
           </view>
-          <view wx:if='{{item.reportState == 0}}' class='rob-btn icon-top-right' data-id='{{item.id}}' bindtap='acceptOrder'>抢单</view>
+          <form wx:if='{{item.reportState == 0}}' data-id='{{item.id}}' bindsubmit="acceptOrder" report-submit='true'>
+            <button class='rob-btn icon-top-right' form-type="submit">抢单</button>
+          </form>
           <view wx:else class='common-list-state icon-top-right'>{{item.reportStateText}}</view>
         </view>
         <view class='common-list-content-box' data-order-info='{{item}}' bindtap='toOrderInfo'>

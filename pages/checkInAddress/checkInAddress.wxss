@@ -1,0 +1,14 @@
+/* pages/checkInAddress/checkInAddress.wxss */
+
+.full-width-content-box {
+  padding: 18rpx 0rpx 12rpx;
+}
+
+.full-width-dir-box {
+  margin-top: 14rpx;
+}
+
+.full-width-dir-text {
+  font-size: 26rpx;
+  color: #999;
+}

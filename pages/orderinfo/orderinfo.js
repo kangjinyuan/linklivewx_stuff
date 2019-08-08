@@ -34,33 +34,35 @@ Page({
     } else if (orderInfo.reportState == 1) {
       requestUrl = "/property/maintenance/completeOrder.do";
     }
-    let param = {
-      id: orderInfo.id
-    }
-    app.request('POST', requestUrl, param, true, function(res) {
-      prevPage.removeData(orderInfo.id);
-      wx.navigateBack({
-        delta: 1
-      })
-    }, function(res) {
-      if (res.data.code == "0005") {
-        wx.showToast({
-          title: '订单不存在',
-          icon: 'none'
-        })
-      } else {
-        if (orderInfo.reportState == 0){
-          wx.showToast({
-            title: '抢单失败，请检查您的网络或重试',
-            icon: 'none'
-          })
-        } else if (orderInfo.reportState == 1){
-          wx.showToast({
-            title: '提交失败，请检查您的网络或重试',
-            icon: 'none'
-          })
-        }
+    app.setFormId(e, function(res) {
+      let param = {
+        id: orderInfo.id
       }
+      app.request('POST', requestUrl, param, true, function(res) {
+        prevPage.removeData(orderInfo.id);
+        wx.navigateBack({
+          delta: 1
+        })
+      }, function(res) {
+        if (res.data.code == "0005") {
+          wx.showToast({
+            title: '订单不存在',
+            icon: 'none'
+          })
+        } else {
+          if (orderInfo.reportState == 0) {
+            wx.showToast({
+              title: '抢单失败，请检查您的网络或重试',
+              icon: 'none'
+            })
+          } else if (orderInfo.reportState == 1) {
+            wx.showToast({
+              title: '提交失败，请检查您的网络或重试',
+              icon: 'none'
+            })
+          }
+        }
+      })
     })
   },
   onLoad: function(options) {

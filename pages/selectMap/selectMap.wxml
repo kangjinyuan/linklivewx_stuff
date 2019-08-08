@@ -1,0 +1,65 @@
+<view class="container-default container-white container-flex">
+  <view class='sreach-box'>
+    <view class='sreach'>
+      <view class='icon-left icon-sreach-left icon-sreach'>
+        <image src='../../images/icon-sreach.png'></image>
+      </view>
+      <view class='sreach-input'>
+        <input type='text' name='' value='' placeholder='请输入社区名称' bindinput='sreachCommunity'></input>
+      </view>
+    </view>
+  </view>
+  <view class='map-box'>
+
+  </view>
+  <scroll-view>
+    <view class='location-list-box'>
+      <view class='location-list'>
+        <view class='icon-check-box icon-right'>
+          <image src='../../images/icon-check-box-selected.png'></image>
+        </view>
+        <view class='location-text location-name'>
+          <view class='icon-map-location icon-left'>
+            <image src='../../images/icon-location.png'></image>
+          </view>
+          东方红城市建设集团
+        </view>
+        <view class='location-text location-address'>
+          北京市丰台区南三环西路靠近春岚大厦
+        </view>
+      </view>
+      <view class='location-list'>
+        <view class='location-text'>
+          东方红城市建设集团
+        </view>
+        <view class='location-text location-address'>
+          北京市丰台区南三环西路靠近春岚大厦
+        </view>
+      </view>
+      <view class='location-list'>
+        <view class='location-text'>
+          东方红城市建设集团
+        </view>
+        <view class='location-text location-address'>
+          北京市丰台区南三环西路靠近春岚大厦
+        </view>
+      </view>
+      <view class='location-list'>
+        <view class='location-text'>
+          东方红城市建设集团
+        </view>
+        <view class='location-text location-address'>
+          北京市丰台区南三环西路靠近春岚大厦
+        </view>
+      </view>
+      <view class='location-list'>
+        <view class='location-text'>
+          东方红城市建设集团
+        </view>
+        <view class='location-text location-address'>
+          北京市丰台区南三环西路靠近春岚大厦
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+</view>

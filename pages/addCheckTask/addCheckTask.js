@@ -69,10 +69,10 @@ Page({
   selectcharger: function() {
     let that = this;
     wx.navigateTo({
-      url: '../selectCommunication/selectCommunication'
+      url: '../selectCommunication/selectCommunication?selectType=0'
     })
   },
-  addCheckTask: function() {
+  addCheckTask: function(e) {
     let that = this;
     let taskTitle = that.data.taskTitle;
     let taskContent = that.data.taskContent;

@@ -1,0 +1,11 @@
+.form-content-box {
+  padding: 40rpx 0rpx;
+}
+
+.form-textarea {
+  height: 224rpx;
+}
+
+.word-number {
+  margin-bottom: 10rpx;
+}

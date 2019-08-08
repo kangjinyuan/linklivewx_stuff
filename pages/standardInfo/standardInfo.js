@@ -87,7 +87,7 @@ Page({
       });
     })
   },
-  reportCheckResult: function () {
+  reportCheckResult: function(e) {
     let that = this;
     let standardExecution = that.data.standardExecution;
     let checkResult = that.data.checkResult;
@@ -138,74 +138,76 @@ Page({
       })
       return false;
     }
-    let param = {
-      id: standardExecution.id,
-      checkTaskExecutionId: standardExecution.checkTaskExecutionId,
-      checkResult: checkResult,
-      issueType: issueType,
-      checkDescription: checkDescription,
-      checkImageList: checkImageList,
-      createWorkOrder: createWorkOrder,
-      scheduleEndTime: scheduleEndTime
-    }
-    app.request("POST", "/property/checkTaskExecution/reportCheckResult.do", param, true, function (res) {
+    app.setFormId(e, function(res) {
       let param = {
-        id: standardExecution.checkTaskExecutionId
+        id: standardExecution.id,
+        checkTaskExecutionId: standardExecution.checkTaskExecutionId,
+        checkResult: checkResult,
+        issueType: issueType,
+        checkDescription: checkDescription,
+        checkImageList: checkImageList,
+        createWorkOrder: createWorkOrder,
+        scheduleEndTime: scheduleEndTime
       }
-      app.request("POST", "/property/checkTaskExecution/queryList.do", param, true, function (res) {
-        let checkTaskInfo = res.data.data[0];
-        let prevPage = app.prevPage(2);
-        let prevTowPage = app.prevPage(3);
-        if (checkTaskInfo.state == 1) {
-          prevTowPage.removeData(checkTaskInfo.id);
-          let count = prevTowPage.data.count;
-          prevTowPage.setData({
-            count: count - 1
-          })
-          wx.navigateBack({
-            delta: 2
-          })
-        } else {
-          checkTaskInfo = prevTowPage.resetData(checkTaskInfo);
-          let standardExecutionList = checkTaskInfo.standardExecutionList;
-          let prevPageCheckTaskInfo = prevPage.data.checkTaskInfo;
-          let prevPageStandardExecutionList = prevPageCheckTaskInfo.standardExecutionList;
-          let checkTaskList = prevTowPage.data.checkTaskList;
-          for (let i = 0; i < standardExecutionList.length; i++) {
-            for (let j = 0; j < prevPageStandardExecutionList.length; j++) {
-              if (i == j) {
-                standardExecutionList[i].isActive = prevPageStandardExecutionList[j].isActive;
+      app.request("POST", "/property/checkTaskExecution/reportCheckResult.do", param, true, function(res) {
+        let param = {
+          id: standardExecution.checkTaskExecutionId
+        }
+        app.request("POST", "/property/checkTaskExecution/queryList.do", param, true, function(res) {
+          let checkTaskInfo = res.data.data[0];
+          let prevPage = app.prevPage(2);
+          let prevTowPage = app.prevPage(3);
+          if (checkTaskInfo.state == 1) {
+            prevTowPage.removeData(checkTaskInfo.id);
+            let count = prevTowPage.data.count;
+            prevTowPage.setData({
+              count: count - 1
+            })
+            wx.navigateBack({
+              delta: 2
+            })
+          } else {
+            checkTaskInfo = prevTowPage.resetData(checkTaskInfo);
+            let standardExecutionList = checkTaskInfo.standardExecutionList;
+            let prevPageCheckTaskInfo = prevPage.data.checkTaskInfo;
+            let prevPageStandardExecutionList = prevPageCheckTaskInfo.standardExecutionList;
+            let checkTaskList = prevTowPage.data.checkTaskList;
+            for (let i = 0; i < standardExecutionList.length; i++) {
+              for (let j = 0; j < prevPageStandardExecutionList.length; j++) {
+                if (i == j) {
+                  standardExecutionList[i].isActive = prevPageStandardExecutionList[j].isActive;
+                }
               }
             }
-          }
-          prevPageCheckTaskInfo.standardExecutionList = standardExecutionList;
-          for (let i = 0; i < checkTaskList.length; i++) {
-            if (prevPageCheckTaskInfo.id == checkTaskList[i].id) {
-              checkTaskList[i] = prevPageCheckTaskInfo;
+            prevPageCheckTaskInfo.standardExecutionList = standardExecutionList;
+            for (let i = 0; i < checkTaskList.length; i++) {
+              if (prevPageCheckTaskInfo.id == checkTaskList[i].id) {
+                checkTaskList[i] = prevPageCheckTaskInfo;
+              }
             }
+            prevPage.setData({
+              checkTaskInfo: prevPageCheckTaskInfo
+            })
+            prevTowPage.setData({
+              checkTaskList: checkTaskList
+            })
+            wx.navigateBack({
+              delta: 1
+            })
           }
-          prevPage.setData({
-            checkTaskInfo: prevPageCheckTaskInfo
+        }, function(res) {
+          wx.showToast({
+            title: '无法连接服务器，请检查您的网络或重试',
+            icon: "none"
           })
-          prevTowPage.setData({
-            checkTaskList: checkTaskList
-          })
-          wx.navigateBack({
-            delta: 1
-          })
-        }
-      }, function (res) {
+        });
+      }, function(res) {
         wx.showToast({
-          title: '无法连接服务器，请检查您的网络或重试',
+          title: '提交失败，请检查您的网络或重试',
           icon: "none"
         })
       });
-    }, function (res) {
-      wx.showToast({
-        title: '提交失败，请检查您的网络或重试',
-        icon: "none"
-      })
-    });
+    })
   },
   onLoad: function(options) {
     let that = this;
@@ -214,7 +216,7 @@ Page({
         scheduleEndTime: res.dateTime,
         scheduleEndTimeArray: res.dateTimeArray
       });
-    }, true);
+    }, 0);
     let standardExecution = JSON.parse(decodeURIComponent(options.standardExecution));
     that.setData({
       standardExecution: standardExecution

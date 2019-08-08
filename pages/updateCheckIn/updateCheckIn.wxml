@@ -1,0 +1,26 @@
+<view class="container-default">
+  <view class='page-describe'>
+    <view>{{dataInfo.staffName}}{{selectCurrentDateText}}上班时间{{dataInfo.setTime}}</view>
+    <view>考勤结果{{dataInfo.checkStateText}}</view>
+  </view>
+  <form bindsubmit="resetResult" report-submit='true'>
+    <view class='form-box'>
+      <view class='module-box'>
+        <view class='module'>
+          <view class="form-list">
+            <view class="form-list-name">
+              将考勤结果修改为<text class='normal-text'>正常</text>
+            </view>
+          </view>
+          <view class='form-content-box'>
+            <view class="form-textarea">
+              <textarea placeholder="请输入修改备注(选填)" value='{{editRecord}}' maxlength="150" bindinput='getEditRecord'></textarea>
+            </view>
+            <view class='word-number'>{{editRecord.length}}/150</view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <button class='big-btn icon-bottom' form-type="submit">提交</button>
+  </form>
+</view>

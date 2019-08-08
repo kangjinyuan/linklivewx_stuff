@@ -1,22 +1,22 @@
-<view class="container-default container-white">
-  <view class='select-address-box select-fee-box' hidden='{{showFee}}'>
-    <view class='select-address select-fee'>
-      <view class='select-address-text' wx:for='{{feeList}}' wx:key="{{item.id}}" data-index='{{index}}' bindtap='selectValue'>{{item.feeName}}</view>
+<view class="container-default">
+  <view class='tab-title-fold-content-box' hidden='{{showFee}}'>
+    <view class='tab-title-fold-list-box'>
+      <view class='tab-title-fold-list' wx:for='{{feeList}}' wx:key="{{item.id}}" data-index='{{index}}' bindtap='selectValue'>{{item.feeName}}</view>
     </view>
   </view>
-  <view class='select-address-box' hidden='{{showBuilding}}'>
-    <view class='select-address'>
-      <view class='select-address-text' wx:for='{{buildingsList}}' wx:key="{{item.id}}" data-code='{{item.code}}' bindtap='selectValue'>{{item.code}}号楼</view>
+  <view class='tab-title-fold-content-box select-address-box' hidden='{{showBuilding}}'>
+    <view class='tab-title-fold-list-box'>
+      <view class='tab-title-fold-list' wx:for='{{buildingsList}}' wx:key="{{item.id}}" data-code='{{item.code}}' bindtap='selectValue'>{{item.code}}号楼</view>
     </view>
   </view>
-  <view class='select-address-box' hidden='{{showUnit}}'>
-    <view class='select-address'>
-      <view class='select-address-text' wx:for='{{unitsList}}' wx:key="{{item.id}}" data-unit='{{item}}' bindtap='selectValue'>{{item}}单元</view>
+  <view class='tab-title-fold-content-box select-address-box' hidden='{{showUnit}}'>
+    <view class='tab-title-fold-list-box'>
+      <view class='tab-title-fold-list' wx:for='{{unitsList}}' wx:key="{{item.id}}" data-unit='{{item}}' bindtap='selectValue'>{{item}}单元</view>
     </view>
   </view>
-  <view class='select-address-box' hidden='{{showRoom}}'>
-    <view class='select-address'>
-      <view class='select-address-text' wx:for='{{roomsList}}' wx:key="{{item.id}}" data-room-info='{{item}}' bindtap='selectValue'>{{item.code}}</view>
+  <view class='tab-title-fold-content-box select-address-box' hidden='{{showRoom}}'>
+    <view class='tab-title-fold-list-box'>
+      <view class='tab-title-fold-list' wx:for='{{roomsList}}' wx:key="{{item.id}}" data-room-info='{{item}}' bindtap='selectValue'>{{item.code}}</view>
     </view>
   </view>
   <view class='preview-box' hidden='{{showPreview}}'>
@@ -70,8 +70,8 @@
       </view>
     </view>
   </view>
-  <view class='show-fee-box' data-flag="3" bindtap='showBox'>
-    <view class='show-fee'>
+  <view class='tab-title-fold-box' data-flag="3" bindtap='showBox'>
+    <view class='tab-title-fold-text-box'>
       {{feeList[feeIndex].feeName}}
       <view class='icon-select-line icon-right'>
         <image wx:if='{{showFee == true}}' src='../../images/icon-select-down-line.png'></image>

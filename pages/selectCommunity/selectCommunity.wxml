@@ -9,13 +9,13 @@
       </view>
     </view>
   </view>
-  <view class='letter-box'>
+  <view class='letter-box' wx:if="{{isNoData == false}}">
     <view wx:if='{{item.childList.length > 0}}' wx:for='{{communityList}}' wx:key="{{item.code}}" data-anchor='{{item.anchor}}' bindtap='pageScrollTo'>{{item.code}}</view>
   </view>
-  <view class='no-data-box' wx:if='{{dataList.length == 0}}'>
+  <view class='no-data-box' wx:if='{{isNoData}}'>
     <view class='no-data'>
-      <view class='icon-community-no-data'>
-        <image src='../../images/icon-community-no-data.png'></image>
+      <view class='icon-address-no-data'>
+        <image src='../../images/icon-address-no-data.png'></image>
       </view>
       <view class='text'>当前没有社区信息</view>
     </view>

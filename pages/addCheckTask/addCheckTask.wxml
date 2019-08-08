@@ -7,7 +7,7 @@
             <text>*</text>
           </view>
           <view class="form-list-value">
-            <input data-flag="0" type="text" name="" value="{{title}}" placeholder="请输入" bindinput="getValue" />
+            <input data-flag="0" type="text" name="" value="{{title}}" placeholder="请输入" maxlength='15' bindinput="getValue" />
           </view>
         </view>
         <view class='form-content-box'>
@@ -55,7 +55,7 @@
           <view class="icon-right icon-jump">
             <image src="../../images/icon-jump.png"></image>
           </view>
-          <view class="form-list-name form-margin-left">
+          <view class="form-list-name form-margin-circle-left">
             开始时间
           </view>
           <view class="form-list-value form-margin-right">
@@ -74,7 +74,7 @@
           <view class="icon-right icon-jump">
             <image src="../../images/icon-jump.png"></image>
           </view>
-          <view class="form-list-name form-margin-left">
+          <view class="form-list-name form-margin-circle-left">
             结束时间
           </view>
           <view class="form-list-value form-margin-right">
@@ -132,6 +132,6 @@
     </view>
   </view>
   <view class='btn-box'>
-    <view class='big-btn icon-center' bindtap='addCheckTask'>提交</view>
+    <view class='big-btn' bindtap='addCheckTask'>提交</view>
   </view>
 </view>

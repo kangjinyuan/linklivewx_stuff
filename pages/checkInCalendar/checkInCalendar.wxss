@@ -1,0 +1,28 @@
+.hit-card-speed-box {
+  padding: 20rpx 30rpx 20rpx 40rpx;
+}
+
+.float-staff-box {
+  padding: 0rpx;
+}
+
+.float-staff-head-img {
+  width: 60rpx;
+  height: 60rpx;
+  background-color: #fcac66;
+  font-size: 24rpx;
+  line-height: 60rpx;
+}
+
+.float-staff-name {
+  font-size: 28rpx;
+  line-height: 60rpx;
+}
+
+.alert-list {
+  margin-bottom: 30rpx;
+}
+
+.alert-list-name {
+  margin-bottom: 30rpx;
+}

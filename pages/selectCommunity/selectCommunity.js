@@ -6,7 +6,8 @@ Page({
     communityList: [],
     dataList: [],
     communityName: '',
-    anchor: ""
+    anchor: "",
+    isNoData: true
   },
   pageScrollTo: function(e) {
     let that = this;
@@ -36,7 +37,17 @@ Page({
     let dataList = that.data.dataList;
     let communityName = that.data.communityName;
     let communityList = mailList.mailList(dataList, communityName);
+    let isNoData = that.data.isNoData;
+    for (let i = 0; i < communityList.length; i++) {
+      if (communityList[i].childList.length > 0) {
+        isNoData = false;
+        break;
+      } else {
+        isNoData = true;
+      }
+    }
     that.setData({
+      isNoData: isNoData,
       communityList: communityList
     })
   },

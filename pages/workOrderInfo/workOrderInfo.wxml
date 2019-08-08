@@ -46,14 +46,18 @@
         </view>
       </view>
     </view>
-    <view class='big-btn' wx:if="{{workOrderInfo.state == 2}}" data-flag='3' bindtap='operaOrder'>完成</view>
+    <view class='big-btn' data-flag='3' bindtap="operaOrder" wx:if="{{workOrderInfo.state == 2}}">完成</view>
   </view>
   <view class='btn-box' wx:if="{{workOrderInfo.state == 0}}">
-    <view data-flag='0' bindtap='operaOrder'>抢单</view>
+    <form data-flag='0' bindsubmit="operaOrder" report-submit='true'>
+      <button form-type="submit">抢单</button>
+    </form>
     <view class="{{assignOrTransferType?'':'disabled-btn'}}" data-flag='2' bindtap='operaOrder'>分派</view>
   </view>
   <view class='btn-box' wx:if="{{workOrderInfo.state == 1}}">
-    <view data-flag='1' bindtap='operaOrder'>执行</view>
+    <form data-flag='1' bindsubmit="operaOrder" report-submit='true'>
+      <button form-type="submit">执行</button>
+    </form>
     <view class="{{assignOrTransferType?'':'disabled-btn'}}" data-flag='2' bindtap='operaOrder'>转发</view>
   </view>
 </view>

@@ -1,0 +1,153 @@
+<view class="container-default">
+  <view class='form-box'>
+    <view class="module-box">
+      <view class="module">
+        <view class="form-list">
+          <view class="form-list-name">考勤组名称
+            <text>*</text>
+          </view>
+          <view class="form-list-value">
+            <input data-flag="0" type="text" name="" value="{{name}}" placeholder="请输入考勤组名称" placeholder-class='placeholder' maxlength='15' bindinput="getValue" />
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class='title-tips-box'>
+      <view class='title-tips-text'>考勤组人员</view>
+    </view>
+    <view class="module-box">
+      <view class="module">
+        <view class="form-list" data-stuff-type='0' bindtap='selectStuff'>
+          <view class="icon-right icon-jump">
+            <image src="../../images/icon-jump.png"></image>
+          </view>
+          <view class="form-list-name">
+            考勤组主管
+            <text>*</text>
+          </view>
+          <view class="form-list-value form-margin-right">
+            <view class='placeholder' wx:if="{{leaderJson.length == 0}}">请选择考勤组主管</view>
+            <view class='text' wx:elif="{{leaderJson.length > 2}}">
+              <view class='wait-text'>等{{leaderJson.length}}人</view>
+              <view class='wait-text wait-limit-text'>{{leaderJson[0].name}},{{leaderJson[1].name}}</view>
+            </view>
+            <view class='text' wx:else>
+              <text wx:for="{{leaderJson}}" wx:key="{{item.id}}">{{index > 0?',':''}}{{item.name}}</text>
+            </view>
+          </view>
+        </view>
+        <view class="form-list" data-stuff-type='1' bindtap='selectStuff'>
+          <view class="icon-right icon-jump">
+            <image src="../../images/icon-jump.png"></image>
+          </view>
+          <view class="form-list-name">
+            参与考勤人员
+            <text>*</text>
+          </view>
+          <view class="form-list-value form-margin-right">
+            <view class='placeholder' wx:if="{{memberJson.length == 0}}">请选择参与考勤人员</view>
+            <view class='text' wx:elif="{{memberJson.length > 2}}">
+              <view class='wait-text'>等{{memberJson.length}}人</view>
+              <view class='wait-text wait-limit-text'>{{memberJson[0].name}},{{memberJson[1].name}}</view>
+            </view>
+            <view class='text' wx:else>
+              <text wx:for="{{memberJson}}" wx:key="{{item.id}}">{{index > 0?',':''}}{{item.name}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class='title-tips-box'>
+      <view class='title-tips-text'>考勤时间</view>
+    </view>
+    <view class="module-box">
+      <view class="module">
+        <view class='form-tab-box'>
+          <view wx:for="{{checkInStyleList}}" wx:key="{{item.checkInStyle}}" class="{{checkInStyle == item.checkInStyle?'selected':''}}" data-check-in-style='{{item.checkInStyle}}' bindtap='tabCheckInStyle'>
+            {{item.name}}
+          </view>
+        </view>
+        <view class="form-list" bindtap='selectShift'>
+          <view class="icon-right icon-jump">
+            <image src="../../images/icon-jump.png"></image>
+          </view>
+          <view class="form-list-name">
+            上下班时间
+            <text>*</text>
+          </view>
+          <view class="form-list-value form-margin-right">
+            <view class='placeholder' wx:if="{{shiftList.length == 0}}">请选择上下班时间</view>
+            <view class='text' wx:else>
+              <text wx:for="{{shiftList}}" wx:key="{{item.id}}">{{index > 0?',':''}}{{item.name}}</text>
+            </view>
+          </view>
+        </view>
+        <view class="form-list" bindtap='checkInCycle' wx:if="{{checkInStyle == 1}}">
+          <view class="icon-right icon-jump">
+            <image src="../../images/icon-jump.png"></image>
+          </view>
+          <view class="form-list-name">
+            排班周期
+            <text>*</text>
+          </view>
+          <view class="form-list-value form-margin-right">
+            <view class='text' wx:if="{{checkInPeriod}}">{{checkInPeriod}}天</view>
+            <view class='placeholder' wx:else>请设置排班周期</view>
+          </view>
+        </view>
+        <view class="form-list" bindtap='checkInDay' wx:if="{{checkInStyle == 0}}">
+          <view class="icon-right icon-jump">
+            <image src="../../images/icon-jump.png"></image>
+          </view>
+          <view class="form-list-name">
+            考勤日期
+            <text>*</text>
+          </view>
+          <view class="form-list-value form-margin-right">
+            <view class='text' wx:if="{{checkInPeriod}}">{{checkInPeriodText}}</view>
+            <view class='placeholder' wx:else>请选择考勤日期</view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class='title-tips-box'>
+      <view class='title-tips-text'>考勤地点</view>
+    </view>
+    <view class="module-box">
+      <view class="module">
+        <view class="form-list" data-stuff-type='0' bindtap='selectCheckInAddress'>
+          <view class="icon-right icon-jump">
+            <image src="../../images/icon-jump.png"></image>
+          </view>
+          <view class="form-list-name">
+            考勤地点
+            <text>*</text>
+          </view>
+          <view class="form-list-value form-margin-right">
+            <view class='placeholder' wx:if="{{checkInAddressJson.length == 0}}">请选择考勤地点</view>
+            <view class='text' wx:elif="{{checkInAddressJson.length > 1}}">
+              {{checkInAddressJson[0].name}}等{{checkInAddressJson.length}}个
+            </view>
+            <view class='text' wx:else>
+              <text wx:for="{{checkInAddressJson}}" wx:key="{{item.id}}">{{item.name}}</text>
+            </view>
+          </view>
+        </view>
+        <view class="form-list">
+          <view class="icon-right icon-jump">
+            <image src="../../images/icon-jump.png"></image>
+          </view>
+          <view class="form-list-name">允许打卡范围
+            <text>*</text>
+          </view>
+          <view class="form-list-value form-margin-right">
+            <picker data-flag='1' bindchange="getValue" value="{{withinMeterIndex}}" range="{{withinMeterList}}">
+              <view class="text">{{withinMeterList[withinMeterIndex]}}米</view>
+            </picker>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class='big-btn' bindtap='addCheckInGroup'>完成</view>
+</view>

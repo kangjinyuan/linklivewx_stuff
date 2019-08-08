@@ -1,0 +1,59 @@
+<view class="container-default container-flex">
+  <view class='form-box'>
+    <view class="module-box">
+      <view class="module">
+        <view class="form-list" data-shift-info='' bindtap='operaShift'>
+          <view class="icon-left icon-form-add">
+            <image src="../../images/icon-form-add.png"></image>
+          </view>
+          <view class="form-list-name form-margin-opera-left form-opera-name">
+            新增全局班次
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class='title-tips-box'>
+    <view class='title-tips-text'>侧滑删除</view>
+  </view>
+  <view class='no-data-box' wx:if='{{dataList.length == 0}}'>
+    <view class='no-data'>
+      <view class='icon-common-no-data'>
+        <image src='../../images/icon-common-no-data.png'></image>
+      </view>
+      <view class='text'>当前没有全局班次</view>
+    </view>
+  </view>
+  <scroll-view wx:else scroll-y="true" bindscrolltolower="nextPage">
+    <view class='full-width-list-box'>
+      <view class="full-width-list {{item.sideslipActive?'sideslip-active':''}}" wx:for="{{dataList}}" wx:key="{{item.id}}">
+        <view class="full-width-content-box" data-index='{{index}}' bindtouchstart="sideslipStart" bindtouchmove="sideslipMove">
+          <view class="icon-check-box icon-left" data-id='{{item.id}}' bindtap='selectShift'>
+            <image wx:if="{{item.isActive}}" src='../../images/icon-check-box-selected.png'></image>
+            <image wx:else src='../../images/icon-check-box-no-selected.png'></image>
+          </view>
+          <view class="icon-right icon-jump">
+            <image src="../../images/icon-jump.png"></image>
+          </view>
+          <view class='full-width-text-box  form-margin-opera-left form-margin-right' data-shift-info='{{item}}' bindtap='operaShift'>
+            <view class='full-width-title-box'>
+              <view class='full-width-title'>
+                {{item.name}}
+              </view>
+              <view class='full-width-value'>
+                {{item.firstShift}}{{item.secondShift?',':''}}{{item.secondShift}}{{item.thirdShift?',':''}}{{item.thirdShift}}
+              </view>
+            </view>
+          </view>
+
+        </view>
+        <view class='sideslip-del-box' data-id='{{item.id}}' bindtap='del'>
+          <view>删除</view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+  <view class='btn-box'>
+    <view class='big-btn' bindtap='setShift'>确定</view>
+  </view>
+</view>

@@ -1,0 +1,113 @@
+.tab-box {
+  margin-bottom: 20rpx;
+}
+
+.tab-list {
+  width: 33.33%;
+}
+
+.chart-statistics-date-box {
+  border: none;
+  padding-top: 50rpx;
+}
+
+.chart-box {
+  width: 690rpx;
+  padding: 48rpx 30rpx 60rpx;
+  background-color: #fff;
+  position: relative;
+}
+
+.chart-canvas-box {
+  width: 382rpx;
+  height: 382rpx;
+  margin: 0rpx auto 100rpx;
+  border-radius: 50%;
+  position: relative;
+}
+
+.chart-canvas, .chart-canvas canvas {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.chart-canvas canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.chart-text-box {
+  width: 100%;
+  height: 196rpx;
+  position: absolute;
+  top: 110rpx;
+  left: 0rpx;
+}
+
+.chart-circle-text {
+  width: 100%;
+  font-size: 28rpx;
+  line-height: 28rpx;
+  color: #333;
+  text-align: center;
+  position: relative;
+}
+
+.chart-circle-info-btn{
+  height: 26rpx;
+}
+
+.chart-circle-number {
+  margin: 40rpx auto 36rpx;
+  font-size: 78rpx;
+  line-height: 78rpx;
+  color: #f94d23;
+}
+
+.chart-link-box {
+  width: 110rpx;
+  height: 26rpx;
+  font-size: 26rpx;
+  line-height: 26rpx;
+  color: #3292fe;
+  padding-right: 20rpx;
+}
+
+.chart-list-box {
+  width: 100%;
+  overflow: hidden;
+  margin: 0rpx auto;
+}
+
+.chart-list {
+  width: 172.5rpx;
+  overflow: hidden;
+  float: left;
+}
+
+.chart-list-name, .chart-list-value {
+  width: 100%;
+  text-align: center;
+}
+
+.chart-list-name {
+  width: 100%;
+  font-size: 30rpx;
+  line-height: 30rpx;
+  color: #666;
+}
+
+.chart-list-value {
+  width: 100%;
+  margin-bottom: 30rpx;
+  font-size: 36rpx;
+  line-height: 36rpx;
+  font-weight: 500;
+  color: #999;
+}
+
+.chart-list:first-child .chart-list-value {
+  color: #ea4841;
+}

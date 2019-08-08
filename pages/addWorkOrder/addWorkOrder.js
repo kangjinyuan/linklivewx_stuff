@@ -156,6 +156,6 @@ Page({
         scheduleEndTime: res.dateTime,
         scheduleEndTimeArray: res.dateTimeArray
       });
-    }, true);
+    }, 0);
   }
 })

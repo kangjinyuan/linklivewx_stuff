@@ -1,106 +1,108 @@
 <view class="container-default">
-  <view class='form-box'>
-    <view class="module-box">
-      <view class="module">
-        <view class="form-list">
-          <view class="form-list-name">标准编号
-          </view>
-          <view class="form-list-value">
-            {{standardExecution.standardCode}}
-          </view>
-        </view>
-        <view class='form-list'>
-          <view class='form-content-box'>
-            <view class='form-content-title'>
-              检查方法
+  <form bindsubmit="reportCheckResult" report-submit='true'>
+    <view class='form-box'>
+      <view class="module-box">
+        <view class="module">
+          <view class="form-list">
+            <view class="form-list-name">标准编号
             </view>
-            <view class='form-content-text'>
-              {{standardExecution.standardDescription}}
+            <view class="form-list-value">
+              {{standardExecution.standardCode}}
+            </view>
+          </view>
+          <view class='form-list'>
+            <view class='form-content-box'>
+              <view class='form-content-title'>
+                检查方法
+              </view>
+              <view class='form-content-text'>
+                {{standardExecution.standardDescription}}
+              </view>
             </view>
           </view>
         </view>
       </view>
-    </view>
-    <view class="module-box">
-      <view class="module">
-        <view class="form-list">
-          <view class="form-list-name">点位名称
-          </view>
-          <view class="form-list-value">
-            {{standardExecution.pointName}}
-          </view>
-        </view>
-        <view class="form-list">
-          <view class="form-list-name">
-            是否合格
-          </view>
-          <view class="form-list-value">
-            <switch checked bindchange='getValue' data-flag='0' color='#fda414' />
-          </view>
-        </view>
-        <view class="form-list" bindtap='toProblemCategory' wx:if="{{checkResult == 2}}">
-          <view class="icon-right icon-jump">
-            <image src="../../images/icon-jump.png"></image>
-          </view>
-          <view class="form-list-name">
-            请选择问题类型
-            <text>*</text>
-          </view>
-          <view class="form-list-value form-margin-right">
-            <view wx:if="{{problemCategory}}" class='text'>{{problemCategory.title}}</view>
-            <view wx:else class='placeholder'>请选择问题类型</view>
-          </view>
-        </view>
-        <view class='form-list'>
-          <view class='form-content-box'>
-            <view class="form-textarea">
-              <textarea placeholder="请填写结果描述（必填）" value='{{checkDescription}}' bindinput='getValue' data-flag='1' maxlength="150"></textarea>
+      <view class="module-box">
+        <view class="module">
+          <view class="form-list">
+            <view class="form-list-name">点位名称
             </view>
-            <view class='word-number'>{{checkDescription.length}}/150</view>
-            <view class="upload-img-box">
-              <view class="upload-img" wx:for="{{imageList}}" wx:key="{{item.key}}">
-                <image src="{{item.imageURL+'?imageView2/1/w/140/h/140'}}"></image>
-                <view data-index='{{index}}' class='del-img' bindtap='delImg'>
-                  <image src='../../images/del-img.png'></image>
+            <view class="form-list-value">
+              {{standardExecution.pointName}}
+            </view>
+          </view>
+          <view class="form-list">
+            <view class="form-list-name">
+              是否合格
+            </view>
+            <view class="form-list-value">
+              <switch checked bindchange='getValue' data-flag='0' color='#fda414' />
+            </view>
+          </view>
+          <view class="form-list" bindtap='toProblemCategory' wx:if="{{checkResult == 2}}">
+            <view class="icon-right icon-jump">
+              <image src="../../images/icon-jump.png"></image>
+            </view>
+            <view class="form-list-name">
+              请选择问题类型
+              <text>*</text>
+            </view>
+            <view class="form-list-value form-margin-right">
+              <view wx:if="{{problemCategory}}" class='text'>{{problemCategory.title}}</view>
+              <view wx:else class='placeholder'>请选择问题类型</view>
+            </view>
+          </view>
+          <view class='form-list'>
+            <view class='form-content-box'>
+              <view class="form-textarea">
+                <textarea placeholder="请填写结果描述（必填）" value='{{checkDescription}}' bindinput='getValue' data-flag='1' maxlength="150"></textarea>
+              </view>
+              <view class='word-number'>{{checkDescription.length}}/150</view>
+              <view class="upload-img-box">
+                <view class="upload-img" wx:for="{{imageList}}" wx:key="{{item.key}}">
+                  <image src="{{item.imageURL+'?imageView2/1/w/140/h/140'}}"></image>
+                  <view data-index='{{index}}' class='del-img' bindtap='delImg'>
+                    <image src='../../images/del-img.png'></image>
+                  </view>
+                </view>
+                <view class="upload-img" bindtap='uploadImg' wx:if="{{imageList.length < 3}}">
+                  <image src="../../images/icon-add-img.png"></image>
                 </view>
               </view>
-              <view class="upload-img" bindtap='uploadImg' wx:if="{{imageList.length < 3}}">
-                <image src="../../images/icon-add-img.png"></image>
-              </view>
             </view>
           </view>
-        </view>
-        <view class="form-list" wx:if="{{checkResult == 2}}">
-          <view class="form-list-name">
-            生成工单
+          <view class="form-list" wx:if="{{checkResult == 2}}">
+            <view class="form-list-name">
+              生成工单
+            </view>
+            <view class="form-list-value">
+              <switch bindchange='getValue' data-flag='2' color='#fda414' />
+            </view>
           </view>
-          <view class="form-list-value">
-            <switch bindchange='getValue' data-flag='2' color='#fda414' />
-          </view>
-        </view>
-        <view class="form-list" wx:if="{{createWorkOrder == 1}}">
-          <view class="icon-right icon-jump">
-            <image src="../../images/icon-jump.png"></image>
-          </view>
-          <view class="form-list-name">
-            计划结束时间
-            <text>*</text>
-          </view>
-          <view class="form-list-value form-margin-right">
-            <picker data-flag='3' mode="multiSelector" value="{{scheduleEndTime}}" bindchange="getValue" bindcolumnchange="changeDateTimeColumn" range="{{scheduleEndTimeArray}}">
-              <view class='text' wx:if="{{scheduleEndTimeText}}">
-                {{scheduleEndTimeText}}
-              </view>
-              <view class='placeholder' wx:else>
-                请选择计划结束时间
-              </view>
-            </picker>
+          <view class="form-list" wx:if="{{createWorkOrder == 1}}">
+            <view class="icon-right icon-jump">
+              <image src="../../images/icon-jump.png"></image>
+            </view>
+            <view class="form-list-name">
+              计划结束时间
+              <text>*</text>
+            </view>
+            <view class="form-list-value form-margin-right">
+              <picker data-flag='3' mode="multiSelector" value="{{scheduleEndTime}}" bindchange="getValue" bindcolumnchange="changeDateTimeColumn" range="{{scheduleEndTimeArray}}">
+                <view class='text' wx:if="{{scheduleEndTimeText}}">
+                  {{scheduleEndTimeText}}
+                </view>
+                <view class='placeholder' wx:else>
+                  请选择计划结束时间
+                </view>
+              </picker>
+            </view>
           </view>
         </view>
       </view>
     </view>
-  </view>
-  <view class='btn-box'>
-    <view class='big-btn icon-center' bindtap='reportCheckResult'>提交</view>
-  </view>
+    <view class='btn-box'>
+      <button class='big-btn' form-type="submit">提交</button>
+    </view>
+  </form>
 </view>

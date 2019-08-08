@@ -1,0 +1,30 @@
+<view class="container-default">
+  <view class='form-box'>
+    <view class="module-box">
+      <view class="module">
+        <view class="form-list" wx:for="{{dayList}}" wx:key="{{item.id}}" data-id='{{item.id}}' bindtap='selectDay'>
+          <view class='icon-check-box icon-right'>
+            <image wx:if="{{item.isActive}}" src='../../images/icon-check-box-selected.png'></image>
+            <image wx:else src='../../images/icon-check-box-no-selected.png'></image>
+          </view>
+          <view class="form-list-name">
+            {{item.name}}
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="module-box">
+      <view class="module">
+        <view class="form-list">
+          <view class="form-list-name">
+            法定节假日自动排休
+          </view>
+          <view class="form-list-value">
+            <switch bindchange='getAutoReset' checked='{{autoReset == 1}}' color='#fda414' />
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class='big-btn' bindtap='setCheckInPeriod'>确定</view>
+</view>

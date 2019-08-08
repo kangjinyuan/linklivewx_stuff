@@ -18,7 +18,7 @@ Page({
       })
     }
   },
-  login: function() {
+  login: function(e) {
     let that = this;
     if (that.data.telephone == '') {
       wx.showToast({
@@ -42,26 +42,32 @@ Page({
       })
       return false;
     }
-    let param = {
-      telephone: that.data.telephone,
-      password: that.data.password
-    }
-    app.request('POST', '/account/stuff/login.do', param, true, function(res) {
-      wx.setStorageSync("accountInfo", res.data.data);
-      wx.setStorageSync("accessToken", res.data.accessToken);
-      wx.switchTab({
-        url: '../index/index',
-      })
-    }, function(res) {
-      if (res.data.code == "0005") {
-        wx.showToast({
-          title: '登录失败，您的手机号或密码不正确',
-          icon: 'none'
-        })
-      } else {
-        wx.showToast({
-          title: '登录失败，请检查您的网络或重试',
-          icon: 'none'
+    wx.login({
+      success: function(res) {
+        let code = res.code;
+        let param = {
+          code: code,
+          telephone: that.data.telephone,
+          password: that.data.password
+        }
+        app.request('POST', '/account/stuff/login.do', param, true, function(res) {
+          wx.setStorageSync("accountInfo", res.data.data);
+          wx.setStorageSync("accessToken", res.data.accessToken);
+          wx.switchTab({
+            url: '../index/index',
+          })
+        }, function(res) {
+          if (res.data.code == "0005") {
+            wx.showToast({
+              title: '登录失败，您的手机号或密码不正确',
+              icon: 'none'
+            })
+          } else {
+            wx.showToast({
+              title: '登录失败，请检查您的网络或重试',
+              icon: 'none'
+            })
+          }
         })
       }
     })

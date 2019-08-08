@@ -1,0 +1,273 @@
+<view class="container-default container-flex">
+  <view class='tab-title-fold-box' bindtap='showCheckInGroup'>
+    <view class='tab-title-fold-text-box'>
+      {{checkInGroupList[checkInGroupIndex].name}}
+      <view class='icon-select-line icon-right'>
+        <image wx:if='{{showCheckInGroup == true}}' src='../../images/icon-select-down-line.png'></image>
+        <image wx:else src='../../images/icon-select-up-line.png'></image>
+      </view>
+    </view>
+  </view>
+  <cover-view class='tab-title-fold-content-box' hidden='{{showCheckInGroup}}'>
+    <cover-view class='tab-title-fold-list-box'>
+      <cover-view class='tab-title-fold-list tab-title-fold-cover-view-list' wx:for="{{checkInGroupList}}" wx:key="{{item.id}}" data-index='{{index}}' bindtap='selectCheckInGroup'>
+        {{item.name}}
+        <cover-view wx:if="{{index < checkInGroupList.length - 1}}" class='tab-title-fold-cover-view-list-border'></cover-view>
+      </cover-view>
+    </cover-view>
+  </cover-view>
+  <view class='tab-box'>
+    <view wx:for='{{tabList}}' wx:key="{{item.id}}" class="tab-list" data-state='{{item.state}}' bindtap='tabState'>
+      <view class="text {{state == item.state?'selectedColor':''}}">{{item.name}}</view>
+      <view class='selected' wx:if="{{state == item.state}}"></view>
+    </view>
+  </view>
+  <view class="statistics-date-box {{state == '0'?'chart-statistics-date-box':''}}">
+    <picker class='statistics-date-text' mode="date" value="{{selectDayTime}}" bindchange="getSelectTime" wx:if="{{state == '0'}}">
+      <view class='icon-select-statistics-date-down icon-right'>
+        <image src='../../images/icon-select-statistics-date-down.png'></image>
+      </view>
+      <view class='text'>
+        {{selectDayTime}}
+      </view>
+    </picker>
+    <picker class='statistics-date-text' mode="multiSelector" value="{{selectMonthTime}}" bindchange="getSelectTime" bindcolumnchange="changeDateTimeColumn" range="{{selectTimeArray}}" wx:if="{{state == '1'}}">
+      <view class='icon-select-statistics-date-down icon-right'>
+        <image src='../../images/icon-select-statistics-date-down.png'></image>
+      </view>
+      <view class='text'>
+        {{selectMonthTimeText}}
+      </view>
+    </picker>
+    <picker class='statistics-date-text' mode="multiSelector" value="{{selectMineTime}}" bindchange="getSelectTime" bindcolumnchange="changeDateTimeColumn" range="{{selectTimeArray}}" wx:if="{{state == '2'}}">
+      <view class='icon-select-statistics-date-down icon-right'>
+        <image src='../../images/icon-select-statistics-date-down.png'></image>
+      </view>
+      <view class='text'>
+        {{selectMineTimeText}}
+      </view>
+    </picker>
+  </view>
+  <view class='chart-box' wx:if="{{state == '0'}}">
+    <view class='chart-canvas-box'>
+      <view class='chart-canvas'>
+        <canvas canvas-id="canvasProgressBg" id='canvasProgressBg'> </canvas>
+        <canvas canvas-id="canvasProgress" id='canvasProgress'> </canvas>
+      </view>
+      <view class='chart-text-box'>
+        <view class='chart-circle-text'>打卡人数/应到人数</view>
+        <view class='chart-circle-text chart-circle-number'>{{recordInfo.checkInCount}}/{{memberLength}}</view>
+        <view class='chart-circle-text chart-circle-info-btn' bindtap='hitCardInfo'>
+          <view class='chart-link-box icon-center'>
+            <view class='icon-jump-3292fe icon-right'>
+              <image src="../../images/icon-jump-3292fe.png"></image>
+            </view>
+            打卡明细
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class='chart-list-box'>
+      <view class='chart-list'>
+        <view class="chart-list-value {{memberLength - recordInfo.checkInCount > 0 ?'check-work-state2':'check-work-state0'}}">{{memberLength - recordInfo.checkInCount}}</view>
+        <view class='chart-list-name'>未打卡</view>
+      </view>
+      <view class='chart-list'>
+        <view class="chart-list-value {{recordInfo.outdoorCount > 0 ?'check-work-state2':'check-work-state0'}}">{{recordInfo.outdoorCount}}</view>
+        <view class='chart-list-name'>外勤</view>
+      </view>
+      <view class='chart-list'>
+        <view class="chart-list-value {{recordInfo.lateCount > 0 ?'check-work-state2':'check-work-state0'}}">{{recordInfo.lateCount}}</view>
+        <view class='chart-list-name'>迟到</view>
+      </view>
+      <view class='chart-list'>
+        <view class="chart-list-value {{recordInfo.leaveCount > 0 ?'check-work-state2':'check-work-state0'}}">{{recordInfo.leaveCount}}</view>
+        <view class='chart-list-name'>早退</view>
+      </view>
+    </view>
+  </view>
+  <view class='full-width-list-box' wx:if="{{state == '1'}}">
+    <view class='full-width-list' data-number='{{recordInfo.lateCount}}' data-check-state='1' bindtap='checkInInfo'>
+      <view class='full-width-content-box'>
+        <view class='icon-jump icon-right'>
+          <image src='../../images/icon-jump.png'></image>
+        </view>
+        <view class='full-width-text-box form-margin-right'>
+          <view class='full-width-title-box'>
+            <view class='full-width-title'>
+              迟到
+            </view>
+            <view class="full-width-value {{recordInfo.lateCount == 0?'check-work-state0':'check-work-state3'}}">
+              {{recordInfo.lateCount}}次
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class='full-width-list' data-number='{{recordInfo.leaveCount}}' data-check-state='3' bindtap='checkInInfo'>
+      <view class='full-width-content-box'>
+        <view class='icon-jump icon-right'>
+          <image src='../../images/icon-jump.png'></image>
+        </view>
+        <view class='full-width-text-box form-margin-right'>
+          <view class='full-width-title-box'>
+            <view class='full-width-title'>
+              早退
+            </view>
+            <view class="full-width-value {{recordInfo.leaveCount == 0?'check-work-state0':'check-work-state3'}}">
+              {{recordInfo.leaveCount}}次
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class='full-width-list' data-number='{{recordInfo.missingCount}}' data-check-state='5' bindtap='checkInInfo'>
+      <view class='full-width-content-box'>
+        <view class='icon-jump icon-right'>
+          <image src='../../images/icon-jump.png'></image>
+        </view>
+        <view class='full-width-text-box form-margin-right'>
+          <view class='full-width-title-box'>
+            <view class='full-width-title'>
+              缺卡
+            </view>
+            <view class="full-width-value {{recordInfo.missingCount == 0?'check-work-state0':'check-work-state3'}}">
+              {{recordInfo.missingCount}}次
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class='full-width-list' data-number='{{recordInfo.absentCount}}' data-check-state='2' bindtap='checkInInfo'>
+      <view class='full-width-content-box'>
+        <view class='icon-jump icon-right'>
+          <image src='../../images/icon-jump.png'></image>
+        </view>
+        <view class='full-width-text-box form-margin-right'>
+          <view class='full-width-title-box'>
+            <view class='full-width-title'>
+              旷工
+            </view>
+            <view class="full-width-value {{recordInfo.absentCount == 0?'check-work-state0':'check-work-state3'}}">
+              {{recordInfo.absentCount}}次
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class='full-width-list-box' wx:if="{{state == '2'}}">
+    <view class='full-width-list'>
+      <view class='full-width-content-box'>
+        <view class='full-width-text-box'>
+          <view class='full-width-title-box'>
+            <view class='full-width-title'>
+              出勤天数
+            </view>
+            <view class="full-width-value {{recordInfo.attendanceDays > 0?'check-work-state1':'check-work-state0'}}">
+              {{recordInfo.attendanceDays}}天
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class='full-width-list'>
+      <view class='full-width-content-box'>
+        <view class='full-width-text-box'>
+          <view class='full-width-title-box'>
+            <view class='full-width-title'>
+              出勤班次
+            </view>
+            <view class="full-width-value {{recordInfo.shiftCount > 0?'check-work-state1':'check-work-state0'}}">
+              {{recordInfo.shiftCount}}次
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class='full-width-list'>
+      <view class='full-width-content-box'>
+        <view class='full-width-text-box'>
+          <view class='full-width-title-box'>
+            <view class='full-width-title'>
+              休息天数
+            </view>
+            <view class="full-width-value {{recordInfo.offDays > 0?'check-work-state1':'check-work-state0'}}">
+              {{recordInfo.offDays}}天
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class='full-width-list'>
+      <view class='full-width-content-box'>
+        <view class='full-width-text-box'>
+          <view class='full-width-title-box'>
+            <view class='full-width-title'>
+              迟到
+            </view>
+            <view class="full-width-value {{recordInfo.lateCount > 0?'check-work-state2':'check-work-state0'}}">
+              {{recordInfo.lateCount}}次
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class='full-width-list'>
+      <view class='full-width-content-box'>
+        <view class='full-width-text-box'>
+          <view class='full-width-title-box'>
+            <view class='full-width-title'>
+              早退
+            </view>
+            <view class="full-width-value {{recordInfo.leaveCount > 0?'check-work-state2':'check-work-state0'}}">
+              {{recordInfo.leaveCount}}次
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class='full-width-list'>
+      <view class='full-width-content-box'>
+        <view class='full-width-text-box'>
+          <view class='full-width-title-box'>
+            <view class='full-width-title'>
+              缺卡
+            </view>
+            <view class="full-width-value {{recordInfo.missingCount > 0?'check-work-state2':'check-work-state0'}}">
+              {{recordInfo.missingCount}}次
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class='full-width-list'>
+      <view class='full-width-content-box'>
+        <view class='full-width-text-box'>
+          <view class='full-width-title-box'>
+            <view class='full-width-title'>
+              旷工
+            </view>
+            <view class="full-width-value {{recordInfo.absentCount > 0?'check-work-state2':'check-work-state0'}}">
+              {{recordInfo.absentCount}}次
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class='full-width-list'>
+      <view class='full-width-content-box'>
+        <view class='full-width-text-box'>
+          <view class='full-width-title-box'>
+            <view class='full-width-title'>
+              外勤
+            </view>
+            <view class="full-width-value {{recordInfo.outdoorCount > 0?'check-work-state1':'check-work-state0'}}">
+              {{recordInfo.outdoorCount}}次
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

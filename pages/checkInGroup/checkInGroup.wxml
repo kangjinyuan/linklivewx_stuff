@@ -1,0 +1,46 @@
+<view class="container-default container-flex">
+  <view class='title-tips-box'>
+    <view class='title-tips-text'>侧滑删除</view>
+  </view>
+  <view class='no-data-box' wx:if='{{dataList.length == 0}}'>
+    <view class='no-data'>
+      <view class='icon-common-no-data'>
+        <image src='../../images/icon-common-no-data.png'></image>
+      </view>
+      <view class='text'>当前没有考勤组</view>
+    </view>
+  </view>
+  <scroll-view scroll-y="true" wx:else bindscrolltolower="nextPage">
+    <view class='full-width-list-box'>
+      <view class="full-width-list {{item.sideslipActive?'sideslip-active':''}}" wx:for="{{dataList}}" wx:key="{{item.id}}">
+        <view class="full-width-content-box" data-index='{{index}}' bindtouchstart="sideslipStart" bindtouchmove="sideslipMove">
+          <view class='full-width-text-box' data-check-in-group-info='{{item}}' bindtap='operaCheckInGroup'>
+            <view class='full-width-title-box'>
+              <view class='full-width-title full-width-title-max-width500'>
+                {{item.name}}
+              </view>
+              <view class='common-list-type'>{{item.checkInStyleText}}</view>
+            </view>
+            <view class='full-width-dir-box'>
+              <view class='full-width-dir-text'>成员{{item.memberJson.length}}人</view>
+              <view class='full-width-dir-text' wx:if="{{item.leaderJson.length > 2}}">
+                <view class='wait-text'>考勤主管:</view>
+                <view class='wait-text wait-limit-text'>{{item.leaderJson[0].name}},{{item.leaderJson[1].name}}</view>
+                <view class='wait-text'>等{{item.leaderJson.length}}人</view>
+              </view>
+              <view class='full-width-dir-text' wx:else>考勤主管:
+                <text wx:for="{{item.leaderJson}}" wx:key="{{item.id}}">{{index > 0?',':''}}{{item.name}}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+        <view class='sideslip-del-box' data-id='{{item.id}}' bindtap='del'>
+          <view>删除</view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+  <view class='fixed-btn' data-check-in-group-info='' bindtap='operaCheckInGroup'>
+    <image src='../../images/add-fixed-btn.png'></image>
+  </view>
+</view>

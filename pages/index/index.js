@@ -19,39 +19,45 @@ Page({
     let communityInfo = that.data.communityInfo;
     let id = e.currentTarget.dataset.id;
     if (communityInfo) {
-      if (id == 0) {
-        wx.navigateTo({
-          url: "../order/order?reportState=0"
-        })
-      } else if (id == 1) {
-        wx.navigateTo({
-          url: "../order/order?reportState=1"
-        })
-      } else if (id == 2) {
-        wx.navigateTo({
-          url: "../express/express"
-        })
-      } else if (id == 3) {
-        wx.navigateTo({
-          url: "../meter/meter"
-        })
-      } else if (id == 4) {
-        wx.navigateTo({
-          url: "../networkOpenDoor/networkOpenDoor"
-        })
-      } else if (id == 5) {
-        wx.navigateTo({
-          url: "../face/face"
-        })
-      } else if (id == 6) {
-        wx.navigateTo({
-          url: "../checkTask/checkTask"
-        })
-      } else if (id == 7) {
-        wx.navigateTo({
-          url: "../workOrder/workOrder"
-        })
-      }
+      app.setFormId(e, function(res) {
+        if (id == 0) {
+          wx.navigateTo({
+            url: "../order/order?reportState=0"
+          })
+        } else if (id == 1) {
+          wx.navigateTo({
+            url: "../order/order?reportState=1"
+          })
+        } else if (id == 2) {
+          wx.navigateTo({
+            url: "../express/express"
+          })
+        } else if (id == 3) {
+          wx.navigateTo({
+            url: "../meter/meter"
+          })
+        } else if (id == 4) {
+          wx.navigateTo({
+            url: "../networkOpenDoor/networkOpenDoor"
+          })
+        } else if (id == 5) {
+          wx.navigateTo({
+            url: "../face/face"
+          })
+        } else if (id == 6) {
+          wx.navigateTo({
+            url: "../checkTask/checkTask"
+          })
+        } else if (id == 7) {
+          wx.navigateTo({
+            url: "../workOrder/workOrder"
+          })
+        } else if (id == 8) {
+          wx.navigateTo({
+            url: "../hitCard/hitCard"
+          })
+        }
+      })
     } else {
       wx.showToast({
         title: '请选择社区',

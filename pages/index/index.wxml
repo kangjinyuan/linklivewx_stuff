@@ -17,18 +17,22 @@
     <view class='swiper-box box-shadow'>
       <swiper indicator-dots='true' indicator-color='#ccc' indicator-active-color='#fda414'>
         <swiper-item wx:for='{{servicesList}}' wx:key="{{item.id}}">
-          <view class='services-list' wx:for="{{item.dataList}}" wx:key="{{item.id}}" data-id='{{item.id}}' bindtap='topages'>
-            <view class='services-icon'>
-              <image wx:if="{{item.id == 0}}" src='../../images/icon-proprietor-maintenance.png'></image>
-              <image wx:if="{{item.id == 1}}" src='../../images/icon-maintenance.png'></image>
-              <image wx:if="{{item.id == 2}}" src='../../images/icon-express.png'></image>
-              <image wx:if="{{item.id == 3}}" src='../../images/icon-meter.png'></image>
-              <image wx:if="{{item.id == 4}}" src='../../images/icon-open-door.png'></image>
-              <image wx:if="{{item.id == 5}}" src='../../images/icon-face.png'></image>
-              <image wx:if="{{item.id == 6}}" src='../../images/icon-check-task.png'></image>
-              <image wx:if="{{item.id == 7}}" src='../../images/icon-work-order.png'></image>
-            </view>
-            <view class='text'>{{item.title}}</view>
+          <view class='services-list' wx:for="{{item.dataList}}" wx:key="{{item.id}}">
+            <form bindsubmit="topages" data-id='{{item.id}}' report-submit='true'>
+              <view class='services-icon'>
+                <image wx:if="{{item.id == 0}}" src='../../images/icon-proprietor-maintenance.png'></image>
+                <image wx:if="{{item.id == 1}}" src='../../images/icon-maintenance.png'></image>
+                <image wx:if="{{item.id == 2}}" src='../../images/icon-express.png'></image>
+                <image wx:if="{{item.id == 3}}" src='../../images/icon-meter.png'></image>
+                <image wx:if="{{item.id == 4}}" src='../../images/icon-open-door.png'></image>
+                <image wx:if="{{item.id == 5}}" src='../../images/icon-face.png'></image>
+                <image wx:if="{{item.id == 6}}" src='../../images/icon-check-task.png'></image>
+                <image wx:if="{{item.id == 7}}" src='../../images/icon-work-order.png'></image>
+                <image wx:if="{{item.id == 8}}" src='../../images/icon-check-work.png'></image>
+              </view>
+              <view class='text'>{{item.title}}</view>
+              <button form-type="submit"></button>
+            </form>
           </view>
         </swiper-item>
       </swiper>

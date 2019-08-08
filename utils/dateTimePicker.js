@@ -88,12 +88,20 @@ function dateTimePicker(startYear, endYear, date) {
   }
 }
 
-function dateTimePickerInit(data, callback, hasSecond) {
-  let res = dateTimePicker(data);
+function dateTimePickerInit(date, callback, accurate) {
+  let res = dateTimePicker('', '', date);
+  let dateTimeArray = res.dateTimeArray;
+  let dateTime = res.dateTime;
   // 精确到分的处理，将数组的秒去掉
-  if (hasSecond) {
-    let lastArray = res.dateTimeArray.pop();
-    let lastTime = res.dateTime.pop();
+  if (accurate == "0") {
+    dateTimeArray.splice(5, 1);
+    dateTime.splice(5, 1);
+  } else if (accurate == "1") {
+    dateTimeArray.splice(3, 3);
+    dateTime.splice(3, 3);
+  } else if (accurate == "2") {
+    dateTimeArray.splice(2, 4);
+    dateTime.splice(2, 4);
   }
   callback(res);
 }

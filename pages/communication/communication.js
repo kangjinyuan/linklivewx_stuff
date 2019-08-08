@@ -6,7 +6,8 @@ Page({
     stuffList: [],
     dataList: [],
     stuffName: '',
-    anchor: ""
+    anchor: "",
+    isNoData: true
   },
   makePhoneCall: function(e) {
     let that = this;
@@ -35,7 +36,17 @@ Page({
     let dataList = that.data.dataList;
     let stuffName = that.data.stuffName;
     let stuffList = mailList.mailList(dataList, stuffName);
+    let isNoData = that.data.isNoData;
+    for (let i = 0; i < stuffList.length; i++) {
+      if (stuffList[i].childList.length > 0) {
+        isNoData = false;
+        break;
+      } else {
+        isNoData = true;
+      }
+    }
     that.setData({
+      isNoData: isNoData,
       stuffList: stuffList
     })
   },

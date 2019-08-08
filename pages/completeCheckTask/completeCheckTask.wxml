@@ -1,26 +1,28 @@
 <view class="container-default">
-  <view class='form-box'>
-    <view class='module-box'>
-      <view class='module'>
-        <view class='form-content-box'>
-          <view class="form-textarea">
-            <textarea placeholder="请填写结果描述（必填）" value='{{checkDescription}}' bindinput="getCheckDescription" maxlength='150'></textarea>
-          </view>
-          <view class='word-number'>{{checkDescription.length}}/150</view>
-          <view class="upload-img-box">
-            <view class="upload-img" wx:for="{{imageList}}" wx:key="{{item.key}}">
-              <image src="{{item.imageURL+'?imageView2/1/w/140/h/140'}}"></image>
-              <view data-index='{{index}}' class='del-img' bindtap='delImg'>
-                <image src='../../images/del-img.png'></image>
-              </view>
+  <form bindsubmit="completeCheckTask" report-submit='true'>
+    <view class='form-box'>
+      <view class='module-box'>
+        <view class='module'>
+          <view class='form-content-box'>
+            <view class="form-textarea">
+              <textarea placeholder="请填写结果描述（必填）" value='{{checkDescription}}' bindinput="getCheckDescription" maxlength='150'></textarea>
             </view>
-            <view class="upload-img" bindtap='uploadImg' wx:if="{{imageList.length < 3}}">
-              <image src="../../images/icon-add-img.png"></image>
+            <view class='word-number'>{{checkDescription.length}}/150</view>
+            <view class="upload-img-box">
+              <view class="upload-img" wx:for="{{imageList}}" wx:key="{{item.key}}">
+                <image src="{{item.imageURL+'?imageView2/1/w/140/h/140'}}"></image>
+                <view data-index='{{index}}' class='del-img' bindtap='delImg'>
+                  <image src='../../images/del-img.png'></image>
+                </view>
+              </view>
+              <view class="upload-img" bindtap='uploadImg' wx:if="{{imageList.length < 3}}">
+                <image src="../../images/icon-add-img.png"></image>
+              </view>
             </view>
           </view>
         </view>
       </view>
     </view>
-  </view>
-  <view class='big-btn icon-bottom' bindtap='completeCheckTask'>提交</view>
+    <button class='big-btn icon-bottom' form-type="submit">提交</button>
+  </form>
 </view>

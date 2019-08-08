@@ -27,28 +27,30 @@ Page({
       } else {
         requestUrl = "/property/workOrder/executeOrder.do";
       }
-      let param = {
-        id: id
-      }
-      app.request("POST", requestUrl, param, true, function(res) {
-        let prevPage = app.prevPage(2);
-        prevPage.removeData(id);
-        wx.navigateBack({
-          delta: 1
-        })
-      }, function(res) {
-        if (flag == "0") {
-          wx.showToast({
-            title: '抢单失败，请检查您的网络或重试',
-            icon: "none"
-          })
-        } else {
-          wx.showToast({
-            title: '执行失败，请检查您的网络或重试',
-            icon: "none"
-          })
+      app.setFormId(e, function(res) {
+        let param = {
+          id: id
         }
-      })
+        app.request("POST", requestUrl, param, true, function(res) {
+          let prevPage = app.prevPage(2);
+          prevPage.removeData(id);
+          wx.navigateBack({
+            delta: 1
+          })
+        }, function(res) {
+          if (flag == "0") {
+            wx.showToast({
+              title: '抢单失败，请检查您的网络或重试',
+              icon: "none"
+            })
+          } else {
+            wx.showToast({
+              title: '执行失败，请检查您的网络或重试',
+              icon: "none"
+            })
+          }
+        })
+      });
     } else if (flag == "2") {
       let assignOrTransferType = that.data.assignOrTransferType;
       if (assignOrTransferType) {
@@ -65,8 +67,6 @@ Page({
   onLoad: function(options) {
     let that = this;
     let workOrderInfo = JSON.parse(decodeURIComponent(options.workOrderInfo));
-    let accountInfo = wx.getStorageSync("accountInfo");
-    let privilege = accountInfo.privilege;
     let assignOrTransferType = that.data.assignOrTransferType;
     let param = {
       id: workOrderInfo.id
@@ -82,16 +82,16 @@ Page({
       for (let i = 0; i < eventList.length; i++) {
         eventList[i].createTime = app.setTime(eventList[i].createTime, 1);
       }
-      for (let i = 0; i < privilege.length; i++) {
-        if (workOrderInfo.state == "0") {
-          if (privilege[i].id == "0" && privilege[i].checked == true) {
-            assignOrTransferType = "0";
-          }
+      if (workOrderInfo.state == "0") {
+        let privilegeState = app.privilegeState(0);
+        if (privilegeState) {
+          assignOrTransferType = "0";
         }
-        if (workOrderInfo.state == "1" || workOrderInfo.state == "2") {
-          if (privilege[i].id == "1" && privilege[i].checked == true) {
-            assignOrTransferType = "1";
-          }
+      }
+      if (workOrderInfo.state == "1") {
+        let privilegeState = app.privilegeState(1);
+        if (privilegeState) {
+          assignOrTransferType = "1";
         }
       }
       that.setData({

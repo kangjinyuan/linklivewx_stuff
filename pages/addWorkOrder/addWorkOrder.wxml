@@ -88,5 +88,7 @@
       </view>
     </view>
   </view>
-  <view class='big-btn' bindtap='addWorkOrder'>提交</view>
+  <view class='btn-box'>
+    <view class='big-btn' bindtap='addWorkOrder'>提交</view>
+  </view>
 </view>

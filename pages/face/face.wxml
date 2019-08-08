@@ -1,5 +1,5 @@
 <view class="container-default container-white  container-flex">
-  <view class='face-describe'>为了提高广大业主通行体验，需要进行人脸登记，面部信息仅用于通行社区时使用。</view>
+  <view class='page-describe'>为了提高广大业主通行体验，需要进行人脸登记，面部信息仅用于通行社区时使用。</view>
   <view class='face-box'>
     <view class='face-list-box'>
       <view class='face-list'>

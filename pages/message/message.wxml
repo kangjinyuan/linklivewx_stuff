@@ -1,0 +1,28 @@
+<view class="container-default container-flex">
+  <view class='no-data-box' wx:if='{{messageList.length == 0}}'>
+    <view class='no-data'>
+      <view class='icon-comment-no-data'>
+        <image src='../../images/icon-comment-no-data.png'></image>
+      </view>
+      <view class='text'>当前没有消息通知</view>
+    </view>
+  </view>
+  <scroll-view scroll-y="true" wx:else bindscrolltolower="nextPage">
+    <view class='message-list-box'>
+      <view class='message-list' wx:for='{{messageList}}' wx:key="{{item.id}}" data-massage-info='{{item}}' bindtap='navigateTo'>
+        <view class='message-list-icon icon-left'>
+          <image src="../../images/icon-proprietor-maintenance.png" wx:if="{{item.notifyType == 0 || item.notifyType == 1 || item.notifyType == 2 || item.notifyType == 3 || item.notifyType == 4}}"></image>
+          <image src="../../images/icon-work-order.png" wx:if="{{item.notifyType == 5 || item.notifyType == 6 || item.notifyType == 7 || item.notifyType == 8 || item.notifyType == 9}}"></image>
+          <image src="../../images/icon-check-work.png" wx:if="{{item.notifyType == 10}}"></image>
+        </view>
+        <view class='message-list-content-box'>
+          <view class='message-list-content-title-box'>
+            <view class='message-list-content-title'>{{item.title}}</view>
+            <view class='message-list-date icon-right'>{{item.createTime}}</view>
+          </view>
+          <view class='message-list-content-text'>{{item.content}}</view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+</view>

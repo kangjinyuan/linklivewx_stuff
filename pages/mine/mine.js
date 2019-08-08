@@ -7,9 +7,11 @@ Page({
   topages: function(e) {
     let that = this;
     let page = e.currentTarget.dataset.page;
-    wx.navigateTo({
-      url: page
-    })
+    app.setFormId(e, function(res) {
+      wx.navigateTo({
+        url: page
+      })
+    });
   },
   loginOut: function() {
     let that = this;

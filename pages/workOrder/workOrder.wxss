@@ -1,7 +1,3 @@
 .tab-list {
   width: 20%;
 }
-
-.scan-code-fixed-btn {
-  bottom: 240rpx;
-}

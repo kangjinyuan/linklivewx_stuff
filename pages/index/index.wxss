@@ -38,7 +38,7 @@
 
 .services-box {
   width: 100%;
-  padding-top: 122rpx;
+  padding-top: 102rpx;
   position: relative;
 }
 
@@ -64,21 +64,23 @@ swiper {
 .swiper-box .wx-swiper-dot {
   width: 20rpx;
   height: 6rpx;
-  border-radius: 3rpx;
-}
-
-.swiper-box .wx-swiper-dot::before {
-  background-color: #ccc;
-}
-
-.swiper-box .wx-swiper-dot-active::before {
-  background-color: #fda414;
+  border-radius: 6rpx;
 }
 
 .services-list {
   width: 25%;
   height: 100%;
   float: left;
+  position: relative;
+}
+
+.services-list button {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
 }
 
 .services-icon {
@@ -126,7 +128,7 @@ swiper {
 .index-title-line {
   width: 6rpx;
   height: 100%;
-  border-radius: 3rpx;
+  border-radius: 6rpx;
   background-color: #fda414;
 }
 

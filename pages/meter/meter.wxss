@@ -1,31 +1,6 @@
-.show-fee-box {
-  width: 100%;
-  height: 98rpx;
-  border-bottom: 2rpx solid #dddddf;
-  position: relative;
-}
-
-.show-fee {
-  width: auto;
-  padding-right: 48rpx;
-  height: 100%;
-  font-size: 28rpx;
-  line-height: 98rpx;
-  color: #333;
-  position: absolute;
-  top: 0;
-  left: 50%;
-  bottom: 0;
-  margin: auto auto;
-  transform: translate(-50%);
-  -webkit-transform: translate(-50%);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
 .cb-box, .preview-con {
   width: 100%;
+  background-color: #fff;
   overflow: hidden;
 }
 
@@ -80,7 +55,7 @@
   margin-top: 122rpx;
 }
 
-.select-address-box, .preview-box {
+.preview-box {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.4);
@@ -94,37 +69,8 @@
   top: 180rpx;
 }
 
-.select-fee-box {
-  top: 100rpx;
-}
-
-.select-address {
-  width: 690rpx;
-  padding: 0rpx 30rpx;
-  height: 402rpx;
-  overflow: auto;
-  background-color: #fff;
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-.select-fee {
-  height: auto;
-  text-align: center;
-}
-
-.select-address-text {
-  width: 100%;
-  height: 78rpx;
-  border-bottom: 2rpx solid #dddddf;
-  font-size: 28rpx;
-  line-height: 78rpx;
-  color: #333;
-}
-
-.select-address-text:last-child {
-  border: none;
+.select-address-box .tab-title-fold-list-box {
+  text-align: left;
 }
 
 .show-address-box {

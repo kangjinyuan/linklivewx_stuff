@@ -9,7 +9,7 @@ Page({
   selectcharger: function() {
     let that = this;
     wx.navigateTo({
-      url: '../selectCommunication/selectCommunication'
+      url: '../selectCommunication/selectCommunication?selectType=0'
     })
   },
   getEventDetail: function(e) {
@@ -19,7 +19,7 @@ Page({
       eventDetail: eventDetail
     })
   },
-  assignOrTransfer: function() {
+  assignOrTransfer: function(e) {
     let that = this;
     let assignOrTransferType = that.data.assignOrTransferType;
     let id = that.data.id;
@@ -51,35 +51,37 @@ Page({
         return false;
       }
     }
-    let param = {
-      id: id,
-      chargerId: stuffInfo.id,
-      eventDetail: eventDetail
-    }
     let requestUrl = "";
     if (assignOrTransferType == "0") {
       requestUrl = "/property/workOrder/assignOrder.do";
     } else {
       requestUrl = "/property/workOrder/transferOrder.do";
     }
-    app.request("POST", requestUrl, param, true, function(res) {
-      let prevPage = app.prevPage(3);
-      prevPage.removeData(id);
-      wx.navigateBack({
-        delta: 2
-      })
-    }, function(res) {
-      if (assignOrTransferType == "0") {
-        wx.showToast({
-          title: '分派失败，请检查您的网络或重试',
-          icon: "none"
-        })
-      } else if (assignOrTransferType == "1") {
-        wx.showToast({
-          title: '转发失败，请检查您的网络或重试',
-          icon: "none"
-        })
+    app.setFormId(e, function(res) {
+      let param = {
+        id: id,
+        chargerId: stuffInfo.id,
+        eventDetail: eventDetail
       }
+      app.request("POST", requestUrl, param, true, function(res) {
+        let prevPage = app.prevPage(3);
+        prevPage.removeData(id);
+        wx.navigateBack({
+          delta: 2
+        })
+      }, function(res) {
+        if (assignOrTransferType == "0") {
+          wx.showToast({
+            title: '分派失败，请检查您的网络或重试',
+            icon: "none"
+          })
+        } else if (assignOrTransferType == "1") {
+          wx.showToast({
+            title: '转发失败，请检查您的网络或重试',
+            icon: "none"
+          })
+        }
+      })
     })
   },
   onLoad: function(options) {

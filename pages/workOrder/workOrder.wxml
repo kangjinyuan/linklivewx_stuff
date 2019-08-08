@@ -33,7 +33,7 @@
   <view class='fixed-btn' bindtap='addWorkOrder'>
     <image src='../../images/add-fixed-btn.png'></image>
   </view>
-  <view class='fixed-btn scan-code-fixed-btn' bindtap='scanCode'>
+  <view class='fixed-btn fixed-btn-bottom240' bindtap='scanCode'>
     <image src='../../images/scan-code-fixed-btn.png'></image>
   </view>
 </view>

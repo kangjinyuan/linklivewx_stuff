@@ -1,0 +1,102 @@
+<movable-area class="container-default container-flex">
+  <view class="calendar-box">
+    <view class='calendar-title-box'>
+      <view class='calendar-title-date'>{{selectCurrentMonth}}</view>
+      <view class='calendar-title-today' bindtap='today' wx:if="{{currentDate != selectCurrentDate}}">今日</view>
+    </view>
+    <view class='week-box'>
+      <view wx:for="{{weekArray}}" wx:key="key">{{item}}</view>
+    </view>
+    <view class='date-box' bindtouchstart="touchStart" bindtouchmove="touchMove" bindtouchend="touchEnd">
+      <view class="date-key" wx:for="{{dateArray}}" wx:key="{{index}}" data-time='{{item.time}}' bindtap='selectDate'>
+        <view class="{{selectCurrentDate == item.time?'selected':''}}">{{currentDate == item.time?'今':item.date}}</view>
+      </view>
+    </view>
+  </view>
+  <view class='map-address-box hit-card-number-box'>
+    <view class='address-box'>
+      <view class='icon-time icon-left'>
+        <image src='../../images/icon-time.png'></image>
+      </view>
+      今日打卡{{count}}次， 工时共计{{timeSlot}}
+    </view>
+  </view>
+  <view class='no-data-box' wx:if='{{dataList.length == 0}}'>
+    <view class='no-data'>
+      <view class='icon-order-no-data'>
+        <image src='../../images/icon-order-no-data.png'></image>
+      </view>
+      <view class='text'>当前没有打卡记录哦</view>
+    </view>
+  </view>
+  <scroll-view scroll-y="true" wx:else>
+    <view class='hit-card-speed-box'>
+      <view class='speed-list' wx:for="{{dataList}}" wx:key="{{item.id}}">
+        <view class='icon-speed1'>
+          <image src='../../images/icon-speed1.png'></image>
+        </view>
+        <view class='speed-list-inner-box'>
+          <view class='speed-title'>
+            {{item.direction==0?'上班打卡':'下班打卡'}}({{item.setTime}})
+          </view>
+          <view class='speed-content-box'>
+            <view class="speed-content-text speed-content-title-box">
+              <view class='speed-content-title' wx:if="{{item.checkInTime}}">
+                打卡时间{{item.checkInTimeText}}
+              </view>
+              <view class='speed-type {{item.checkStateBgClass}}'>{{item.checkStateText}}</view>
+            </view>
+            <view class='speed-content-text speed-address' wx:if="{{item.address}}">
+              <view class='icon-hit-card-location icon-left'>
+                <image src='../../images/icon-hit-card-location.png'></image>
+              </view>
+              {{item.address}}
+            </view>
+            <view class="speed-dir" wx:if="{{item.editRecord}}">
+              <view wx:for="{{item.editRecord}}" wx:key="{{item}}">{{item}}</view>
+            </view>
+          </view>
+          <view class='speed-opera-btn icon-right' wx:if="{{isLeader == '1' && item.checkState != '0' && !item.editRecord}}" data-data-info='{{item}}' bindtap='updateCheckIn'>修改结果</view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+  <view class='btn-box' wx:if="{{isLeader == '0'}}" bindtap='showDeclare'>
+    <view class='big-btn'>考勤异常申报</view>
+  </view>
+  <movable-view id="movableBtn" direction="all" inertia="true" x="{{leftValue}}" y="{{topValue}}" class='fixed-btn' bindtap='checkInStatistics'>
+    <image src='../../images/icon-check-in-record.png'></image>
+  </movable-view>
+  <view class="alert-box" hidden='{{showDeclare}}'>
+    <view class='alert-inner-box'>
+      <view class='alert-content-box'>
+        <view class='alert-list'>
+          <view class='alert-list-name'>发送给：</view>
+          <view class='alert-list-value' bindtap='selectcharger'>
+            <view class='icon-jump-fda414 icon-right'>
+              <image src='../../images/icon-jump-fda414.png'></image>
+            </view>
+            <view class='float-staff-box'>
+              <view class='float-staff-head-img'>
+                {{stuffInfo.latterTwoCharacters}}
+              </view>
+              <view class='float-staff-name'>{{stuffInfo.name}}</view>
+            </view>
+          </view>
+        </view>
+        <view class='alert-content-text'>
+          [链接]{{selectCurrentDateText}}考勤核实，请点击查看我的当天考勤记录
+        </view>
+        <view class='alert-list'>
+          <view class='alert-list-value'>
+            <input type='text' name="" value='{{appealReason}}' placeholder='请填写原因(选填)' bindinput='getAppealReason' />
+          </view>
+        </view>
+      </view>
+      <view class='alert-btn-box'>
+        <view bindtap='showDeclare'>取消</view>
+        <view bindtap='appeal'>发送</view>
+      </view>
+    </view>
+  </view>
+</movable-area>

@@ -8,6 +8,19 @@ image {
   display: inline;
 }
 
+form {
+  width: 100%;
+  overflow: hidden;
+}
+
+button {
+  padding: 0;
+}
+
+button::after {
+  border: none;
+}
+
 scroll-view {
   width: 100%;
   height: 100%;
@@ -42,7 +55,7 @@ scroll-view {
   overflow: hidden;
 }
 
-.icon {
+.icon, .icon-complete-rate, .icon-problem-count, .icon-problem-rate {
   width: 48rpx;
   height: 48rpx;
 }
@@ -55,6 +68,11 @@ scroll-view {
 .icon-select-location {
   width: 16rpx;
   height: 10rpx;
+}
+
+.icon-location-check-in-address {
+  width: 30rpx;
+  height: 40rpx;
 }
 
 .icon-key {
@@ -99,12 +117,17 @@ scroll-view {
   height: 136rpx;
 }
 
+.icon-check-box, .icon-time {
+  width: 30rpx;
+  height: 30rpx;
+}
+
 .icon-camera-device {
   width: 60rpx;
   height: 50rpx;
 }
 
-.icon-call-telephone {
+.icon-call-telephone, .icon-form-add, .icon-form-del {
   width: 36rpx;
   height: 36rpx;
 }
@@ -139,9 +162,44 @@ scroll-view {
   height: 48rpx;
 }
 
-.icon-complete-rate, .icon-problem-count, .icon-problem-rate {
-  width: 48rpx;
-  height: 48rpx;
+.icon-hit-card-location {
+  width: 20rpx;
+  height: 26rpx;
+}
+
+.icon-hit-card-btn {
+  width: 294rpx;
+  height: 294rpx;
+}
+
+.icon-map-location {
+  width: 26rpx;
+  height: 30rpx;
+}
+
+.icon-jump-fda414 {
+  width: 12rpx;
+  height: 22rpx;
+}
+
+.icon-jump-3292fe {
+  width: 10rpx;
+  height: 18rpx;
+}
+
+.icon-select-statistics-date-down {
+  width: 22rpx;
+  height: 12rpx;
+}
+
+.icon-reset-location {
+  width: 88rpx;
+  height: 88rpx;
+}
+
+.icon-alert {
+  width: 24rpx;
+  height: 24rpx;
 }
 
 .icon-left {
@@ -199,6 +257,12 @@ scroll-view {
   position: absolute;
   bottom: 0;
   right: 0;
+}
+
+.icon-bottom-right-map {
+  position: absolute;
+  bottom: 26rpx;
+  right: 26rpx;
 }
 
 /* 公共列表 */
@@ -364,15 +428,35 @@ scroll-view {
   border-radius: 10rpx;
 }
 
-.common-info-box .address-box {
-  width: 578rpx;
-  height: 38rpx;
-  margin-top: 30rpx;
+.address-box {
+  margin: 0rpx auto;
   padding-left: 52rpx;
-  font-size: 26rpx;
-  line-height: 38rpx;
   color: #333;
   position: relative;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.map-address-box {
+  width: 690rpx;
+  padding: 30rpx;
+  background-color: #fff;
+}
+
+.hit-card-number-box {
+  background-color: #f5f5f5;
+}
+
+.map-address-box .address-box {
+  font-size: 28rpx;
+  line-height: 40rpx;
+}
+
+.common-info-box .address-box {
+  margin-top: 30rpx;
+  font-size: 26rpx;
+  line-height: 38rpx;
 }
 
 .common-info-title-box {
@@ -442,23 +526,72 @@ scroll-view {
   color: #999;
 }
 
+/* 打卡 */
+
+.check-work-state-bg0 {
+  background-color: #3292fe;
+}
+
+.check-work-state-bg1 {
+  background-color: #ea4841;
+}
+
 /* 进度 */
 
 .speed-box {
-  width: 100%;
+  width: auto;
+}
+
+.hit-card-speed-box {
+  width: 680rpx;
+  padding: 60rpx 30rpx 60rpx 40rpx;
 }
 
 .speed-list {
-  width: 580rpx;
-  margin: 0rpx auto;
-  padding: 0rpx 0rpx 46rpx 30rpx;
+  width: auto;
+  margin-left: 13rpx;
+  padding: 0rpx 0rpx 46rpx 40rpx;
   border-left: 2rpx solid #ccc;
   position: relative;
+}
+
+.speed-list-inner-box {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.hit-card-speed-box .speed-list {
+  padding-bottom: 56rpx;
 }
 
 .speed-list:last-child {
   border-left: 0rpx solid #ccc;
   padding-bottom: 0rpx;
+}
+
+.icon-speed2 {
+  width: 24rpx;
+  height: 24rpx;
+  position: absolute;
+  top: -12rpx;
+  left: -12.5rpx;
+}
+
+.icon-speed1 {
+  width: 12rpx;
+  height: 12rpx;
+  position: absolute;
+  top: 0rpx;
+  left: -7rpx;
+}
+
+.speed-list:last-child .icon-speed1 {
+  left: -6rpx;
+}
+
+.speed-list:last-child .icon-speed2 {
+  left: -12rpx;
 }
 
 .speed-title, .speed-dir, .speed-time {
@@ -468,7 +601,7 @@ scroll-view {
 
 .speed-dir {
   font-size: 26rpx;
-  line-height: 26rpx;
+  line-height: 32rpx;
   color: #666;
 }
 
@@ -488,21 +621,115 @@ scroll-view {
   color: #fda414;
 }
 
-.icon-speed2 {
-  background-color: #fff;
-  width: 24rpx;
-  height: 24rpx;
-  position: absolute;
-  top: 0rpx;
-  left: -12rpx;
+.hit-card-speed-box .speed-list .speed-title {
+  color: #666;
+  margin-bottom: 28rpx;
 }
 
-.icon-speed1 {
-  width: 12rpx;
-  height: 12rpx;
-  position: absolute;
-  top: 0rpx;
-  left: -6rpx;
+.speed-content-box {
+  width: auto;
+  overflow: hidden;
+  position: relative;
+}
+
+.hit-card-speed-box .speed-content-box {
+  max-width: 490rpx;
+}
+
+.speed-content-text {
+  width: 100%;
+  margin-bottom: 30rpx;
+  overflow: hidden;
+  position: relative;
+}
+
+.speed-content-title, .speed-type {
+  width: auto;
+  float: left;
+}
+
+.speed-content-title {
+  margin-right: 32rpx;
+  font-size: 36rpx;
+  line-height: 36rpx;
+  font-weight: 500;
+  color: #333;
+}
+
+.speed-type {
+  border-radius: 4rpx;
+  padding: 6rpx 12rpx;
+  font-size: 24rpx;
+  line-height: 24rpx;
+  color: #fff;
+}
+
+.speed-address {
+  width: auto;
+  padding-left: 30rpx;
+  font-size: 26rpx;
+  line-height: 26rpx;
+  color: #999;
+  position: relative;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.speed-content-text:last-child {
+  margin-bottom: 0rpx;
+}
+
+.speed-opera-btn {
+  height: 60rpx;
+  padding: 0rpx 13rpx;
+  border-radius: 10rpx;
+  background-color: #fda414;
+  font-size: 26rpx;
+  line-height: 60rpx;
+  color: #fff;
+}
+
+.hit-card-btn-box {
+  width: 294rpx;
+  margin: 20rpx 0rpx 0rpx 138rpx;
+}
+
+.hit-card-btn-box .btn-box {
+  width: 100%;
+  padding: 0rpx;
+  height: 294rpx;
+  border-radius: 50%;
+  position: relative;
+}
+
+.btn-text-box {
+  width: 100%;
+  height: 98rpx;
+  color: #fff;
+  text-align: center;
+}
+
+.btn-text-title {
+  width: 100%;
+  font-size: 40rpx;
+  line-height: 40rpx;
+  margin-bottom: 30rpx;
+}
+
+.btn-text-time {
+  width: 100%;
+  font-size: 28rpx;
+  line-height: 28rpx;
+}
+
+.hit-card-btn-text {
+  width: 100%;
+  font-size: 28rpx;
+  line-height: 28rpx;
+  color: #666;
+  text-align: center;
+  position: relative;
 }
 
 /* 员工列表 */
@@ -542,7 +769,7 @@ scroll-view {
 .stuff-head-img {
   width: 80rpx;
   height: 80rpx;
-  margin: 0rpx auto 20rpx;
+  margin: 0rpx auto;
   border-radius: 50%;
   overflow: hidden;
   font-size: 30rpx;
@@ -558,11 +785,41 @@ scroll-view {
 
 .stuff-name {
   width: 260rpx;
-  margin: 0rpx auto;
+  margin: 20rpx auto 0rpx;
   font-size: 26rpx;
   line-height: 26rpx;
   color: #333;
   text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.float-staff-box {
+  width: 100%;
+  overflow: hidden;
+  padding: 10rpx 0rpx;
+}
+
+.float-staff-head-img {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  overflow: hidden;
+  float: left;
+  margin-right: 20rpx;
+  font-size: 30rpx;
+  line-height: 80rpx;
+  text-align: center;
+  color: #fff;
+}
+
+.float-staff-name {
+  width: 260rpx;
+  float: left;
+  font-size: 30rpx;
+  line-height: 80rpx;
+  color: #333;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -576,11 +833,11 @@ scroll-view {
 
 .fold-list-box {
   width: 630rpx;
+  padding: 0rpx 30rpx;
+  margin: 0rpx auto 30rpx;
   border-radius: 10rpx;
   overflow: hidden;
   background-color: #fff;
-  padding: 0rpx 30rpx;
-  margin-bottom: 30rpx;
 }
 
 .fold-list-box:last-child {
@@ -648,10 +905,27 @@ scroll-view {
   line-height: 80rpx;
 }
 
+.fold-float-text {
+  width: auto;
+  height: 100%;
+  font-size: 28rpx;
+  line-height: 80rpx;
+  float: left;
+  margin-right: 80rpx;
+}
+
+.fold-float-text:last-child {
+  margin-right: 0rpx;
+}
+
 /* 投影 */
 
 .box-shadow {
   box-shadow: 0rpx 0rpx 25rpx 2rpx rgba(191, 107, 0, 0.26);
+}
+
+.box-shadow-disabled {
+  box-shadow: 0rpx 0rpx 25rpx 2rpx rgba(204, 204, 204, 0.26);
 }
 
 /* 操作输入框 */
@@ -701,13 +975,10 @@ scroll-view {
 .no-data-box {
   width: 100%;
   height: 100%;
-  background-color: #fafafa;
   position: relative;
 }
 
-.no-data {
-  width: 330rpx;
-  height: 380rpx;
+.no-data, .no-data-tips-text {
   position: absolute;
   top: 0;
   left: 0;
@@ -716,24 +987,42 @@ scroll-view {
   margin: auto auto;
 }
 
+.no-data {
+  width: 330rpx;
+  height: 380rpx;
+}
+
+.no-data-tips-text {
+  width: 100%;
+  height: 30rpx;
+  font-size: 30rpx;
+  line-height: 30rpx;
+  text-align: center;
+  color: #333;
+}
+
 .no-data view {
   width: 100%;
 }
 
-.icon-community-no-data {
-  height: 196rpx;
+.icon-address-no-data {
+  height: 179rpx;
 }
 
-.icon-order-no-data {
+.icon-order-no-data, .icon-staff-no-data {
   height: 210rpx;
 }
 
 .icon-key-no-data {
-  height: 236rpx;
+  height: 235rpx;
 }
 
 .icon-common-no-data {
   height: 220rpx;
+}
+
+.icon-comment-no-data {
+  height: 204rpx;
 }
 
 .no-data .text {
@@ -822,7 +1111,6 @@ scroll-view {
 
 .form-box {
   width: 100%;
-  overflow: hidden;
 }
 
 .module-box {
@@ -862,8 +1150,17 @@ scroll-view {
   color: #333;
 }
 
-.form-margin-left {
+.form-margin-circle-left {
   margin-left: 34rpx;
+}
+
+.form-margin-opera-left {
+  margin-left: 56rpx;
+}
+
+.form-opera-name {
+  font-size: 28rpx;
+  color: #fda414;
 }
 
 .form-margin-right {
@@ -872,6 +1169,10 @@ scroll-view {
 
 .form-list-name text {
   color: #ff1f43;
+}
+
+.form-list-name .normal-text {
+  color: #3292fe;
 }
 
 .form-list-value {
@@ -1006,23 +1307,50 @@ scroll-view {
   background-color: #f74927;
 }
 
+.form-tab-box {
+  width: 100%;
+  padding: 30rpx 0rpx 20rpx;
+  overflow: hidden;
+}
+
+.form-tab-box view {
+  width: auto;
+  float: left;
+  margin-right: 30rpx;
+  padding: 17rpx 35rpx;
+  border-radius: 6rpx;
+  font-size: 28rpx;
+  line-height: 28rpx;
+  color: #333;
+  text-align: center;
+  background-color: #f5f5f5;
+}
+
+.form-tab-box view:last-child {
+  margin-right: 0rpx;
+}
+
+.form-tab-box .selected {
+  background-color: #fff3da;
+  color: #fda414;
+}
+
 /* 按钮 */
 
 .btn-box {
-  width: 100%;
-  height: 148rpx;
+  width: 690rpx;
+  padding: 30rpx;
   position: relative;
-  background-color: #f5f5f5;
 }
 
 .big-btn {
   width: 690rpx;
-  margin: 60rpx auto 0rpx;
-  height: 80rpx;
+  margin: 60rpx auto 30rpx;
+  height: 88rpx;
   border-radius: 10rpx;
   background-color: #fda414;
   font-size: 28rpx;
-  line-height: 80rpx;
+  line-height: 88rpx;
   text-align: center;
   font-weight: 500;
   color: #fff;
@@ -1043,6 +1371,12 @@ scroll-view {
   height: 100rpx;
   background-color: #fff;
   border-bottom: 2rpx solid #f5f5f5;
+}
+
+.tab-card-box {
+  width: 690rpx;
+  height: auto;
+  padding: 20rpx 30rpx;
 }
 
 .tab-list {
@@ -1072,6 +1406,23 @@ scroll-view {
   margin: 0rpx auto;
 }
 
+.tab-card-box .tab-list {
+  width: auto;
+  padding: 16rpx 20rpx;
+  float: left;
+  margin-right: 28rpx;
+  overflow: hidden;
+  font-size: 28rpx;
+  line-height: 28rpx;
+  color: #999;
+}
+
+.tab-card-box .selected {
+  border-radius: 10rpx;
+  background-color: #fda414;
+  color: #fff;
+}
+
 /* 添加悬浮按钮 */
 
 .fixed-btn {
@@ -1080,6 +1431,10 @@ scroll-view {
   position: fixed;
   right: 16rpx;
   bottom: 102rpx;
+}
+
+.fixed-btn-bottom240 {
+  bottom: 240rpx;
 }
 
 /* 类别列表 */
@@ -1143,8 +1498,7 @@ scroll-view {
 
 .letter-box {
   width: 28rpx;
-  height: 80%;
-  background-color: #fff;
+  height: 74%;
   position: fixed;
   top: 194rpx;
   right: 30rpx;
@@ -1199,6 +1553,13 @@ scroll-view {
   position: relative;
 }
 
+.letter-list-head-img, .letter-list-state {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto auto;
+}
+
 .letter-list-head-img {
   width: 80rpx;
   height: 80rpx;
@@ -1208,22 +1569,28 @@ scroll-view {
   line-height: 80rpx;
   text-align: center;
   color: #fff;
-  position: absolute;
-  top: 0;
-  bottom: 0;
   left: 0;
-  margin: auto auto;
+}
+
+.letter-list-state {
+  width: auto;
+  height: 30rpx;
+  font-size: 30rpx;
+  line-height: 30rpx;
+  right: 0;
 }
 
 .letter-list-user-box {
   width: 590rpx;
+  margin-left: 100rpx;
   padding: 22rpx 0rpx;
   border-bottom: 2rpx solid #f5f5f5;
-  float: right;
+  float: left;
 }
 
 .letter-list-user-name, .letter-list-user-telephone {
-  width: 100%;
+  width: auto;
+  max-width: 440rpx;
   height: 40rpx;
   font-size: 30rpx;
   line-height: 40rpx;
@@ -1238,6 +1605,605 @@ scroll-view {
   color: #666;
 }
 
-.icon-call-telephone {
+.letter-list-value .icon-call-telephone {
   right: 56rpx;
+}
+
+.letter-list-value .icon-check-box {
+  right: 62rpx;
+}
+
+/* 提示标题 */
+
+.title-tips-box {
+  width: 100%;
+  padding: 26rpx 0rpx 12rpx;
+}
+
+.form-box .title-tips-box {
+  padding-top: 6rpx;
+}
+
+.form-box .no-padding {
+  padding: 0px;
+}
+
+.title-tips-text {
+  width: 690rpx;
+  margin: 0rpx auto;
+  font-size: 28rpx;
+  line-height: 28rpx;
+  color: #999;
+}
+
+/* 考勤统计选择日期 */
+
+.statistics-date-box {
+  width: auto;
+  padding: 30rpx;
+  background-color: #fff;
+  overflow: hidden;
+  border-bottom: 2rpx solid #f4f4f4;
+}
+
+.statistics-date-text {
+  width: auto;
+  float: left;
+  padding-right: 32rpx;
+  font-size: 30rpx;
+  line-height: 30rpx;
+  color: #333;
+  position: relative;
+}
+
+/* 满宽列表 */
+
+.full-width-list-box {
+  width: 690rpx;
+  padding: 0rpx 30rpx;
+  background-color: #fff;
+}
+
+.full-width-list {
+  width: 100%;
+  position: relative;
+  -webkit-transform: translateX(150rpx);
+  transform: translateX(150rpx);
+  margin-left: -150rpx;
+}
+
+.full-width-content-box {
+  width: auto;
+  padding: 30rpx 0rpx;
+  overflow: hidden;
+  border-bottom: 2rpx solid #f4f4f4;
+  position: relative;
+}
+
+.full-width-list:last-child .full-width-content-box {
+  border-bottom: none;
+}
+
+.full-width-text-box {
+  width: auto;
+  overflow: hidden;
+}
+
+.full-width-title-box {
+  width: 100%;
+  overflow: hidden;
+}
+
+.full-width-title, .full-width-value {
+  width: auto;
+  color: #333;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  position: relative;
+}
+
+.full-width-title {
+  max-width: 220rpx;
+  float: left;
+  font-size: 32rpx;
+  line-height: 32rpx;
+}
+
+.full-width-title-max-width-all {
+  max-width: 100%;
+}
+
+.full-width-title-max-width500 {
+  max-width: 500rpx;
+}
+
+.full-width-value {
+  max-width: 340rpx;
+  float: right;
+  font-size: 28rpx;
+  line-height: 28rpx;
+  text-align: right;
+}
+
+.check-work-state0 {
+  color: #999;
+}
+
+.check-work-state1 {
+  color: #3292fe;
+}
+
+.check-work-state2 {
+  color: #ea4841;
+}
+
+.check-work-state3 {
+  color: #333;
+}
+
+.full-width-dir-box {
+  width: 100%;
+  overflow: hidden;
+  margin-top: 20rpx;
+}
+
+.full-width-address {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.full-width-dir-text {
+  width: auto;
+  max-width: 440rpx;
+  float: left;
+  font-size: 28rpx;
+  color: #666;
+  margin-right: 40rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.full-width-dir-text:last-child {
+  margin-bottom: 0rpx;
+}
+
+.sideslip-del-box {
+  width: 150rpx;
+  height: 100%;
+  background-color: #fe1414;
+  position: absolute;
+  top: 0;
+  right: -180rpx;
+}
+
+.sideslip-del-box view {
+  width: 100%;
+  height: 28rpx;
+  font-size: 28rpx;
+  line-height: 28rpx;
+  color: #fff;
+  text-align: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto auto;
+}
+
+.sideslip-active {
+  -webkit-transform: translateX(0);
+  transform: translateX(0);
+  -webkit-transition: all 0.4s;
+  transition: all 0.4s;
+}
+
+/* XXX等多少 */
+
+.wait-text {
+  width: auto;
+  float: left;
+  height: 100%;
+}
+
+.wait-limit-text {
+  max-width: 230rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.form-list .wait-text {
+  float: right;
+}
+
+/* value部分单选选列表-横向 */
+
+.value-radio-list-box {
+  width: 100%;
+  height: 100%;
+}
+
+.value-list {
+  width: auto;
+  float: right;
+  padding-left: 42rpx;
+  margin-left: 40rpx;
+  font-size: 28rpx;
+  line-height: 100rpx;
+  color: #333;
+  position: relative;
+}
+
+.value-list:last-child {
+  margin-left: 0rpx;
+}
+
+.value-tab-list-box {
+  width: 392rpx;
+  height: 60rpx;
+  padding: 4rpx;
+  border-radius: 34rpx;
+  background-color: #f5f5f5;
+}
+
+.value-tab-list-inner-box {
+  width: 378rpx;
+  margin: 0rpx auto;
+  height: 100%;
+}
+
+.value-tab-list-inner-box .value-list {
+  width: 25%;
+  height: 100%;
+  margin: 0rpx;
+  padding: 0rpx;
+  position: relative;
+}
+
+.value-list-inner-box {
+  width: 110rpx;
+  height: 100%;
+  border-radius: 30rpx;
+  line-height: 60rpx;
+  text-align: center;
+  position: absolute;
+  top: 0;
+  right: 50%;
+  margin-right: -55rpx;
+}
+
+.value-tab-list-box .selected {
+  background-color: #feded6;
+  color: #f94b23;
+}
+
+/* 页面描述 */
+
+.page-describe {
+  width: 690rpx;
+  overflow: hidden;
+  padding: 30rpx;
+  background-color: #f4f5f7;
+  font-size: 28rpx;
+  line-height: 42rpx;
+  color: #666;
+}
+
+/* tabtitle折叠选择 */
+
+.tab-title-fold-box {
+  width: 100%;
+  height: 98rpx;
+  background-color: #fff;
+  border-bottom: 2rpx solid #dddddf;
+  position: relative;
+}
+
+.tab-title-fold-text-box {
+  width: auto;
+  padding-right: 48rpx;
+  height: 100%;
+  font-size: 28rpx;
+  line-height: 98rpx;
+  color: #333;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  bottom: 0;
+  margin: auto auto;
+  transform: translate(-50%);
+  -webkit-transform: translate(-50%);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tab-title-fold-content-box {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  top: 100rpx;
+  left: 0;
+  z-index: 99;
+}
+
+.tab-title-fold-list-box {
+  width: 690rpx;
+  padding: 0rpx 30rpx;
+  height: auto;
+  max-height: 402rpx;
+  overflow: scroll;
+  background-color: #fff;
+}
+
+.tab-title-fold-list {
+  width: 100%;
+  height: 78rpx;
+  border-bottom: 2rpx solid #dddddf;
+  font-size: 28rpx;
+  line-height: 78rpx;
+  text-align: center;
+  color: #333;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tab-title-fold-cover-view-list {
+  height: auto;
+  border-bottom: none;
+}
+
+.tab-title-fold-cover-view-list-border {
+  width: 100%;
+  height: 2rpx;
+  background-color: #dddddf;
+}
+
+.tab-title-fold-list:last-child {
+  border: none;
+}
+
+/* 地图地址列表 */
+
+.location-list-box {
+  width: 690rpx;
+  padding: 20rpx 30rpx;
+  overflow: hidden;
+  background-color: #fff;
+}
+
+.location-list {
+  width: 100%;
+  overflow: hidden;
+  margin-bottom: 20rpx;
+  border-bottom: 2rpx solid #f5f5f5;
+  position: relative;
+}
+
+.location-list:last-child {
+  border: none;
+  margin-bottom: 0rpx;
+}
+
+.location-text {
+  width: auto;
+  max-width: 440rpx;
+  margin-bottom: 14rpx;
+  font-size: 32rpx;
+  line-height: 32rpx;
+  color: #333;
+  position: relative;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.location-name {
+  padding-left: 46rpx;
+}
+
+.location-address {
+  font-size: 26rpx;
+  line-height: 26rpx;
+  color: #999;
+}
+
+.map-box {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.map-box map {
+  width: 100%;
+  height: 100%;
+}
+
+/* 弹框 */
+
+.alert-box {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+}
+
+.alert-inner-box {
+  width: 590rpx;
+  height: 500rpx;
+  overflow: hidden;
+  border-radius: 10rpx;
+  background-color: #fff;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto auto;
+}
+
+.alert-content-box {
+  width: auto;
+  height: 330rpx;
+  overflow: hidden;
+  padding: 40rpx 30rpx;
+}
+
+.alert-list {
+  width: 100%;
+  overflow: hidden;
+  margin-bottom: 40rpx;
+}
+
+.alert-list:last-child {
+  margin-bottom: 0rpx;
+}
+
+.alert-list-name, .alert-list-value {
+  width: 100%;
+  overflow: hidden;
+  color: #333;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  position: relative;
+}
+
+.alert-list-name {
+  margin-bottom: 28rpx;
+  font-size: 30rpx;
+  line-height: 30rpx;
+  font-weight: 500;
+}
+
+.alert-list-value {
+  font-size: 28rpx;
+  line-height: 28rpx;
+}
+
+.alert-list-value input, .alert-list-value textarea {
+  display: block;
+  width: auto;
+  font-size: 26rpx;
+  color: #333;
+  border: 2rpx solid #e6e6e6;
+  overflow: hidden;
+  border-radius: 10rpx;
+  outline: none;
+}
+
+.alert-list-value input {
+  padding-left: 20rpx;
+  line-height: 88rpx;
+  height: 88rpx;
+}
+
+.alert-list-value textarea {
+  padding: 25rpx 20rpx;
+  line-height: 36rpx;
+  height: 100rpx;
+}
+
+.alert-content-text {
+  width: 100%;
+  margin-bottom: 30rpx;
+  font-size: 26rpx;
+  line-height: 36rpx;
+  color: #666;
+  position: relative;
+  overflow: hidden;
+}
+
+.alert-btn-box {
+  width: 100%;
+  height: 88rpx;
+  border-top: 2rpx solid #e6e6e6;
+}
+
+.alert-btn-box view {
+  width: 294rpx;
+  height: 100%;
+  float: left;
+  font-size: 28rpx;
+  line-height: 88rpx;
+  color: #666;
+  text-align: center;
+}
+
+.alert-btn-box view:first-child {
+  border-right: 2rpx solid #e6e6e6;
+}
+
+.alert-btn-box view:last-child {
+  color: #fda414;
+}
+
+/* 消息 */
+
+.message-list-box {
+  width: 690rpx;
+  padding: 0rpx 30rpx;
+  overflow: hidden;
+  background-color: #fff;
+}
+
+.message-list {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.message-list-icon {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.message-list-content-box {
+  width: 580rpx;
+  padding: 26rpx 0rpx;
+  border-bottom: 2rpx solid #f5f5f5;
+  float: right;
+}
+
+.message-list-content-title-box {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.message-list-content-title {
+  width: auto;
+  max-width: 440rpx;
+  float: left;
+  font-size: 36rpx;
+  line-height: 36rpx;
+  color: #333;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.message-list-date {
+  width: auto;
+  font-size: 24rpx;
+  line-height: 24rpx;
+  color: #999;
+}
+
+.message-list-content-text {
+  width: 100%;
+  margin-top: 20rpx;
+  font-size: 28rpx;
+  line-height: 32rpx;
+  color: #999;
 }

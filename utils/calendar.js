@@ -141,7 +141,6 @@ function getWeekDateArray(selectCurrentDate) {
           weekDateArray.push(dateArray[j]);
         }
       } else if (i >= 21 && i <= 27) {
-        console.log(i)
         for (let j = 21; j < 28; j++) {
           weekDateArray.push(dateArray[j]);
         }

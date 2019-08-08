@@ -37,23 +37,25 @@ Page({
   acceptOrder: function(e) {
     let that = this;
     let id = e.currentTarget.dataset.id;
-    let param = {
-      id: id
-    }
-    app.request('POST', '/property/maintenance/acceptOrder.do', param, true, function(res) {
-      that.removeData(id);
-    }, function(res) {
-      if (res.data.code == "0005") {
-        wx.showToast({
-          title: '订单不存在',
-          icon: 'none'
-        })
-      } else {
-        wx.showToast({
-          title: '抢单失败，请检查您的网络或重试',
-          icon: 'none'
-        })
+    app.setFormId(e, function(res) {
+      let param = {
+        id: id
       }
+      app.request('POST', '/property/maintenance/acceptOrder.do', param, true, function(res) {
+        that.removeData(id);
+      }, function(res) {
+        if (res.data.code == "0005") {
+          wx.showToast({
+            title: '订单不存在',
+            icon: 'none'
+          })
+        } else {
+          wx.showToast({
+            title: '抢单失败，请检查您的网络或重试',
+            icon: 'none'
+          })
+        }
+      })
     })
   },
   removeData: function(id) {

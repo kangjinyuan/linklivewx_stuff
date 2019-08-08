@@ -1,0 +1,85 @@
+<view class="container-default">
+  <view class='form-box'>
+    <view class="module-box">
+      <view class="module">
+        <view class="form-list">
+          <view class="form-list-name">班次名称
+            <text>*</text>
+          </view>
+          <view class="form-list-value">
+            <input data-flag="0" type="text" name="" value="{{name}}" placeholder="请输入班次名称" maxlength='15' bindinput="getValue" />
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="module-box">
+      <view class="module">
+        <view class="form-list">
+          <view class="form-list-name">
+            一天上下班次数
+            <text>*</text>
+          </view>
+          <view class="form-list-value">
+            <view class='value-list-box'>
+              <view class='value-list' wx:for="{{repeatTimeList}}" wx:key="{{item.id}}" data-repeat-time='{{item.repeatTime}}' bindtap='tabRepeatTime'>
+                <view class='icon-check-box icon-left'>
+                  <image wx:if="{{repeatTime == item.repeatTime}}" src='../../images/icon-check-box-selected.png'></image>
+                  <image wx:else src='../../images/icon-check-box-no-selected.png'></image>
+                </view>
+                {{item.repeatTime}}次
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="module-box" wx:if="{{timeList.length > 0}}">
+      <view class="module">
+        <view class="form-list" wx:for="{{timeList}}" wx:key="{{item.id}}">
+          <view class="icon-right icon-jump">
+            <image src="../../images/icon-jump.png"></image>
+          </view>
+          <view class="form-list-name">
+            {{item.name}}
+            <text>*</text>
+          </view>
+          <view class="form-list-value form-margin-right">
+            <picker data-index='{{index}}' mode="time" value="{{item.deadLineTime}}" bindchange="setTimeList">
+              <view class='text' wx:if="{{item.deadLineTime}}">
+                {{item.deadLineTime}}
+              </view>
+              <view class='placeholder' wx:else>
+                请选择{{item.name}}时间
+              </view>
+            </picker>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="module-box">
+      <view class="module">
+        <view class="form-list">
+          <view class="form-list-name">
+            设置旷工
+          </view>
+          <view class="form-list-value">
+            <switch bindchange='getValue' checked='{{absentOverType}}' data-flag='1' color='#fda414' />
+          </view>
+        </view>
+        <view class="form-list" wx:if="{{absentOverType}}">
+          <view class="form-list-name">
+            旷工时间 (分钟)
+            <text>*</text>
+          </view>
+          <view class="form-list-value">
+            <input data-flag="2" type="number" name="" value="{{absentOverTime}}" placeholder="请输入旷工时间" bindinput="getValue" />
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class='title-tips-box no-padding'>
+      <view class='title-tips-text'>超过上班时间计算为迟到，超过旷工时间计算为旷工</view>
+    </view>
+  </view>
+  <view class='big-btn' bindtap='addShift'>确定</view>
+</view>

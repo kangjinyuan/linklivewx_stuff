@@ -68,6 +68,8 @@
         </view>
       </view>
     </view>
-    <view class='big-btn' wx:if='{{orderInfo.reportState == 0 || orderInfo.reportState == 1}}' bindtap='setOrder'>{{btntext}}</view>
+    <form bindsubmit="setOrder" report-submit='true' wx:if='{{orderInfo.reportState == 0 || orderInfo.reportState == 1}}'>
+      <button class='big-btn' form-type="submit">{{btntext}}</button>
+    </form>
   </view>
 </view>

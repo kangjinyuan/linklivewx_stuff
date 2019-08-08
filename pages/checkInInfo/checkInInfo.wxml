@@ -1,0 +1,21 @@
+<view class="container-default">
+  <view class='full-width-list-box'>
+    <view class='full-width-list' wx:for="{{checkInInfoList}}" wx:key="{{item.id}}" data-staff-id='{{item.id}}' data-staff-name='{{item.name}}' bindtap='checkInStatisticsMine'>
+      <view class='full-width-content-box'>
+        <view class='icon-jump icon-right'>
+          <image src='../../images/icon-jump.png'></image>
+        </view>
+        <view class='full-width-text-box'>
+          <view class='full-width-title-box'>
+            <view class='full-width-title'>
+              {{item.name}}
+            </view>
+            <view class='full-width-value form-margin-right'>
+              {{item.count}}次
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

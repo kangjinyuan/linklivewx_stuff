@@ -1,4 +1,5 @@
 //app.js
+let QQMapWX = require('utils/qqmap-wx-jssdk.js');
 App({
   onLaunch: function() {
     let that = this;
@@ -163,6 +164,10 @@ App({
       return Y + "年" + M + "月";
     } else if (type == 11) {
       return Y + "年";
+    } else if (type == 12) {
+      return h + ":" + m;
+    } else if (type == 13) {
+      return h + ":" + m + ":" + s;
     }
   },
   setTimeStamp: function(time) {
@@ -182,12 +187,31 @@ App({
     }
     return date;
   },
+  getMonthDays: function(year, month) {
+    return new Date(year, month, 0).getDate();
+  },
+  getTimeSlot: function(startTimeArray, endTimeArray, type) {
+    let that = this;
+    let timeSlot = null;
+    for (let i = 0; i < startTimeArray.length; i++) {
+      let startTime = that.setTimeStamp(startTimeArray[i]);
+      let endTime = that.setTimeStamp(endTimeArray[i]);
+      timeSlot += endTime - startTime;
+    }
+    let h = Math.floor(timeSlot / (1000 * 60 * 60)) % 24;
+    let m = Math.floor(timeSlot / (1000 * 60)) % 60;
+    let s = Math.floor(timeSlot / 1000) % 60;
+    if (type == 0) {
+      return h + "小时" + m + "分钟";
+    }
+  },
   camera: function(callback) {
+    let scope = "scope.camera";
     wx.getSetting({
       success: function(res) {
-        if (res.authSetting["scope.camera"]) {
+        if (res.authSetting[scope]) {
           callback();
-        } else if (res.authSetting["scope.camera"] == false) {
+        } else if (res.authSetting[scope] == false) {
           wx.showModal({
             title: '邻客管家',
             content: '邻客管家申请获得你的相机权限,请先授权',
@@ -198,7 +222,7 @@ App({
               if (res.confirm) {
                 wx.openSetting({
                   success(res) {
-                    if (res.authSetting["scope.camera"]) {
+                    if (res.authSetting[scope]) {
                       wx.navigateBack({
                         delta: 1
                       });
@@ -209,6 +233,91 @@ App({
             }
           })
         }
+      }
+    })
+  },
+  userLocation: function(callback) {
+    let that = this;
+    wx.getSystemInfo({
+      success: function(res) {
+        let locationEnabled = res.locationEnabled;
+        let system = res.system;
+        let platform = res.platform;
+        if (platform == "devtools") {
+          that.setScopeUserLocation(callback);
+        } else {
+          if (locationEnabled) {
+            that.setScopeUserLocation(callback);
+          } else {
+            let content = "";
+            if (system.indexOf("Android") > -1) {
+              content = "请到手机系统的[设置]->[定位服务]中打开定位服务，并允许微信使用定位服务。"
+            } else if (system.indexOf("iOS") > -1) {
+              content = "请到手机系统的[设置]->[隐私]->[定位服务]中打开定位服务，并允许微信使用定位服务。"
+            }
+            wx.showModal({
+              title: '邻客管家',
+              content: content,
+              confirmText: '确定',
+              confirmColor: '#fda414',
+              showCancel: false,
+              success: function(res) {
+                if (res.confirm) {
+                  wx.navigateBack({
+                    delta: 1
+                  })
+                }
+              }
+            })
+          }
+        }
+      },
+      fail: function(res) {
+        wx.showToast({
+          title: '获取设备信息失败，请检查您的网络或重试',
+          icon: "none"
+        })
+      }
+    })
+  },
+  setScopeUserLocation: function(callback) {
+    let that = this;
+    let scope = "scope.userLocation";
+    wx.getLocation({
+      type: 'gcj02',
+      altitude: true,
+      success: function(res) {
+        callback();
+      },
+      fail: function(res) {
+        wx.getSetting({
+          success: function(res) {
+            if (res.authSetting[scope]) {
+              callback();
+            } else if (res.authSetting[scope] == false) {
+              wx.showModal({
+                title: '邻客管家',
+                content: '邻客管家申请获得你的位置权限,请先授权',
+                confirmText: '去授权',
+                confirmColor: '#fda414',
+                showCancel: false,
+                success: function(res) {
+                  if (res.confirm) {
+                    wx.openSetting({
+                      success(res) {
+                        if (res.authSetting[scope]) {
+                          callback();
+                        } else {
+                          that.setScopeUserLocation(callback);
+                        }
+                      }
+                    })
+                  }
+                }
+              })
+            }
+          }
+        })
       }
     })
   },
@@ -274,11 +383,127 @@ App({
       }
     })
   },
+  setFormId: function(e, callback) {
+    let that = this;
+    let formId = e.detail.formId;
+    let param = {
+      formId: formId
+    }
+    that.request("POST", "/account/stuff/setFormId.do", param, false, function(res) {
+      callback(res);
+    }, function(res) {
+      wx.showToast({
+        title: 'formId更新失败，请检查您的网络或重试',
+        icon: 'none'
+      })
+    });
+  },
+  sideslipStart: function(e, that) {
+    let touch = e.touches[0];
+    let dataList = that.data.dataList;
+    for (let i = 0; i < dataList.length; i++) {
+      dataList[i].sideslipActive = false;
+    }
+    that.setData({
+      dataList: dataList,
+      startX: touch.clientX
+    })
+  },
+  sideslipMove: function(e, that) {
+    let touch = e.touches[0];
+    let dataList = that.data.dataList;
+    let startX = that.data.startX;
+    let touchMoveX = touch.clientX;
+    let index = e.currentTarget.dataset.index;
+    var disX = startX - touch.clientX
+    let item = dataList[index];
+    if (touchMoveX > startX) {
+      //右滑
+      item.sideslipActive = false;
+    } else {
+      //左滑
+      item.sideslipActive = true;
+    }
+    that.setData({
+      dataList: dataList
+    })
+  },
+  getDistance: function(lat1, lng1, lat2, lng2) {
+    lat1 = lat1 || 0;
+    lng1 = lng1 || 0;
+    lat2 = lat2 || 0;
+    lng2 = lng2 || 0;
+    var rad1 = lat1 * Math.PI / 180.0;
+    var rad2 = lat2 * Math.PI / 180.0;
+    var a = rad1 - rad2;
+    var b = lng1 * Math.PI / 180.0 - lng2 * Math.PI / 180.0;
+    var r = 6378137;
+    return (r * 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(a / 2), 2) + Math.cos(rad1) * Math.cos(rad2) * Math.pow(Math.sin(b / 2), 2)))).toFixed(0);
+  },
+  getNowLocation: function(callback) {
+    let that = this;
+    wx.getLocation({
+      type: 'gcj02',
+      altitude: true,
+      success: function(res) {
+        callback(res);
+      },
+    })
+  },
+  inArray: function(value, array) {
+    let index = -1;
+    for (let i = 0; i < array.length; i++) {
+      if (value == array[i]) {
+        index = i;
+        break;
+      }
+    }
+    return index;
+  },
+  privilegeState: function(type) {
+    let that = this;
+    let privilege = wx.getStorageSync("accountInfo").privilege;
+    let privilegeState = "";
+    for (let i = 0; i < privilege.length; i++) {
+      if (privilege[i].id == type) {
+        privilegeState = privilege[i].checked;
+      }
+    }
+    return privilegeState;
+  },
+  reverseGeocoder: function(showLoading, callback) {
+    let that = this;
+    let mapKey = that.globalData.mapKey;
+    let qqmapsdk = new QQMapWX({
+      key: mapKey
+    });
+    if (showLoading == true) {
+      wx.showLoading({
+        title: 'loading···',
+        mask: true
+      })
+    }
+    qqmapsdk.reverseGeocoder({
+      success: function(res) {
+        wx.hideLoading();
+        if (callback) {
+          callback(res);
+        }
+      },
+      fail: function(res) {
+        wx.showToast({
+          title: '逆解析坐标失败，请检查您的网络或重试',
+          icon: "none"
+        })
+      }
+    })
+  },
   globalData: {
-    // commonRequestUrl: 'http://test.api.15275317531.com',
-    commonRequestUrl: 'https://api.15275317531.com',
+    commonRequestUrl: 'http://test.api.15275317531.com',
+    // commonRequestUrl: 'https://api.15275317531.com',
     // commonRequestUrl: 'http://192.168.0.200:8080',
     imgUrl: 'http://img.guostory.com/',
+    mapKey: "N2BBZ-CUOWU-IOMVN-25VN4-K5H3S-QBFJY",
     userInfo: {}
   }
 })

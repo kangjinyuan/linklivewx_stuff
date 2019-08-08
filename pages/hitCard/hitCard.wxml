@@ -1,0 +1,113 @@
+<view class="container-default container-flex">
+  <view class='map-box'>
+    <map id="myMap" latitude="{{latitude}}" longitude="{{longitude}}" scale="16" markers="{{markers}}" circles="{{circles}}" show-compass="true" enable-traffic="true" show-location="true"></map>
+    <cover-view class='icon-reset-location icon-bottom-right-map' bindtap='resetLocation'>
+      <cover-image src='../../images/icon-reset-location.png'></cover-image>
+    </cover-view>
+  </view>
+  <view class='map-address-box'>
+    <view class='address-box'>
+      <view class='icon-location-check-in-address icon-left'>
+        <image src='../../images/icon-location-check-in-address.png'></image>
+      </view>
+      {{address?address:'正在定位···'}}
+    </view>
+  </view>
+  <view class='no-data-box' wx:if="{{accountInfo.checkInGroupId == '0' && dataList.length == 0}}">
+    <view class='no-data-tips-text'>
+      您还未加入考勤组，请联系管理人员
+    </view>
+  </view>
+  <view class='no-data-box' wx:if="{{accountInfo.checkInGroupId != '0' && dataList.length == 0}}">
+    <view class='no-data-tips-text'>
+      今天无班次
+    </view>
+  </view>
+  <scroll-view scroll-y="true" wx:if="{{accountInfo.checkInGroupId != '0' && dataList.length > 0}}">
+    <view class='speed-box hit-card-speed-box'>
+      <view class='speed-list' wx:for="{{dataList}}" wx:key="{{item.id}}" wx:if="{{item.isShow}}">
+        <view wx:if='{{checkInRecord.length == index}}' class='icon-speed2'>
+          <image src='../../images/icon-speed2.png'></image>
+        </view>
+        <view wx:else class='icon-speed1'>
+          <image src='../../images/icon-speed1.png'></image>
+        </view>
+        <view class='speed-title'>{{item.shiftInfo.direction==0?'上班打卡':'下班打卡'}}({{item.shiftInfo.deadLineTime}})</view>
+        <view class='speed-content-box' wx:if="{{item.checkInRecord}}">
+          <view class="speed-content-text speed-content-title-box">
+            <view class='speed-content-title'>
+              打卡时间{{item.checkInRecord.checkInTimeText}}
+            </view>
+            <view class='speed-type {{item.checkInRecord.checkStateBgClass}}'>{{item.checkInRecord.checkStateText}}</view>
+          </view>
+          <view class='speed-content-text speed-address'>
+            <view class='icon-hit-card-location icon-left'>
+              <image src='../../images/icon-hit-card-location.png'></image>
+            </view>
+            {{item.checkInRecord.address}}
+          </view>
+        </view>
+        <view class='hit-card-btn-box' wx:if='{{checkInRecord.length == index}}'>
+          <view class="btn-box" data-data-info='{{item}}' bindtap='hitCard' wx:if="{{nowDistance > checkInGroupInfo.withinMeters}}">
+            <view class='icon-hit-card-btn icon-center'>
+              <image src='../../images/icon-hit-card-out-door-bg.png'></image>
+            </view>
+            <view class='btn-text-box icon-center'>
+              <view class='btn-text-title'>
+                外勤打卡
+              </view>
+              <view class='btn-text-time'>{{nowDate}}</view>
+            </view>
+          </view>
+          <view class="btn-box" data-data-info='{{item}}' bindtap='hitCard' wx:else>
+            <view class='icon-hit-card-btn icon-center'>
+              <image src='../../images/icon-hit-card-fda414-bg.png'></image>
+            </view>
+            <view class='btn-text-box icon-center'>
+              <view class='btn-text-title'>
+                {{item.shiftInfo.direction == 0?'上班打卡':'下班打卡'}}
+              </view>
+              <view class='btn-text-time'>{{nowDate}}</view>
+            </view>
+          </view>
+          <view class='hit-card-btn-text'>
+            <view class='icon-alert icon-left' wx:if="{{nowDistance > checkInGroupInfo.withinMeters}}">
+              <image src='../../images/icon-alert.png'></image>
+            </view>
+            {{nowDistance > checkInGroupInfo.withinMeters? '当前不在考勤范围': '您已进入打卡范围'}} </view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+  <view class='alert-box' hidden='{{showAlert}}'>
+    <view class='alert-inner-box'>
+      <view class='alert-content-box'>
+        <view class='alert-list'>
+          <view class='alert-list-name'>外勤地址:</view>
+          <view class='alert-list-value'>{{address}}</view>
+        </view>
+        <view class='alert-list'>
+          <view class='alert-list-name'>备注:</view>
+          <view class='alert-list-value'>
+            <view class='alert-input-box'>
+              <textarea placeholder='备注事由(选填)' value='{{editRecord}}' bindinput='getEditRecord'></textarea>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class='alert-btn-box'>
+        <view bindtap='showAlert'>取消</view>
+        <view bindtap='checkIn'>确定</view>
+      </view>
+    </view>
+  </view>
+  <view class="fixed-btn {{isAddCheckInGroup ?'fixed-btn-bottom240':''}}" bindtap='checkInGroup' wx:if="{{isAddCheckInGroup}}">
+    <image src='../../images/icon-check-in-group.png'></image>
+  </view>
+  <view class="fixed-btn" bindtap='checkInCanlder' wx:if="{{checkInGroupInfo}}">
+    <image src='../../images/icon-check-in-calendar.png'></image>
+  </view>
+  <view class='fixed-btn' bindtap='checkInStatistics' wx:else>
+    <image src='../../images/icon-check-in-record.png'></image>
+  </view>
+</view>

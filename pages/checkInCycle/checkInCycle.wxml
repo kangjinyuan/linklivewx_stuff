@@ -1,0 +1,41 @@
+<view class="container-default">
+  <view class='form-box'>
+    <view class="module-box">
+      <view class="module">
+        <view class="form-list">
+          <view class="icon-right icon-jump">
+            <image src="../../images/icon-jump.png"></image>
+          </view>
+          <view class="form-list-name">
+            每个周期天数
+            <text>*</text>
+          </view>
+          <view class="form-list-value form-margin-right">
+            <picker data-flag='0' bindchange="getValue" value="{{dayIndex}}" range="{{dayArray}}">
+              <view class="text">{{dayArray[dayIndex]}}天</view>
+            </picker>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="module-box">
+      <view class="module">
+        <view class="form-list" wx:for="{{dataList}}" wx:key="{{item.id}}">
+          <view class="icon-right icon-jump">
+            <image src="../../images/icon-jump.png"></image>
+          </view>
+          <view class="form-list-name">
+            第{{index+1}}天
+          </view>
+          <view class="form-list-value form-margin-right">
+            <picker data-index='{{index}}' bindchange="setDataList" value="{{item.shiftIndex}}" range="{{shiftArray}}">
+              <view class="text" wx:if="{{shiftArray[item.shiftIndex]}}">{{shiftArray[item.shiftIndex]}}</view>
+              <view class="placeholder" wx:else>请选择考勤班次</view>
+            </picker>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class='big-btn' bindtap='setShiftJson'>确定</view>
+</view>

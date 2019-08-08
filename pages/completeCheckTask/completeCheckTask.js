@@ -26,7 +26,7 @@ Page({
       checkDescription: checkDescription
     })
   },
-  completeCheckTask: function() {
+  completeCheckTask: function(e) {
     let that = this;
     let checkTaskExecutionId = that.data.checkTaskExecutionId;
     let checkDescription = that.data.checkDescription;
@@ -49,28 +49,30 @@ Page({
     for (let i = 0; i < imageList.length; i++) {
       checkImageList.push(imageList[i].key);
     }
-    let param = {
-      checkTaskExecutionId: checkTaskExecutionId,
-      checkResult: "1",
-      checkDescription: checkDescription,
-      checkImageList: checkImageList
-    }
-    app.request("POST", "/property/checkTaskExecution/reportCheckResult.do", param, true, function(res) {
-      let prevPage = app.prevPage(3);
-      prevPage.removeData(checkTaskExecutionId);
-      let count = prevPage.data.count;
-      prevPage.setData({
-        count: count - 1
-      })
-      wx.navigateBack({
-        delta: 2
-      })
-    }, function(res) {
-      wx.showToast({
-        title: '提交失败，请检查您的网络或重试',
-        icon: "none"
-      })
-    });
+    app.setFormId(e, function(res) {
+      let param = {
+        checkTaskExecutionId: checkTaskExecutionId,
+        checkResult: "1",
+        checkDescription: checkDescription,
+        checkImageList: checkImageList
+      }
+      app.request("POST", "/property/checkTaskExecution/reportCheckResult.do", param, true, function(res) {
+        let prevPage = app.prevPage(3);
+        prevPage.removeData(checkTaskExecutionId);
+        let count = prevPage.data.count;
+        prevPage.setData({
+          count: count - 1
+        })
+        wx.navigateBack({
+          delta: 2
+        })
+      }, function(res) {
+        wx.showToast({
+          title: '提交失败，请检查您的网络或重试',
+          icon: "none"
+        })
+      });
+    })
   },
   onLoad: function(options) {
     let that = this;

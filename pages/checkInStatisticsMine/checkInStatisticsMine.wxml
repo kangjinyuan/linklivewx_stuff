@@ -1,0 +1,126 @@
+<view class="container-default">
+  <view class='statistics-date-box'>
+    <picker class='statistics-date-text' mode="multiSelector" value="{{selectTime}}" bindchange="getSelectTime" bindcolumnchange="changeDateTimeColumn" range="{{selectTimeArray}}">
+      <view class='icon-select-statistics-date-down icon-right'>
+        <image src='../../images/icon-select-statistics-date-down.png'></image>
+      </view>
+      <view class='text'>
+        {{selectTimeText}}
+      </view>
+    </picker>
+  </view>
+  <view class='full-width-list-box'>
+    <view class='full-width-list'>
+      <view class='full-width-content-box'>
+        <view class='full-width-text-box'>
+          <view class='full-width-title-box'>
+            <view class='full-width-title'>
+              出勤天数
+            </view>
+            <view class="full-width-value {{recordInfo.attendanceDays > 0?'check-work-state1':'check-work-state0'}}">
+              {{recordInfo.attendanceDays}}天
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class='full-width-list'>
+      <view class='full-width-content-box'>
+        <view class='full-width-text-box'>
+          <view class='full-width-title-box'>
+            <view class='full-width-title'>
+              出勤班次
+            </view>
+            <view class="full-width-value {{recordInfo.shiftCount > 0?'check-work-state1':'check-work-state0'}}">
+              {{recordInfo.shiftCount}}次
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class='full-width-list'>
+      <view class='full-width-content-box'>
+        <view class='full-width-text-box'>
+          <view class='full-width-title-box'>
+            <view class='full-width-title'>
+              休息天数
+            </view>
+            <view class="full-width-value {{recordInfo.offDays > 0?'check-work-state1':'check-work-state0'}}">
+              {{recordInfo.offDays}}天
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class='full-width-list'>
+      <view class='full-width-content-box'>
+        <view class='full-width-text-box'>
+          <view class='full-width-title-box'>
+            <view class='full-width-title'>
+              迟到
+            </view>
+            <view class="full-width-value {{recordInfo.lateCount > 0?'check-work-state2':'check-work-state0'}}">
+              {{recordInfo.lateCount}}次
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class='full-width-list'>
+      <view class='full-width-content-box'>
+        <view class='full-width-text-box'>
+          <view class='full-width-title-box'>
+            <view class='full-width-title'>
+              早退
+            </view>
+            <view class="full-width-value {{recordInfo.leaveCount > 0?'check-work-state2':'check-work-state0'}}">
+              {{recordInfo.leaveCount}}次
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class='full-width-list'>
+      <view class='full-width-content-box'>
+        <view class='full-width-text-box'>
+          <view class='full-width-title-box'>
+            <view class='full-width-title'>
+              缺卡
+            </view>
+            <view class="full-width-value {{recordInfo.missingCount > 0?'check-work-state2':'check-work-state0'}}">
+              {{recordInfo.missingCount}}次
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class='full-width-list'>
+      <view class='full-width-content-box'>
+        <view class='full-width-text-box'>
+          <view class='full-width-title-box'>
+            <view class='full-width-title'>
+              旷工
+            </view>
+            <view class="full-width-value {{recordInfo.absentCount > 0?'check-work-state2':'check-work-state0'}}">
+              {{recordInfo.absentCount}}次
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class='full-width-list'>
+      <view class='full-width-content-box'>
+        <view class='full-width-text-box'>
+          <view class='full-width-title-box'>
+            <view class='full-width-title'>
+              外勤
+            </view>
+            <view class="full-width-value {{recordInfo.outdoorCount > 0?'check-work-state1':'check-work-state0'}}">
+              {{recordInfo.outdoorCount}}次
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

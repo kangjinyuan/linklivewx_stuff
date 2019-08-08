@@ -1,0 +1,38 @@
+<view class="container-default container-flex">
+  <view class='title-tips-box title-tips-click-box' bindtap='allSwitchActive'>
+    <view class='title-tips-text'>{{allIsActive?'全部隐藏':'全部展开'}}</view>
+  </view>
+  <scroll-view scroll-y="true">
+    <view class='common-list-box'>
+      <view class='fold-box'>
+        <view class='fold-list-box box-shadow' wx:for="{{hitCardList}}" wx:key="{{item.id}}">
+          <view class='fold-list-title-box' data-id='{{item.id}}' bindtap='switchActive'>
+            <view class='float-staff-box'>
+              <view class='float-staff-head-img' style="background-color:{{item.headImageBackgroundColor}}">
+                {{item.latterTwoCharacters}}
+              </view>
+              <view class='float-staff-name'>{{item.name}}</view>
+            </view>
+            <view class='icon-fold-arrow icon-right'>
+              <image wx:if="{{item.isActive}}" src='../../images/icon-fold-arrow-up.png'></image>
+              <image wx:else src='../../images/icon-fold-arrow-down.png'></image>
+            </view>
+          </view>
+          <view class='fold-list-item-box' wx:if="{{item.isActive == true}}">
+            <view class='fold-list' wx:for="{{item.checkInRecord}}" wx:key="{{item.id}}">
+              <view class='fold-float-text'>
+                {{item.direction==0?'上班':'下班'}}
+              </view>
+              <view class='fold-float-text' wx:if="{{item.checkInTime}}">
+                打卡时间 {{item.checkInTimeText}}
+              </view>
+              <view class='fold-float-text'>
+                {{item.checkStateText}}
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+</view>

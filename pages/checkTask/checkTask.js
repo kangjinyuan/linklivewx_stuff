@@ -171,6 +171,10 @@ Page({
       obj.stateText = "已完成";
       obj.stateTextColorClass = "check-task-state2"
       obj.borderColorClass = "check-task-list-border2"
+    } else if (obj.state == 2) {
+      obj.stateText = "已逾期";
+      obj.stateTextColorClass = "check-task-state4";
+      obj.borderColorClass = "check-task-list-border3"
     }
     if (obj.taskType == 0) {
       obj.taskTypeText = "专项检查";

@@ -1,13 +1,3 @@
-.face-describe {
-  width: 690rpx;
-  height: 82rpx;
-  padding: 30rpx;
-  background-color: #f4f5f7;
-  font-size: 28rpx;
-  line-height: 42rpx;
-  color: #666;
-}
-
 .face-box {
   width: 690rpx;
   overflow: hidden;

@@ -19,23 +19,29 @@
     </view>
   </view>
   <view class='mine-service'>
-    <view class='service-list' data-page='../order/order?reportState=2' bindtap='topages'>
-      <view class='icon icon-left'>
-        <image src='../../images/icon-maintenance-mine.png'></image>
-      </view>
-      <view class='icon-jump icon-right'>
-        <image src='../../images/icon-jump.png'></image>
-      </view>
-      维修记录
+    <view class='service-list'>
+      <form bindsubmit='topages' data-page='../order/order?reportState=2' report-submit='true'>
+        <view class='icon icon-left'>
+          <image src='../../images/icon-maintenance-mine.png'></image>
+        </view>
+        <view class='icon-jump icon-right'>
+          <image src='../../images/icon-jump.png'></image>
+        </view>
+        维修记录
+        <button form-type="submit"></button>
+      </form>
     </view>
-    <view class='service-list' data-page='../updatePassword/updatePassword' bindtap='topages'>
-      <view class='icon icon-left'>
-        <image src='../../images/icon-update-password.png'></image>
-      </view>
-      <view class='icon-jump icon-right'>
-        <image src='../../images/icon-jump.png'></image>
-      </view>
-      修改密码
+    <view class='service-list'>
+      <form bindsubmit='topages' data-page='../updatePassword/updatePassword' report-submit='true'>
+        <view class='icon icon-left'>
+          <image src='../../images/icon-update-password.png'></image>
+        </view>
+        <view class='icon-jump icon-right'>
+          <image src='../../images/icon-jump.png'></image>
+        </view>
+        修改密码
+        <button form-type="submit"></button>
+      </form>
     </view>
   </view>
   <view class='big-btn' bindtap='loginOut'>退出登录</view>
